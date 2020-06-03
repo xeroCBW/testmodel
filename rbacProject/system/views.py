@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from .forms import *
 from django.contrib.auth import logout,login,authenticate
+from django.contrib.auth.decorators import login_required
 
 def loginView(request):
 
@@ -35,3 +36,16 @@ def logoutView(request):
     logout(request)
 
     return redirect('/')
+
+
+@login_required(login_url='/login')
+def indexView(request):
+
+    return render(request,'index.html')
+
+
+@login_required(login_url='/login')
+def systemView(request):
+
+    return render(request,'system/system_index.html')
+
