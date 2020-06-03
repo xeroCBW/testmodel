@@ -33,7 +33,7 @@ def structureListView(request):
     ret = dict(data=list(Structure.objects.values(*fields)))
     return HttpResponse(json.dumps(ret, cls=DjangoJSONEncoder), content_type='application/json')
 
-
+@login_required(login_url='/login')
 def structureAddUserView(request):
 
     if request.method == 'GET':
@@ -58,7 +58,7 @@ def structureAddUserView(request):
         res['result'] = True
         return HttpResponse(json.dumps(res), content_type='application/json')
 
-
+@login_required(login_url='/login')
 def structureDetailView(request):
 
     if request.method == 'GET':
@@ -84,7 +84,7 @@ def structureDetailView(request):
             res['result'] = True
         return HttpResponse(json.dumps(res), content_type='application/json')
 
-
+@login_required(login_url='/login')
 def structureDeleteView(request):
 
     ret = dict(result=False)
