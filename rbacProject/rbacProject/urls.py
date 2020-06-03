@@ -27,5 +27,5 @@ urlpatterns = [
     path('logout/', views.logoutView, name='logout'),
     path('system/', views.systemView, name='system'),
 
-    path('', include('system.urls',namespace='system-basic')),
+    path('system/basic/', include('system.urls',namespace='system-basic')),
 ]

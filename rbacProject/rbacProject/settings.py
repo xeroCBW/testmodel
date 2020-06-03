@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'rbac.UserProfile'
+AUTH_USER_MODEL = 'users.UserProfile'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
