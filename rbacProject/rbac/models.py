@@ -8,6 +8,7 @@ class Menu(BaseModel):
     """
     菜单
     """
+    # 菜单名字是唯一的
     name = models.CharField(max_length=30, unique=True, verbose_name="菜单名")
     icon = models.CharField(max_length=50, null=True, blank=True, verbose_name="图标")
     path = models.CharField(max_length=158, null=True, blank=True, verbose_name="链接地址")
