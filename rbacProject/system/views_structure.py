@@ -15,14 +15,8 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='/login')
 def structureView(request):
 
-    print('--------------')
-
-    print(request.path_info)
     ret = Menu.getMenuByRequestUrl(url=request.path_info)
     ret.update(SystemSetup.getSystemSetupLastData())
-
-    print('--------------')
-    print(ret)
 
     return render(request,'system/structure/structure-list.html',ret)
 
@@ -38,11 +32,16 @@ def structureAddUserView(request):
 
     if request.method == 'GET':
 
+
+
         if 'id' in request.GET and request.GET['id']:
+
             structure = get_object_or_404(Structure, pk=int(request.GET.get('id')))
+
             added_users = structure.userprofile_set.all()
             all_users = User.objects.exclude(username='admin')
             un_add_users = set(all_users).difference(added_users)
+
             ret = dict(structure=structure, added_users=added_users, un_add_users=list(un_add_users))
         return render(request, 'system/structure/structure_user.html', ret)
     else:

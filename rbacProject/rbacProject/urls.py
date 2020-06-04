@@ -28,4 +28,5 @@ urlpatterns = [
     path('system/', views.systemView, name='system'),
 
     path('system/basic/', include('system.urls',namespace='system-basic')),
+    path('system/rbac/', include('rbac.urls',namespace='system-rbac')),
 ]

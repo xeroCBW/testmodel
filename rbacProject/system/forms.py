@@ -7,6 +7,8 @@ import re
 from django import forms
 from django.contrib.auth import get_user_model
 
+from rbac.models import Menu
+
 User = get_user_model()
 
 from users.models import Structure
@@ -126,3 +128,9 @@ class StructureUpdateForm(forms.ModelForm):
     class Meta:
         model = Structure
         fields = ['type', 'title', 'parent']
+
+# 设置menu
+class MenuForm(forms.ModelForm):
+    class Meta:
+        model = Menu
+        fields = '__all__'
