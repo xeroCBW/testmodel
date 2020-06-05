@@ -4,7 +4,9 @@
 
 import re
 
+from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.deprecation import MiddlewareMixin
+import json
 
 class MenuMiddleware(MiddlewareMixin):
     """
@@ -17,13 +19,9 @@ class MenuMiddleware(MiddlewareMixin):
         :param request:
         :return:
         """
-        print('======')
-        print(request.user.is_authenticated)
 
         if request.user.is_authenticated:
             user = request.user
-
-
 
 
             permissions_item_list = user.roles.values('permissions__id',
@@ -33,13 +31,8 @@ class MenuMiddleware(MiddlewareMixin):
                                                       'permissions__code',
                                                       'permissions__parent').distinct()
 
-            # print('----------')
-            # print(permissions_item_list)
-
             permission_url_list = []
             permission_menu_list = []
-
-
 
             for item in permissions_item_list:
                 permission_url_list.append(item['permissions__url'])
@@ -82,19 +75,19 @@ class MenuMiddleware(MiddlewareMixin):
             else:
                 reveal_menu = None
 
-            print('~~~~~~~~~~~~')
-            # print(top_menu)
-            # print(reveal_menu)
-            print(permission_url_list)
-
             return top_menu, reveal_menu, permission_url_list
         else:
             pass
 
     def process_request(self, request):
-        print('********')
-        print(self.get_menu(request))
-        print("00000000")
+
         if self.get_menu(request):
+
+
+            print('-----------')
+            a = {'list':self.get_menu(request)}
+            print(json.dumps(a))
+            print('-----------')
+
             request.top_menu, request.reveal_menu, request.permission_url_list = self.get_menu(request)
 

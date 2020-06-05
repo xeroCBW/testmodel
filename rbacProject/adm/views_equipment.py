@@ -6,11 +6,13 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 
 from adm.forms import EquipmentUpdateForm, EquipmentCreateForm
-from adm.models import EquipmentType, Customer, Equipment, ServiceInfo
+from adm.models import EquipmentType, Customer, Equipment, ServiceInfo, Supplier
 from rbac.models import Menu
 from system.models import SystemSetup
 from datetime import datetime, timedelta
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 
 def equipmentView(request):
     if request.method == 'GET':
