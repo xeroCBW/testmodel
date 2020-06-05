@@ -151,3 +151,16 @@ SAFE_URL = [r'^/$',
             '/ckeditor/',
             ]
 
+
+SESSION_COOKIE_AGE = 60 * 20
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_SAVE_EVERY_REQUEST = True
+
+# mail server
+EMAIL_HOST = "mail.sandbox.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "test@sandbox.com"
+EMAIL_HOST_PASSWORD = "1234@abcd.com"
+EMAIL_USE_TLS = True
+EMAIL_FROM = "test@sandbox.com"
+
