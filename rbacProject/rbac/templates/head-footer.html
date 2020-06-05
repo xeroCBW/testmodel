@@ -8,9 +8,9 @@
         <!-- Logo -->
         <a href="#" class="logo">
             <!-- mini logo for sidebar mini 50x50 pixels -->
-            <span class="logo-mini"><b>SMP</b></span>
+            <span class="logo-mini"><b>Sand</b></span>
             <!-- logo for regular state and mobile devices -->
-            <span class="logo-lg"><b>SandboxMP</b></span>
+            <span class="logo-lg"><b>{% if system_setup.mainTitle %}{{ system_setup.mainTitle }}{% else %}SandBox{% endif %}</b></span>
         </a>
 
         <!-- Header Navbar -->
@@ -20,9 +20,13 @@
                 <span class="sr-only">Toggle navigation</span>
             </a>
             <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li class="active" ><a href="#" id="index">头部导航</a></li>
-                </ul>
+                {% for menu in request.top_menu %}
+                    <ul class="nav navbar-nav">
+                        <li {% ifequal menu.status True %}class="active" {% endifequal %}><a
+                                href="{{ menu.url }}"
+                                id="index">{{ menu.title | default_if_none:"" }}</a></li>
+                    </ul>
+                {% endfor %}
             </div>
             {% if request.user.is_authenticated %}
                 <div class="navbar-custom-menu">
@@ -58,7 +62,7 @@
                             <!-- Menu Toggle Button -->
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <!-- The user image in the navbar-->
-                                <img src="/static/{{ request.user.image }}" class="user-image" alt="用户头像">
+                                <img src="/media/{{ request.user.image }}" class="user-image" alt="用户头像">
                                 <!-- hidden-xs hides the username on small devices so only the image appears. -->
                                 <span class="hidden-xs">{{ request.user.name }}</span>
                                 <!--上面 request.user 会返回用户姓名，user.models.UserProfile.Meta定义该值-->
@@ -67,9 +71,10 @@
                             <ul class="dropdown-menu">
                             <!-- The user image in the menu -->
                             <li class="user-header">
-                                <img src="/static/{{ request.user.image }}" class="img-circle" alt="User Image">
+                                <img src="/media/{{ request.user.image }}" class="img-circle" alt="User Image">
 
                                 <p>
+                                    <!--gender字段定义的choices类型，想要获取字段的value,使用get_gender_display-->
                                     {{ request.user.name }} - {{ request.user.department.title }}
                                     <small>{{ request.user.email }}</small>
                                 </p>
@@ -79,7 +84,7 @@
                         <!-- Menu Footer-->
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="" class="btn btn-default btn-flat">个人中心</a>
+                                <a href="{% url 'personal-user_info' %}" class="btn btn-default btn-flat">个人中心</a>
                             </div>
                             <div class="pull-right">
                                 <a href="/logout/" class="btn btn-default btn-flat">注销用户</a>
@@ -104,11 +109,13 @@
     <!-- Main Footer -->
     <footer class="main-footer text-center">
         <strong>
-
-              Copyright © 2016-2017 沙盒科技
-
+          {% if system_setup.copyright %}
+              {{ system_setup.copyright }}
+          {% else %}
+              Copyright © 2016-2017 江苏沙盒科技.Version1.0.1
+          {% endif %}
         </strong>
-        技术支持：<a href="https://zhuanlan.zhihu.com/sandbox" target="_blank">RobbieHan</a>
+        技术支持：<a href="">Robbiehan</a>
     </footer>
 
 {% endblock %}

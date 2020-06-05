@@ -48,6 +48,7 @@ def menuDetailView(request):
             menu = Menu()
         menu_form = MenuForm(request.POST, instance=menu)
         if menu_form.is_valid():
+            # 这个save 可以实现新增和修改
             menu_form.save()
             res['result'] = True
         return HttpResponse(json.dumps(res), content_type='application/json')

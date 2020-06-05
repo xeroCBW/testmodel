@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'users',
     'index',
     'system',
+    'personal',
+    'adm',
 ]
 
 
@@ -52,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'system.middleware.MenuMiddleware',
+    'rbac.middleware.RbacMiddleware',
 ]
 
 ROOT_URLCONF = 'rbacProject.urls'
@@ -132,4 +136,18 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
+
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+SAFE_URL = [r'^/$',
+            '/login/',
+            '/logout',
+            '/index/',
+            '/media/',
+            '/admin/',
+            '/ckeditor/',
+            ]
 
