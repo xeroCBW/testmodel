@@ -8,13 +8,16 @@ from django.urls import path,include
 from adm import views
 
 
-app_name='[adm]'
+# app_name='[adm]'
 
 urlpatterns = [
 
     path('', views.indexView,name='adm-main'),
     path('bsm/',  include('adm.urls_bsm', namespace='adm-bsm')),
+
     path('equipment/', include('adm.urls_equipment', namespace='adm-equipment')),
     path('asset/',include('adm.urls_asset', namespace='adm-asset')),
+
+
 
     ]

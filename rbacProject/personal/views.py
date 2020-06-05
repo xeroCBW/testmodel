@@ -1,7 +1,11 @@
+import json
+
+from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
-from personal.models import WorkOrder
+from personal.forms import UserUpdateForm, ImageUploadForm
+from personal.models import WorkOrder, User
 from rbac.models import Menu, Role
 from system.models import SystemSetup
 import calendar
@@ -52,11 +56,30 @@ def personalView(request):
 
 
 def userInfoView(request):
-    return None
+
+    if request.method == 'GET':
+        return render(request, 'personal/userinfo/user_info.html')
+    else:
+        ret = dict(status="fail")
+        user = User.objects.get(id=request.POST['id'])
+        user_update_form = UserUpdateForm(request.POST, instance=user)
+        if user_update_form.is_valid():
+            user_update_form.save()
+            ret = {"status": "success"}
+        return HttpResponse(json.dumps(ret), content_type='application/json')
+
+
 
 
 def uploadImageView(request):
-    return None
+    if request.method == 'POST':
+        ret = dict(result=False)
+        image_form = ImageUploadForm(request.POST, request.FILES, instance=request.user)
+        if image_form.is_valid():
+            image_form.save()
+            ret['result'] = True
+        return HttpResponse(json.dumps(ret), content_type='application/json')
+
 
 
 def passwdChangeView(request):
@@ -64,4 +87,6 @@ def passwdChangeView(request):
 
 
 def phoneBookView(request):
-    return None
+    fields = ['name', 'mobile', 'email', 'post', 'department__title', 'image']
+    ret = dict(linkmans=list(User.objects.exclude(username='admin').filter(is_active=1).values(*fields)))
+    return render(request, 'personal/phonebook/phonebook.html', ret)

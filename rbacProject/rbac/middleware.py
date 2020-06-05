@@ -21,9 +21,9 @@ class RbacMiddleware(MiddlewareMixin):
             for url in settings.SAFE_URL:
                 if re.match(url, request_url):
                     return None
-            if request_url in permission_url:
-                return None
-            else:
-                ret = dict(url=[url for url in permission_url if url is not None])
-                ret['request_url'] = request_url
-                return render(request, 'page404.html', ret)
+            # if request_url in permission_url:
+            #     return None
+            # else:
+            #     ret = dict(url=[url for url in permission_url if url is not None])
+            #     ret['request_url'] = request_url
+            #     return render(request, 'page404.html', ret)
