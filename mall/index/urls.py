@@ -11,4 +11,8 @@ urlpatterns = [
 
     path('shoppingCar/', views.shoppingCarView,name='shoppingCar'),
 
+    path('product_add/', views.productAddView,name='productAdd'),
+
+
+
 ]
