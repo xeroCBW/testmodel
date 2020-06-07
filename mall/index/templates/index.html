@@ -21,8 +21,10 @@
         <ul class="rt">
             {#在模版中使用user变量是一个User或者AnoymousUser对象，该对象由模型MyUser实例化#}
             {% if user.is_authenticated %}
-                <li>用户名: {{ user.username }}</li>
-                <li><a href="{% url 'logout' %}">退出登录</a></li>
+                    <li>用户名: {{ user.username }}</li>
+                    <li><a href="{% url 'logout' %}">退出登录</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">立即登录</a></li>
             {% endif %}
             {#在模版中使用perms变量是Permission对象，该对象由模型Permission实例化#}
             {% if perms.index.add_product %}

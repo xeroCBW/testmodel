@@ -21,19 +21,6 @@ def shoppingCarView(request):
     return render(request,'shopoingCar.html',locals())
 
 
-def loginView(request):
-
-    return None
-
-
-def logoutView(request):
-
-
-    logout(request)
-
-    return redirect('/')
-
-
 def productAddView(request):
 
     if request.method == 'GET':
