@@ -7,4 +7,14 @@ def indexView(request):
     name_list = Product.objects.values('name','type')
     # 设置首页信息
     context = {'title': '首页', 'type_list': type_list, 'name_list': name_list}
+
     return render(request, 'index.html',context=context, status=200)
+
+
+def shoppingCarView(request):
+
+
+
+    # 返回购物车
+
+    return render(request,'shopoingCar.html',locals())

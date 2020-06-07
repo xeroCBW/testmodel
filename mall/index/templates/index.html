@@ -1,8 +1,7 @@
-{% load myfilter %}
 <!DOCTYPE html>
 <html>
 <head>
-    <title>{{ title|myreplace:'首页:我的首页' }}</title>
+    <title>{{ title }}</title>
     <meta charset="utf-8">
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static "css/hw_index.css" %}" >
@@ -20,9 +19,15 @@
             <li><a href="#">华为荣耀</a></li>
         </ul>
         <ul class="rt">
-            <li><a href="#">登录</a></li>
-            <li><a href="#">注册</a></li>
-            <li><a href="#">我的订单</a></li>
+            {#在模版中使用user变量是一个User或者AnoymousUser对象，该对象由模型MyUser实例化#}
+            {% if user.is_authenticated %}
+                <li>用户名: {{ user.username }}</li>
+                <li><a href="{% url 'logout' %}">退出登录</a></li>
+            {% endif %}
+            {#在模版中使用perms变量是Permission对象，该对象由模型Permission实例化#}
+            {% if perms.index.add_product %}
+                <li>添加产品信息</li>
+            {% endif %}
         </ul>
     </div>
 </header>
@@ -43,12 +48,10 @@
             <a href="#"> 5X</a>
             <a href="#">荣耀7</a>
             <a href="#"> Mate 8</a>
-
         </div>
     </div>
     <div class="lf" id="my_hw">我的商城</div>
-    <div class="lf" id="settle_up">我的购物车</div>
-
+    <div class="lf" id="settle_up"><a href="{% url 'shoppingCar' %}">我的购物车</a></div>
 </div><!--top_main-->
 
 <!-- 导航 -->
@@ -106,7 +109,7 @@
                         <span>3988</span>
                     </div>
                     <div class="p-button lf">
-                        <a href="#">立即抢购</a>
+                        <a href="{% url 'index' %}?product=HUAWEI P9 Plus&price=3988">立即抢购</a>
                     </div>
                 </li>
                 <li class="channel-pro-item" style="background-color:#E2F9FB"><!--荣耀畅玩5C-->
@@ -124,7 +127,7 @@
                         <span>899</span>
                     </div>
                     <div class="p-button lf">
-                        <a href="#">立即抢购</a>
+                        <a href="{% url 'index' %}?product=荣耀畅玩5C&price=899">立即抢购</a>
                    </div>
                 </li>
                 <div class="hr-2"></div>
@@ -143,7 +146,7 @@
                         <span>1799</span>
                     </div>
                     <div class="p-button lf">
-                        <a href="#">立即抢购</a>
+                        <a href="{% url 'index' %}?product=荣耀7&price=1799">立即抢购</a>
                     </div>
                 </li>
                 <li class="channel-pro-item" style="background-color:#FFECEF"><!--荣耀畅玩5C-->
@@ -161,7 +164,7 @@
                         <span>899</span>
                     </div>
                     <div class="p-button lf">
-                        <a href="#">立即抢购</a>
+                        <a href="{% url 'index' %}?product=荣耀畅玩5X&price=899">立即抢购</a>
                     </div>
                 </li>
             </ul>
@@ -205,24 +208,23 @@
 </section>
 
 
-   <div class="hr-2"></div>
-       <div id="banner_img">
-        <div class="banner-slideshow">
-            <img src="{% static "img/p9.jpg" %}" width="100%" alt=""/>
-            </div>
-        </div>
+<div class="hr-2"></div>
+   <div id="banner_img">
+    <div class="banner-slideshow">
+        <img src="{% static "img/p9.jpg" %}" width="100%" alt=""/>
     </div>
-   <div class="hr-2"></div>
-     <div class="hr-40"></div>
-
-   <div class="slogan">
-       <ul>
-           <li class="s1"><i>500强企业 品质保证</i></li>
-           <li class="s1"><i>7天退货 15天换货 </i></li>
-           <li class="s1"><i>99元起免运费</i></li>
-           <li class="s1"><i>448家维修网点 全国联保</i></li>
-       </ul>
-   </div>
+    </div>
+</div>
+<div class="hr-2"></div>
+<div class="hr-40"></div>
+<div class="slogan">
+   <ul>
+       <li class="s1"><i>500强企业 品质保证</i></li>
+       <li class="s1"><i>7天退货 15天换货 </i></li>
+       <li class="s1"><i>99元起免运费</i></li>
+       <li class="s1"><i>448家维修网点 全国联保</i></li>
+   </ul>
+</div>
 
 </body>
 </html>
