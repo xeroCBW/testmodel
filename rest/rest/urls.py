@@ -18,11 +18,19 @@ from django.urls import path,include
 from django.views.static import serve
 
 # import xadmin
+from rest_framework.documentation import include_docs_urls
+
 import xadmin
+from goods.views import GoodsListView
 from rest.settings import MEDIA_ROOT
 
 urlpatterns = [
 
     path('xadmin/', xadmin.site.urls),
+    path('api-auth/',include('rest_framework.urls')),
     path('media/<path:path>',serve,{'document_root':MEDIA_ROOT}),
+    path('goods/', GoodsListView.as_view(), name="goods_list"),
+    path('docs/', include_docs_urls(title="天天生鲜")),
+
 ]
+

@@ -44,13 +44,21 @@ INSTALLED_APPS = [
 
     # 'crispy_forms'
 
+    'rest_framework',
+
+    'xadmin',
+
+    'crispy_forms',
+    'django_filters',
+
     'DjangoUeditor',
     'users',
     'goods',
     'trade',
     'user_operation',
-    'xadmin',
-    'crispy_forms',
+
+
+
 ]
 
 MIDDLEWARE = [
@@ -144,3 +152,22 @@ MEDIA_URL="/media/"
 MEDIA_ROOT=os.path.join(BASE_DIR,"media")
 
 
+REST_FRAMEWORK = {
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'rest_framework.authentication.BasicAuthentication',
+    #     'rest_framework.authentication.SessionAuthentication',
+    # ),
+    # #限速设置
+    # 'DEFAULT_THROTTLE_CLASSES': (
+    #         'rest_framework.throttling.AnonRateThrottle',   #未登陆用户
+    #         'rest_framework.throttling.UserRateThrottle'    #登陆用户
+    #     ),
+    # 'DEFAULT_THROTTLE_RATES': {
+    #     'anon': '3/minute',                   #每分钟可以请求两次
+    #     'user': '5/minute'                    #每分钟可以请求五次
+    # }
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    #每页显示的个数
+    'PAGE_SIZE': 10,
+}
