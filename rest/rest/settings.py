@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     'xadmin',
 
+
     'crispy_forms',
     'django_filters',
 
