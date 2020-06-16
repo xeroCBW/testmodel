@@ -22,13 +22,15 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 
 import xadmin
-from goods.views import  GoodsListViewSet
+from goods.views import GoodsListViewSet, CategoryViewSet
 from rest.settings import MEDIA_ROOT
+# from rest_framework_jwt.views import obtain_jwt_token
 
 router = DefaultRouter()
 
 #配置goods的url
 router.register(r'goods', GoodsListViewSet,base_name='goods')
+router.register(r'categorys', CategoryViewSet, base_name="categorys")
 
 urlpatterns = [
 
@@ -37,6 +39,7 @@ urlpatterns = [
     path('media/<path:path>',serve,{'document_root':MEDIA_ROOT}),
     path('', include(router.urls)),
     path('docs/', include_docs_urls(title="天天生鲜")),
+    # path('jwt-auth/', obtain_jwt_token),
 
 ]
 
