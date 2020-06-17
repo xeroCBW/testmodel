@@ -85,7 +85,15 @@ class MenuMiddleware(MiddlewareMixin):
 
 
             print('-----------')
-            a = {'list':self.get_menu(request)}
+            x, y, z = self.get_menu(request)
+            a = {
+
+
+
+                'top_menu': x,
+                'reveal_menu': y,
+                'permission_url_list': z,
+            }
             print(json.dumps(a))
             print('-----------')
 

@@ -28,6 +28,9 @@ class RoleSerializer(serializers.ModelSerializer):
         title = validated_data["title"]
 
         instance.title = title
+
+        print(instance.permissions)
+
         # instance.permissions = permissions
         # 要进行保存,否则不会有修改
         instance.save()

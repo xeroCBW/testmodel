@@ -15,8 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-
-
+from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 
@@ -45,4 +44,5 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('system/basic/', include('system.urls')),
     path('docs',include_docs_urls(title='后台管理系统')),
+    path('login', obtain_jwt_token ),
 ]
