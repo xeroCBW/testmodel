@@ -42,7 +42,7 @@ router = DefaultRouter()
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('system/basic/', include('system.urls')),
+    path('system/', include('system.urls')),
     path('docs',include_docs_urls(title='后台管理系统')),
     path('login', obtain_jwt_token ),
 ]

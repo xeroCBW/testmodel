@@ -12,11 +12,12 @@ router.register('menu', MenuListViewSet,base_name='menu')
 router.register('structure', StructureListViewSet,base_name='structure')
 router.register('role', RoleListViewSet,base_name='role')
 
+
+
 urlpatterns = [
 
-
     path('', include(router.urls)),
-
+    path('global/',GlobalListView.as_view(),name='global')
 
 ]
 

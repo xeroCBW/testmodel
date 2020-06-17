@@ -37,7 +37,7 @@ class Role(models.Model):
     角色：绑定权限
     """
     title = models.CharField(max_length=32)
-    permissions = models.ManyToManyField("menu",null=True, blank=True,default=None)
+    permissions = models.ManyToManyField("system.Menu",null=True, blank=True,default=None)
 
     def __str__(self):
         return self.title

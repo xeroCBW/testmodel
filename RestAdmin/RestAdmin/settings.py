@@ -139,20 +139,27 @@ REST_FRAMEWORK = {
     #每页显示的个数
     'PAGE_SIZE': 10,
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'rest_framework.permissions.IsAuthenticated',
+
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        # 'system.permissions.IsOwnerOrReadOnly',
+        # 设置要求登陆,原先登陆的会无效
+        'rest_framework.permissions.IsAuthenticated',
+        'system.permissions.IsOwnerOrReadOnly',
+
+    ),
 }
 
 JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),    #也可以设置seconds=20
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),    #也可以设置seconds=20
     'JWT_AUTH_HEADER_PREFIX': 'JWT',                       #JWT跟前端保持一致，比如“token”这里设置成JWT
 }
 
 
+# 设置手机号也能登陆
 AUTHENTICATION_BACKENDS = (
     'system.views.CustomBackend',
-
 )
