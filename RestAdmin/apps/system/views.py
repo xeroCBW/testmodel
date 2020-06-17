@@ -2,12 +2,14 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import mixins, viewsets
+from rest_framework.pagination import PageNumberPagination
 
 from .models import Menu, Structure
 from .serializer import *
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
+
 
 class UserListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
     '''
@@ -17,6 +19,7 @@ class UserListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
 
 
 class MenuListViewSet(mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet):
