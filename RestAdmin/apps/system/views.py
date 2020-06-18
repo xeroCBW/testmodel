@@ -66,8 +66,14 @@ class MenuListViewSet(viewsets.ModelViewSet):
     '''
 
     # permission_classes = [permissions.UserTypePermission]
-    queryset = Menu.objects.all()
-    serializer_class = MenuSerializer
+    queryset = Menu.objects.filter(is_top=True)
+    # serializer_class = MenuSerializer
+    serializer_class = CategorySerializer
+
+
+    # def get_queryset(self):
+    #     # 只能查看当前登录用户的收藏，不会获取所有用户的收藏
+    #     return Menu.objects.filter(user=self.request.user)
 
 
 

@@ -2,7 +2,42 @@ from rest_framework import serializers
 
 from .models import *
 
+
+class CategorySerializer3(serializers.ModelSerializer):
+    '''三级分类'''
+    class Meta:
+        model = Menu
+        fields = "__all__"
+
+
+class CategorySerializer2(serializers.ModelSerializer):
+    '''
+    二级分类
+    '''
+    #在parent_category字段中定义的related_name="sub_cat"
+    sub_menu = CategorySerializer3(many=True)
+    class Meta:
+        model = Menu
+        fields = "__all__"
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    """
+    商品一级类别序列化
+    """
+    sub_menu = CategorySerializer2(many=True)
+    class Meta:
+        model = Menu
+        fields = "__all__"
+
+
+
+
 class MenuSerializer(serializers.ModelSerializer):
+    # 获取当前登录的用户
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
     class Meta:
         model = Menu
         fields = '__all__'

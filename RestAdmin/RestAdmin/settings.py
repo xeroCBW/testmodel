@@ -148,7 +148,7 @@ REST_FRAMEWORK = {
         # 'system.permissions.IsOwnerOrReadOnly',
         # 设置要求登陆,原先登陆的会无效
         'rest_framework.permissions.IsAuthenticated',
-        'system.permissions.IsOwnerOrReadOnly',
+        # 'system.permissions.IsOwnerOrReadOnly',
 
     ),
 }
