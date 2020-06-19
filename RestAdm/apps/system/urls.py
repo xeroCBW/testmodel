@@ -10,7 +10,8 @@ router = DefaultRouter()
 # router.register('user', UserListViewSet,base_name='user')
 router.register('menu', MenuListViewSet,base_name='menu')
 router.register('structure', StructureListViewSet,base_name='structure')
-# router.register('role', RoleListViewSet,base_name='role')
+router.register('role', RoleListViewSet,base_name='role')
+router.register('role-menu', RoleMenuListViewSet,base_name='role-menu')
 
 
 
@@ -18,6 +19,7 @@ router.register('structure', StructureListViewSet,base_name='structure')
 urlpatterns = [
 
     path('', include(router.urls)),
+    # path('role-menu-query',RoleMenuQueryView.as_view())
 
 
 ]

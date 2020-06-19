@@ -92,6 +92,7 @@ class Structure(models.Model):
         return self.name
 
 class UserRole(models.Model):
+
     role = models.ForeignKey(Role,on_delete=models.CASCADE,verbose_name='角色')
     user = models.ForeignKey(UserProfile,on_delete=models.CASCADE,verbose_name='用户')
     add_time = models.DateTimeField("添加时间", default=datetime.now)
