@@ -17,6 +17,7 @@ class Menu(models.Model):
     menu_type = models.IntegerField("类目级别", choices=MENU_TYPE, null=True, blank=True,help_text="类目级别")
 
     title = models.CharField(max_length=32, unique=True, verbose_name="菜单名")
+    # 设置自己是自己的外键
     parent = models.ForeignKey("self", null=True, blank=True, verbose_name="父菜单",on_delete=models.CASCADE,related_name="sub_menu")
     is_top = models.BooleanField(default=False, verbose_name="首页显示")
     icon = models.CharField(max_length=50, null=True, blank=True, verbose_name="图标")
@@ -52,6 +53,7 @@ class Role(models.Model):
         return self.title
 
     class Meta:
+        ordering = ['-id']
         verbose_name = "角色"
         verbose_name_plural = verbose_name
 
@@ -90,11 +92,11 @@ class Structure(models.Model):
     type_choices = (("firm", "公司"), ("department", "部门"))
     title = models.CharField(max_length=60, verbose_name="名称")
     type = models.CharField(max_length=20, choices=type_choices, default="department", verbose_name="类型")
-    parent = models.ForeignKey("self", null=True, blank=True, verbose_name="父类架构",on_delete=models.CASCADE)
+    parent = models.ForeignKey("self", null=True, blank=True, verbose_name="父类架构",on_delete=models.CASCADE,related_name='sub_structure')
 
     class Meta:
         verbose_name = "组织架构"
         verbose_name_plural = verbose_name
 
-    def __str__(self):
+    def __str__(self): 
         return self.title

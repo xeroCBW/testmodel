@@ -10,6 +10,9 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
     def has_permission(self, request, view):
 
+
+        # return  False
+
         next_url = request.path_info
         next_method = request.method
         print(next_url,'---',next_method)

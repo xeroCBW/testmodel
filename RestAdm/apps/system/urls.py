@@ -7,18 +7,17 @@ from .views import *
 router = DefaultRouter()
 
 #配置goods的url
-router.register('user', UserListViewSet,base_name='user')
+# router.register('user', UserListViewSet,base_name='user')
 router.register('menu', MenuListViewSet,base_name='menu')
 router.register('structure', StructureListViewSet,base_name='structure')
-router.register('role', RoleListViewSet,base_name='role')
-# router.register('permission', PermissionViewSet,base_name='permission')
+# router.register('role', RoleListViewSet,base_name='role')
+
 
 
 
 urlpatterns = [
 
     path('', include(router.urls)),
-    # path('global/',GlobalListView.as_view(),name='global')
+
 
 ]
-

@@ -10,7 +10,7 @@ from django.shortcuts import render
 from django.views.generic.base import View
 from rest_framework import mixins, viewsets, filters, generics
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
 from system import permissions
 from system.filter import UserFilter
@@ -66,8 +66,10 @@ class MenuListViewSet(viewsets.ModelViewSet):
     '''
 
     # permission_classes = [permissions.UserTypePermission]
+
     queryset = Menu.objects.filter(is_top=True)
-    # serializer_class = MenuSerializer
+    # 这里是菜单的修改,所以是展示所有的菜单----也可以树状展示
+    # queryset = Menu.objects.all()
     serializer_class = CategorySerializer
 
 
@@ -83,7 +85,7 @@ class StructureListViewSet(viewsets.ModelViewSet):
         部门列表数据
     '''
 
-    queryset = Structure.objects.all()
+    queryset = Structure.objects.filter(parent__isnull=True)
     serializer_class = StructureSerializer
 
 class RoleListViewSet(viewsets.ModelViewSet):
@@ -180,6 +182,16 @@ class GlobalListView(generics.GenericAPIView):
         else:
             pass
 
+
+class PermissionViewSet(ReadOnlyModelViewSet):
+    '''
+    list:
+        角色列表数据
+    '''
+
+
+    queryset = Role.objects.all()
+    serializer_class = RoleSerializer
 
 
 
