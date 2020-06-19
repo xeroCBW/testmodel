@@ -75,14 +75,31 @@ class RoleMenuListViewSet(viewsets.ModelViewSet):
     '''
     list:
         部门列表数据
+
     '''
-    # role = Role(id=2)
     # 这里要获取到角色,到手如何获取角色
-    queryset = RoleMenu.objects.all()
+
     serializer_class = RoleMenuSerializer
 
-    filter_backends = [SearchFilter]
-    search_fields = ('role__name',)
+    filter_backends = [SearchFilter,]
+    search_fields = ('role__name','role__id',)
+
+    # 实现多条件查询
+    # http://localhost:8000/system/role-menu/?role_id=2&menu_name=%E7%B3%BB%E7%BB%9F
+    def get_queryset(self):
+
+        queryset = RoleMenu.objects.all()
+        role_name = self.request.query_params.get('role_name', None)
+        role_id = self.request.query_params.get('role_id', None)
+        menu_name = self.request.query_params.get('menu_name', None)
+        if role_name is not None:
+            queryset = queryset.filter(role__name=role_name)
+        if menu_name is not None:
+            queryset = queryset.filter(menu__name=menu_name)
+        if role_id is not None and role_id.isdigit():
+            queryset = queryset.filter(role__id=role_id)
+
+        return queryset
 
 
     def get_serializer_class(self):
@@ -93,26 +110,6 @@ class RoleMenuListViewSet(viewsets.ModelViewSet):
 
 
 
-class RoleMenuQueryView(ListAPIView):
-
-    '''
-    通过角色 来查询所有菜单
-    '''
-    serializer_class = RoleMenuQuerySerializer
-    def get_queryset(self):
-
-        queryset = RoleMenu.objects.all()
-        role = self.request.query_params.get('role', None)
-        menu = self.request.query_params.get('menu', None)
-
-        aQ = Q()
-        if role is not None:
-            aQ.add(Q(role=role), Q.AND)
-        if menu is not None:
-            aQ.add(Q(menu=menu), Q.AND)
-        queryset = queryset.filter(aQ).order_by("-id")
-
-        return queryset
 
 
 
