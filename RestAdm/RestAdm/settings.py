@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'system',
     # 设置查询过滤器,注意不能大于版本2.0.2
     'django_filters',
+
+
 ]
 
 MIDDLEWARE = [
@@ -130,3 +132,12 @@ AUTH_USER_MODEL = 'system.UserProfile'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+
+REST_FRAMEWORK = {
+    #分页
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    #每页显示的个数
+    'PAGE_SIZE': 10,
+}
