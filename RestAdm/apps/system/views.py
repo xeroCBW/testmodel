@@ -1,5 +1,7 @@
 import json
 
+from django.contrib.auth import get_user_model
+from django.contrib.auth.backends import ModelBackend
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -14,7 +16,22 @@ from system.models import *
 from system.serializer import *
 
 from rest_framework.filters import SearchFilter
+User = get_user_model()
 
+
+# class CustomBackend(ModelBackend):
+#     """
+#     自定义用户验证
+#     """
+#     def authenticate(self, username=None, password=None, **kwargs):
+#         try:
+#             #用户名和手机都能登录
+#             user = User.objects.get(
+#                 Q(username=username) | Q(mobile=username))
+#             if user.check_password(password):
+#                 return user
+#         except Exception as e:
+#             return None
 
 class StructureListViewSet(viewsets.ModelViewSet):
     '''
@@ -202,15 +219,16 @@ class UserPermissionListViewSet(ListModelMixin,viewsets.GenericViewSet):
 
         if self.request.user:
 
-            user = self.request.user
-            # print(user)
-            user = UserProfile.objects.filter(id=2)[0]
+            user = UserProfile.objects.filter(id=self.request.user.id)[0]
+
+            print('----start----')
             print(user.id)
+            print('----end----')
 
-            userRole = UserRole.objects.filter(user = user.id)[0]
 
-            print(userRole.role.id)
-            role_menu_list = RoleMenu.objects.filter(role__id = userRole.role.id)
+            user_role = UserRole.objects.filter(user = user.id)[0]
+
+            role_menu_list = RoleMenu.objects.filter(role__id = user_role.role.id)
 
             menu_list = []
             for x in role_menu_list:
