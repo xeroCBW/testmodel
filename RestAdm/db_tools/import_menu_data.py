@@ -20,12 +20,9 @@ from system.models import *
 
 
 def load():
-    with open('menu.json','r') as f:
+    with open('data/menu.json','r') as f:
         data = json.load(f)
         return data
-
-
-
 
 
 # 一级分类

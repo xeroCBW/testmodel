@@ -1,0 +1,50 @@
+{
+    "count": 1,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id": 1,
+            "sub_structure": [
+                {
+                    "id": 2,
+                    "sub_menu": null,
+                    "name": "总经理办公室",
+                    "type": "department",
+                    "parent": 1
+                },
+                {
+                    "id": 3,
+                    "sub_menu": null,
+                    "name": "市场部",
+                    "type": "department",
+                    "parent": 1
+                },
+                {
+                    "id": 4,
+                    "sub_menu": null,
+                    "name": "技术部",
+                    "type": "department",
+                    "parent": 1
+                },
+                {
+                    "id": 5,
+                    "sub_menu": null,
+                    "name": "运营部",
+                    "type": "department",
+                    "parent": 1
+                },
+                {
+                    "id": 6,
+                    "sub_menu": null,
+                    "name": "产品部",
+                    "type": "department",
+                    "parent": 1
+                }
+            ],
+            "name": "总公司",
+            "type": "firm",
+            "parent": null
+        }
+    ]
+}
