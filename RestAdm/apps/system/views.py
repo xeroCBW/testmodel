@@ -7,6 +7,7 @@ from django.shortcuts import render
 # Create your views here.
 from rest_framework import viewsets, filters, mixins
 from rest_framework.generics import GenericAPIView, ListAPIView
+from rest_framework.mixins import *
 from rest_framework.views import APIView
 
 from system.models import *
@@ -46,6 +47,7 @@ class MenuListViewSet(viewsets.ModelViewSet):
     queryset = Menu.objects.all()
     serializer_class = StructureCreateSerializer
 
+
     def get_serializer_class(self):
         if self.action == "list":
             return MenuListSerializer
@@ -56,6 +58,8 @@ class MenuListViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         if self.action == "list":
+
+            # print(Menu.objects.filter(is_top=True))
             return Menu.objects.filter(is_top=True)
         else:
             return Menu.objects.all()
@@ -109,13 +113,146 @@ class RoleMenuListViewSet(viewsets.ModelViewSet):
             return RoleMenuSerializer
 
 
+class UserRoleListViewSet(viewsets.ModelViewSet):
+    '''
+    list:
+        部门列表数据
+
+    '''
+    # 这里要获取到角色,到手如何获取角色
+
+    serializer_class = UserRoleSerializer
+
+    filter_backends = [SearchFilter,]
+    search_fields = ('user__name','user__id',)
+
+    # 实现多条件查询
+    # http://localhost:8000/system/role-menu/?role_id=2&menu_name=%E7%B3%BB%E7%BB%9F
+    def get_queryset(self):
+
+        queryset = UserRole.objects.all()
+        # role_name = self.request.query_params.get('role_name', None)
+        # role_id = self.request.query_params.get('role_id', None)
+        # menu_name = self.request.query_params.get('menu_name', None)
+        # if role_name is not None:
+        #     queryset = queryset.filter(role__name=role_name)
+        # if menu_name is not None:
+        #     queryset = queryset.filter(menu__name=menu_name)
+        # if role_id is not None and role_id.isdigit():
+        #     queryset = queryset.filter(role__id=role_id)
+
+        return queryset
+
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return UserRoleListSerializer
+        else:
+            return UserRoleSerializer
+
+
+class UserListViewSet(viewsets.ModelViewSet):
+    '''
+        list:
+            用户列表数据
+
+    '''
+
+    serializer_class = UserProfileSerializer
+
+    filter_backends = [SearchFilter, ]
+    search_fields = ('user__name', 'user__id',)
+
+    # 实现多条件查询
+    # http://localhost:8000/system/role-menu/?role_id=2&menu_name=%E7%B3%BB%E7%BB%9F
+    def get_queryset(self):
+
+        queryset = UserProfile.objects.all()
+        # role_name = self.request.query_params.get('role_name', None)
+        # role_id = self.request.query_params.get('role_id', None)
+        # menu_name = self.request.query_params.get('menu_name', None)
+        # if role_name is not None:
+        #     queryset = queryset.filter(role__name=role_name)
+        # if menu_name is not None:
+        #     queryset = queryset.filter(menu__name=menu_name)
+        # if role_id is not None and role_id.isdigit():
+        #     queryset = queryset.filter(role__id=role_id)
+
+        return queryset
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return UserProfileListSerializer
+        else:
+            return UserProfileSerializer
 
 
 
 
 
+class UserPermissionListViewSet(ListModelMixin,viewsets.GenericViewSet):
+    '''
+        list:根据用户名来查询菜单
+    '''
+
+    # 获取列表数据
+    serializer_class =  MenuListSerializer
+
+    def get_queryset(self):
+
+        if self.request.user:
+
+            user = self.request.user
+            # print(user)
+            user = UserProfile.objects.filter(id=2)[0]
+            print(user.id)
+
+            userRole = UserRole.objects.filter(user = user.id)[0]
+
+            print(userRole.role.id)
+            role_menu_list = RoleMenu.objects.filter(role__id = userRole.role.id)
+
+            menu_list = []
+            for x in role_menu_list:
+                y = Menu.objects.get(id = x.menu.id)
+                if y.is_top:
+                    menu_list.append(y)
+
+            return  menu_list
 
 
+        else:
+            pass
+
+
+class RolePermissionListViewSet(ListModelMixin,viewsets.GenericViewSet):
+    '''
+        list:根据用户名来查询菜单
+    '''
+
+    # 获取列表数据
+    serializer_class =  MenuListSerializer
+
+    def get_queryset(self):
+
+        queryset = Role.objects.all()
+        role_name = self.request.query_params.get('role_name', None)
+        role_id = self.request.query_params.get('role_id', None)
+
+        if role_name is not None:
+            queryset = queryset.filter(role__name=role_name)
+        if role_id is not None and role_id.isdigit():
+            queryset = queryset.filter(role__id=role_id)
+
+        role_menu_list = RoleMenu.objects.filter(role__id=queryset[0].id)
+
+        menu_list = []
+        for x in role_menu_list:
+            y = Menu.objects.get(id = x.menu.id)
+            if y.is_top:
+                menu_list.append(y)
+
+        return  menu_list
 
 
 
