@@ -107,6 +107,7 @@ class RoleMenu(BaseModel):
     add_time = models.DateTimeField("添加时间", default=datetime.now)
 
     class Meta:
+        ordering = ['-id']
         verbose_name = '角色菜单中间表'
         verbose_name_plural = verbose_name
         unique_together = ('role','menu')

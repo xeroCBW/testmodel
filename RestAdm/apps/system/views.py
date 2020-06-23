@@ -231,7 +231,12 @@ class UserPermissionListViewSet(ListModelMixin,viewsets.GenericViewSet):
             print('----当前用户是:(end)----')
 
 
-            user_role = UserRole.objects.filter(user = user.id)[0]
+            user_role = UserRole.objects.filter(user = user.id)
+            if not user_role:
+                return None
+            else:
+                # 获取第一个数据
+                user_role = user_role[0]
 
             role_menu_list = RoleMenu.objects.filter(role__id = user_role.role.id)
 
@@ -243,9 +248,8 @@ class UserPermissionListViewSet(ListModelMixin,viewsets.GenericViewSet):
 
             return  menu_list
 
-
         else:
-            pass
+            return None
 
 
 class RolePermissionListViewSet(ListModelMixin,viewsets.GenericViewSet):

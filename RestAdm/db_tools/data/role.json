@@ -1,0 +1,19 @@
+{
+    "count": 1,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id": 1,
+            "name": "超级管理员"
+        },
+        {
+            "id": 2,
+            "name": "技术经理"
+        },
+        {
+            "id": 3,
+            "name": "技术员"
+        }
+    ]
+}
