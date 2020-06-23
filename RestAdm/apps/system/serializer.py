@@ -1,3 +1,4 @@
+from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 
@@ -70,6 +71,9 @@ class RoleMenuListSerializer(serializers.ModelSerializer):
     # 序列化的作用是将ID 转化成对象
     # 注意,这里不可以设置成many=True
     menu = MenuSerializer()
+
+
+
     class Meta:
         model = RoleMenu
         fields = '__all__'
@@ -129,9 +133,20 @@ class UserProfileListSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UserProfileSerializer(serializers.ModelSerializer):
+
+
+
     class Meta:
         model = UserProfile
         fields = '__all__'
+
+    # 注意要使用active时候才可以登录
+    def create(self, validated_data):
+        user = super(UserProfileSerializer, self).create(validated_data=validated_data)
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
+
 
 class UserRoleListSerializer(serializers.ModelSerializer):
 
@@ -140,6 +155,16 @@ class UserRoleListSerializer(serializers.ModelSerializer):
     '''
     user = UserProfileSerializer()
     role = RoleSerializer()
+
+
+    # def get_role(self,obj):
+    #
+    #     response = dict()
+    #     response['type'] = obj.role
+    #     response['name'] = obj.get_role_display()
+    #
+    #     return response
+
 
     # 序列化的作用是将ID 转化成对象
     # 注意,这里不可以设置成many=True
@@ -163,4 +188,12 @@ class UserRoleSerializer(serializers.ModelSerializer):
         ]
         model = UserRole
         fields = '__all__'
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    """
+    Serializer for password change endpoint.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
 

@@ -2,6 +2,7 @@ import json
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth.hashers import make_password
 from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -207,6 +208,10 @@ class UserListViewSet(viewsets.ModelViewSet):
 
 
 
+
+
+
+
 class UserPermissionListViewSet(ListModelMixin,viewsets.GenericViewSet):
     '''
         list:根据用户名来查询菜单
@@ -221,9 +226,9 @@ class UserPermissionListViewSet(ListModelMixin,viewsets.GenericViewSet):
 
             user = UserProfile.objects.filter(id=self.request.user.id)[0]
 
-            print('----start----')
+            print('----当前用户是:(start)----')
             print(user.id)
-            print('----end----')
+            print('----当前用户是:(end)----')
 
 
             user_role = UserRole.objects.filter(user = user.id)[0]
@@ -271,6 +276,35 @@ class RolePermissionListViewSet(ListModelMixin,viewsets.GenericViewSet):
                 menu_list.append(y)
 
         return  menu_list
+
+
+class ChangePasswordtViewSet(UpdateModelMixin,viewsets.GenericViewSet):
+    '''
+    update:修改用户密码
+    '''
+    serializer_class = ChangePasswordSerializer
+    queryset = UserProfileSerializer
+
+    def update(self, request, *args, **kwargs):
+
+        user_id = kwargs['pk']
+
+        new_password = request.data.get('new_password',None)
+        old_password = request.data.get('old_password', None)
+
+        user = User.objects.get(id = user_id)
+
+        if not user:
+            return Response({'msg':'用户不存在'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if not user.check_password(old_password):
+            return Response({'msg': '密码错误'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.password = make_password(new_password)
+        user.save()
+
+        return Response({'msg': '修改密码成功'}, status=status.HTTP_202_ACCEPTED)
+
 
 
 

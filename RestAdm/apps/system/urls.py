@@ -16,6 +16,7 @@ router.register('user-role', UserRoleListViewSet,base_name='user-role')
 router.register('user', UserListViewSet,base_name='user')
 router.register('user-permission', UserPermissionListViewSet,base_name='user-permission')
 router.register('role-permission', RolePermissionListViewSet,base_name='role-permission')
+router.register('change-password', ChangePasswordtViewSet,base_name='change-password')
 
 urlpatterns = [
 
