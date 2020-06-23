@@ -32,7 +32,8 @@ class UserInfo(models.Model):
 
     user = models.OneToOneField(UserProfile,on_delete=models.CASCADE)
     add_time = models.DateTimeField("添加时间",default=datetime.now)
-    class Mete:
+    class Meta:
+        ordering = ['-id']
         verbose_name = "用户信息表"
         ordering = ['-id']
 
@@ -68,6 +69,7 @@ class Menu(models.Model):
     add_time = models.DateTimeField("添加时间", default=datetime.now)
 
     class Meta:
+        ordering = ['-id']
         verbose_name='菜单表'
 
         def __str__(self):

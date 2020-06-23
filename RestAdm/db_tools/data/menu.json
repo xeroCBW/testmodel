@@ -1,0 +1,112 @@
+{
+    "count": 1,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "id": 1,
+            "sub_menu": [
+                {
+                    "id": 2,
+                    "sub_menu": [
+                        {
+                            "id": 3,
+                            "name": "菜单-增加",
+                            "menu_type": 3,
+                            "is_top": false,
+                            "icon": null,
+                            "code": "system/menu/create",
+                            "url": "system/menu/create",
+                            "add_time": "2020-06-19T07:26:53.397223Z",
+                            "parent": 2
+                        },
+                        {
+                            "id": 4,
+                            "name": "菜单-修改",
+                            "menu_type": 3,
+                            "is_top": false,
+                            "icon": null,
+                            "code": "system/menu/update",
+                            "url": "system/menu/update",
+                            "add_time": "2020-06-19T07:27:40.521947Z",
+                            "parent": 2
+                        },
+                        {
+                            "id": 5,
+                            "name": "菜单-删除",
+                            "menu_type": 3,
+                            "is_top": false,
+                            "icon": null,
+                            "code": "system/menu/delete",
+                            "url": "system/menu/delete",
+                            "add_time": "2020-06-19T07:28:11.839516Z",
+                            "parent": 2
+                        }
+                    ],
+                    "name": "菜单管理",
+                    "menu_type": 2,
+                    "is_top": false,
+                    "icon": null,
+                    "code": "system/menu",
+                    "url": "system/menu",
+                    "add_time": "2020-06-19T07:23:18.874078Z",
+                    "parent": 1
+                },
+                {
+                    "id": 6,
+                    "sub_menu": [
+                        {
+                            "id": 7,
+                            "name": "架构增加",
+                            "menu_type": 3,
+                            "is_top": false,
+                            "icon": null,
+                            "code": "system/structure/create",
+                            "url": "system/structure/create",
+                            "add_time": "2020-06-19T07:33:25.983281Z",
+                            "parent": 6
+                        },
+                        {
+                            "id": 8,
+                            "name": "架构修改",
+                            "menu_type": 3,
+                            "is_top": false,
+                            "icon": null,
+                            "code": "system/structure/update",
+                            "url": "system/structure/update",
+                            "add_time": "2020-06-19T07:33:52.962158Z",
+                            "parent": 6
+                        },
+                        {
+                            "id": 9,
+                            "name": "架构删除",
+                            "menu_type": 3,
+                            "is_top": false,
+                            "icon": null,
+                            "code": "system/structure/delete",
+                            "url": "system/structure/delete",
+                            "add_time": "2020-06-19T07:34:08.883626Z",
+                            "parent": 6
+                        }
+                    ],
+                    "name": "架构管理",
+                    "menu_type": 2,
+                    "is_top": false,
+                    "icon": null,
+                    "code": "system/structure",
+                    "url": "system/structure",
+                    "add_time": "2020-06-19T07:29:38.428641Z",
+                    "parent": 1
+                }
+            ],
+            "name": "系统",
+            "menu_type": 1,
+            "is_top": true,
+            "icon": null,
+            "code": "system",
+            "url": "system",
+            "add_time": "2020-06-19T07:22:12.228310Z",
+            "parent": null
+        }
+    ]
+}
