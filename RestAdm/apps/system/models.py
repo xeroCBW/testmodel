@@ -1,8 +1,6 @@
-from datetime import datetime
-
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-
+from db_tools.base_model import *
 # Create your models here.
 
 
@@ -28,19 +26,19 @@ class UserProfile(AbstractUser):
         return self.name
 
 
-class UserInfo(models.Model):
+class UserInfo(BaseModel):
 
     user = models.OneToOneField(UserProfile,on_delete=models.CASCADE)
-    add_time = models.DateTimeField("添加时间",default=datetime.now)
+
     class Meta:
         ordering = ['-id']
         verbose_name = "用户信息表"
-        ordering = ['-id']
 
 
-class Role(models.Model):
+
+class Role(BaseModel):
+
     name = models.CharField(max_length=20,verbose_name="名称")
-    add_time = models.DateTimeField("添加时间", default=datetime.now)
 
     class Meta:
         verbose_name='角色表'
@@ -48,7 +46,7 @@ class Role(models.Model):
         def __str__(self):
             return self.name
 
-class Menu(models.Model):
+class Menu(BaseModel):
 
     MENU_TYPE = (
         (1, "一级类目"),
@@ -66,8 +64,6 @@ class Menu(models.Model):
     # 注意url不能重复
     url = models.CharField(max_length=128, unique=True, null=True, blank=True)
 
-    add_time = models.DateTimeField("添加时间", default=datetime.now)
-
     class Meta:
         ordering = ['-id']
         verbose_name='菜单表'
@@ -76,7 +72,7 @@ class Menu(models.Model):
             return self.name
 
 
-class Structure(models.Model):
+class Structure(BaseModel):
     """
     组织架构
     """
@@ -93,11 +89,10 @@ class Structure(models.Model):
     def __str__(self):
         return self.name
 
-class UserRole(models.Model):
+class UserRole(BaseModel):
 
     role = models.ForeignKey(Role,on_delete=models.CASCADE,verbose_name='角色')
     user = models.ForeignKey(UserProfile,on_delete=models.CASCADE,verbose_name='用户')
-    add_time = models.DateTimeField("添加时间", default=datetime.now)
 
     class Meta:
         verbose_name = '用户角色中间表'
@@ -105,7 +100,7 @@ class UserRole(models.Model):
         unique_together = ('role','user')
 
 
-class RoleMenu(models.Model):
+class RoleMenu(BaseModel):
 
     role = models.ForeignKey(Role,on_delete=models.CASCADE,verbose_name='角色')
     menu = models.ForeignKey(Menu,on_delete=models.CASCADE,verbose_name='菜单')
