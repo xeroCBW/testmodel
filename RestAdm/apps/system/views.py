@@ -223,7 +223,7 @@ class UserPermissionListViewSet(ListModelMixin,viewsets.GenericViewSet):
     '''
 
     # 获取列表数据
-    serializer_class =  MenuListSerializer
+    serializer_class =  MenuSerializer
 
     def get_queryset(self):
 
@@ -233,7 +233,8 @@ class UserPermissionListViewSet(ListModelMixin,viewsets.GenericViewSet):
             print(self.request.user.id)
             print('----当前用户是:(end)----')
 
-            if not  self.request.user:return []
+            if not self.request.user:return []
+            self.request.user.id =  2
             user = UserProfile.objects.filter(id=self.request.user.id)[0]
             role_list = user.role_list
             print('==========')
@@ -249,9 +250,13 @@ class UserPermissionListViewSet(ListModelMixin,viewsets.GenericViewSet):
             menu_list = list(set(menu_list))
 
             # 最后要返回对象
+
+            ans = Menu.objects.filter(is_top=True)
+
             res = []
             for x in menu_list:
-                res += [Menu.objects.get(id = x)]
+                obj = Menu.objects.get(id = x)
+                res += [obj]
             return res
 
         else:
