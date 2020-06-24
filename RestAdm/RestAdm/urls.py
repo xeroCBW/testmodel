@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import include
 from django.contrib import admin
-from django.urls import path
+from django.urls import include,path
 from rest_framework_jwt.views import obtain_jwt_token
 
 from rest_framework.documentation import include_docs_urls

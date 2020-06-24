@@ -40,6 +40,9 @@ class Role(BaseModel):
 
     name = models.CharField(max_length=20,verbose_name="名称")
 
+    # 设置角色和用户是多对多关系
+    peoples = models.ManyToManyField(UserProfile,through='UserRole')
+
     class Meta:
         ordering = ['-id']
         verbose_name='角色表'
@@ -54,16 +57,19 @@ class Menu(BaseModel):
         (2, "二级类目"),
         (3, "三级类目"),
     )
-    name = models.CharField(max_length=32, unique=True, verbose_name="菜单名")
+    name = models.CharField(max_length=32, unique=True, verbose_name="菜单名",help_text='菜单名')
     menu_type = models.IntegerField("类目级别", choices=MENU_TYPE, null=True, blank=True, help_text="类目级别")
 
     # 设置自己是自己的外键
-    parent = models.ForeignKey("self", null=True, blank=True, verbose_name="父菜单", on_delete=models.CASCADE,related_name="sub_menu")
-    is_top = models.BooleanField(default=False, verbose_name="首页显示")
-    icon = models.CharField(max_length=50, null=True, blank=True, verbose_name="图标")
-    code = models.CharField(max_length=50, null=True, blank=True, verbose_name="编码")
+    parent = models.ForeignKey("self", null=True, blank=True, verbose_name="父菜单", on_delete=models.CASCADE,related_name="sub_menu",help_text='父菜单')
+    is_top = models.BooleanField(default=False, verbose_name="首页显示",help_text='是否是顶级菜单')
+    icon = models.CharField(max_length=50, null=True, blank=True, verbose_name="图标",help_text='图标')
+    code = models.CharField(max_length=50, null=True, blank=True, verbose_name="编码",help_text='编码')
     # 注意url不能重复
-    url = models.CharField(max_length=128, unique=True, null=True, blank=True)
+    url = models.CharField(max_length=128, unique=True, null=True, blank=True,help_text='url')
+
+    # 角色和菜单是多对多的关系
+    roles = models.ManyToManyField(Role,through='RoleMenu')
 
     class Meta:
         ordering = ['-id']
