@@ -175,7 +175,6 @@ class UserRoleListSerializer(serializers.ModelSerializer):
 
 class UserRoleSerializer(serializers.ModelSerializer):
 
-
     class Meta:
         # validate实现唯一联合，一个菜单只能被角色设置一次
         validators = [

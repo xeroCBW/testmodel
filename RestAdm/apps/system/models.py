@@ -41,7 +41,7 @@ class Role(BaseModel):
     name = models.CharField(max_length=20,verbose_name="名称")
 
     # 设置角色和用户是多对多关系
-    peoples = models.ManyToManyField(UserProfile,through='UserRole')
+    user_list = models.ManyToManyField(UserProfile,through='UserRole',related_name='role_list')
 
     class Meta:
         ordering = ['-id']
@@ -69,7 +69,7 @@ class Menu(BaseModel):
     url = models.CharField(max_length=128, unique=True, null=True, blank=True,help_text='url')
 
     # 角色和菜单是多对多的关系
-    roles = models.ManyToManyField(Role,through='RoleMenu')
+    roles = models.ManyToManyField(Role,through='RoleMenu',related_name='menu_list')
 
     class Meta:
         ordering = ['-id']
