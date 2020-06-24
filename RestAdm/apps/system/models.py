@@ -4,51 +4,6 @@ from db_tools.base_model import *
 # Create your models here.
 
 
-# 这里只是放用户的基本信息,有其他信息可以通过增加表来搞数据
-class UserProfile(AbstractUser):
-    """
-    用户: makemigration提示错误：sers.UserProfile.user_permissions: (fields.E304)，
-    需要在settings中指定自定义认证模型：AUTH_USER_MODEL = 'users.UserProfile'
-    """
-    name = models.CharField(max_length=20, default="", verbose_name="姓名")
-    birthday = models.DateField(null=True, blank=True, verbose_name="出生日期")
-    gender = models.CharField(max_length=10, choices=(("male", "男"), ("famale", "女")), default="male",
-                              verbose_name="性别")
-    mobile = models.CharField(max_length=11, default="", verbose_name="电话")
-    email = models.EmailField(max_length=100, verbose_name="邮箱")
-
-    class Meta:
-        verbose_name = "用户表"
-        verbose_name_plural = verbose_name
-        ordering = ['-id']
-
-    def __str__(self):
-        return self.name
-
-
-class UserInfo(BaseModel):
-
-    user = models.OneToOneField(UserProfile,on_delete=models.CASCADE)
-
-    class Meta:
-        ordering = ['-id']
-        verbose_name = "用户信息表"
-
-
-
-class Role(BaseModel):
-
-    name = models.CharField(max_length=20,verbose_name="名称")
-
-    # 设置角色和用户是多对多关系
-    user_list = models.ManyToManyField(UserProfile,through='UserRole',related_name='role_list')
-
-    class Meta:
-        ordering = ['-id']
-        verbose_name='角色表'
-
-        def __str__(self):
-            return self.name
 
 class Menu(BaseModel):
 
@@ -68,15 +23,27 @@ class Menu(BaseModel):
     # 注意url不能重复
     url = models.CharField(max_length=128, unique=True, null=True, blank=True,help_text='url')
 
-    # 角色和菜单是多对多的关系
-    roles = models.ManyToManyField(Role,through='RoleMenu',related_name='menu_list')
-
     class Meta:
         ordering = ['-id']
         verbose_name='菜单表'
 
         def __str__(self):
             return self.name
+
+
+
+class Role(BaseModel):
+
+    name = models.CharField(max_length=20,verbose_name="名称")
+
+    menu_list = models.ManyToManyField(Menu,related_name='role_list')
+    class Meta:
+        ordering = ['-id']
+        verbose_name='角色表'
+
+        def __str__(self):
+            return self.name
+
 
 
 class Structure(BaseModel):
@@ -97,30 +64,39 @@ class Structure(BaseModel):
     def __str__(self):
         return self.name
 
-class UserRole(BaseModel):
 
-    role = models.ForeignKey(Role,on_delete=models.CASCADE,verbose_name='角色')
-    user = models.ForeignKey(UserProfile,on_delete=models.CASCADE,verbose_name='用户')
+# 这里只是放用户的基本信息,有其他信息可以通过增加表来搞数据
+class UserProfile(AbstractUser):
+    """
+    用户: makemigration提示错误：sers.UserProfile.user_permissions: (fields.E304)，
+    需要在settings中指定自定义认证模型：AUTH_USER_MODEL = 'users.UserProfile'
+    """
+    name = models.CharField(max_length=20, default="", verbose_name="姓名")
+    birthday = models.DateField(null=True, blank=True, verbose_name="出生日期")
+    gender = models.CharField(max_length=10, choices=(("male", "男"), ("famale", "女")), default="male",
+                              verbose_name="性别")
+    mobile = models.CharField(max_length=11, default="", verbose_name="电话")
+    email = models.EmailField(max_length=100, verbose_name="邮箱")
+
+
+    role_list = models.ManyToManyField(Role,related_name='user_list')
+
+    class Meta:
+        verbose_name = "用户表"
+        verbose_name_plural = verbose_name
+        ordering = ['-id']
+
+    def __str__(self):
+        return self.name
+
+
+class UserInfo(BaseModel):
+
+    user = models.OneToOneField(UserProfile,on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['-id']
-        verbose_name = '用户角色中间表'
-        verbose_name_plural = verbose_name
-        unique_together = ('role','user')
-
-
-class RoleMenu(BaseModel):
-
-    role = models.ForeignKey(Role,on_delete=models.CASCADE,verbose_name='角色')
-    menu = models.ForeignKey(Menu,on_delete=models.CASCADE,verbose_name='菜单')
-    add_time = models.DateTimeField("添加时间", default=datetime.now)
-
-    class Meta:
-        ordering = ['-id']
-        verbose_name = '角色菜单中间表'
-        verbose_name_plural = verbose_name
-        unique_together = ('role','menu')
-
+        verbose_name = "用户信息表"
 
 
 
