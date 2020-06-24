@@ -27,8 +27,8 @@ class Menu(BaseModel):
         ordering = ['-id']
         verbose_name='菜单表'
 
-        def __str__(self):
-            return self.name
+    def __str__(self):
+        return '---' * (self.menu_type - 1) +self.name
 
 
 
@@ -41,8 +41,8 @@ class Role(BaseModel):
         ordering = ['-id']
         verbose_name='角色表'
 
-        def __str__(self):
-            return self.name
+    def __str__(self):
+        return self.name
 
 
 
