@@ -28,7 +28,7 @@ class Menu(BaseModel):
         verbose_name='菜单表'
 
     def __str__(self):
-        return '---' * (self.menu_type - 1) +self.name
+        return '    ' * (self.menu_type - 1) +self.name + '(' + str(self.menu_type) + ')'
 
 
 
