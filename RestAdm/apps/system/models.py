@@ -41,6 +41,7 @@ class Role(BaseModel):
     name = models.CharField(max_length=20,verbose_name="名称")
 
     class Meta:
+        ordering = ['-id']
         verbose_name='角色表'
 
         def __str__(self):
@@ -83,6 +84,7 @@ class Structure(BaseModel):
     parent = models.ForeignKey("self", null=True, blank=True, verbose_name="父类架构",on_delete=models.CASCADE,related_name='sub_structure')
 
     class Meta:
+        ordering = ['-id']
         verbose_name = "组织架构"
         verbose_name_plural = verbose_name
 
@@ -95,6 +97,7 @@ class UserRole(BaseModel):
     user = models.ForeignKey(UserProfile,on_delete=models.CASCADE,verbose_name='用户')
 
     class Meta:
+        ordering = ['-id']
         verbose_name = '用户角色中间表'
         verbose_name_plural = verbose_name
         unique_together = ('role','user')
