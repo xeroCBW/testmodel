@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.hashers import make_password
 from django.db.models import Q
+from django.forms import model_to_dict
 from django.http import HttpResponse
 from django.shortcuts import render
 
@@ -214,53 +215,53 @@ class UserListViewSet(viewsets.ModelViewSet):
 
 
 
+def build_tree(data, p_id, level=0):
+    """
+    生成树菜单
+    :param data:    数据
+    :param p_id:    上级分类
+    :param level:   当前级别
+    :return:
+    """
+    tree = []
+    for row in data:
+        if row['parent'] == p_id:
+            row['level'] = level
+            child = build_tree(data, row['id'], level+1)
+            row['child'] = []
+            if child:
+                row['child'] += child
+            tree.append(row)
+
+    return tree
 
 
-
-class UserPermissionListViewSet(ListModelMixin,viewsets.GenericViewSet):
+class UserPermissionListViewSet(RetrieveModelMixin,viewsets.GenericViewSet):
     '''
         list:根据用户名来查询菜单
     '''
 
     # 获取列表数据
-    serializer_class =  MenuSerializer
+    serializer_class =  serializers.Serializer
 
-    def get_queryset(self):
+    def retrieve(self, request, *args, **kwargs):
 
-        if self.request.user:
+        id = kwargs.get('pk')
 
-            print('----当前用户是:(start)----')
-            print(self.request.user.id)
-            print('----当前用户是:(end)----')
+        user = User.objects.filter(id=id)[0]
 
-            if not self.request.user:return []
-            self.request.user.id =  2
-            user = UserProfile.objects.filter(id=self.request.user.id)[0]
-            role_list = user.role_list
-            print('==========')
-            menu_list = []
-            for role in role_list.all():
-                print(role.name)
-                menus = role.menu_list.all()
-                print(menus)
-                for menu in menus:
-                    print(menu.id)
-                    menu_list.append(menu.id)
+        menu_list = []
+        for role in user.role_list.all():
+            for menu in role.menu_list.all():
 
-            menu_list = list(set(menu_list))
+                menu_list += [model_to_dict(menu,fields=('id','name','menu_type','url','icon','is_top','code','parent'))]
 
-            # 最后要返回对象
+        menu_list = sorted(menu_list,key=lambda k:k['id'])
+        # 对数据进行排序
+        res = build_tree(data=menu_list,p_id=None,level=0)
 
-            ans = Menu.objects.filter(is_top=True)
+        return Response({'data':res}, status=status.HTTP_202_ACCEPTED)
 
-            res = []
-            for x in menu_list:
-                obj = Menu.objects.get(id = x)
-                res += [obj]
-            return res
-
-        else:
-            return None
 #
 
 # class RolePermissionListViewSet(ListModelMixin,viewsets.GenericViewSet):
@@ -297,8 +298,10 @@ class ChangePasswordtViewSet(UpdateModelMixin,viewsets.GenericViewSet):
     '''
     update:修改用户密码
     '''
+
+    # update 不需要query_set  只有list才有query_set
     serializer_class = ChangePasswordSerializer
-    queryset = UserProfileSerializer
+
 
     def update(self, request, *args, **kwargs):
 

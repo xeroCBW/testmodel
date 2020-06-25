@@ -198,11 +198,5 @@ class ChangePasswordSerializer(serializers.Serializer):
     new_password = serializers.CharField(required=True)
 
 
-# class UserMenuSerializer(serializers.ModelSerializer):
-#
-#
-#
-#     class Meta:
-#         models = MenuSerializer
-#         fields = '__all__'
+
 
