@@ -166,7 +166,14 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-    )
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        # 'system.permissions.IsOwnerOrReadOnly',
+        # 设置要求登陆,原先登陆的会无效
+        'rest_framework.permissions.IsAuthenticated',
+        # 'system.permissions.IsOwnerOrReadOnly',
+
+    ),
 }
 
 
