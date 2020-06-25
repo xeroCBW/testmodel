@@ -18,8 +18,8 @@ router.register('user-permission', UserPermissionListViewSet,base_name='user-per
 # router.register('role-permission', RolePermissionListViewSet,base_name='role-permission')
 router.register('change-password', ChangePasswordtViewSet,base_name='change-password')
 
-router.register('album', AlbumtViewSet,base_name='album')
-router.register('track', TrackViewSet,base_name='track')
+# router.register('album', AlbumtViewSet,base_name='album')
+# router.register('track', TrackViewSet,base_name='track')
 
 
 urlpatterns = [
