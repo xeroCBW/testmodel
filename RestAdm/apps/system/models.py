@@ -100,3 +100,35 @@ class UserInfo(BaseModel):
 
 
 
+# 以下是测试demo
+
+class Album(BaseModel):
+    album_name = models.CharField(max_length=100)
+    artist = models.CharField(max_length=100)
+
+
+    class Meta:
+        ordering = ['-id']
+
+    def __str__(self):
+        return self.album_name
+
+class Track(BaseModel):
+
+    order = models.IntegerField()
+    title = models.CharField(max_length=100)
+    duration = models.IntegerField
+    album = models.ForeignKey(Album,related_name='track_list',on_delete=models.CASCADE)
+
+
+    class Meta:
+        unique_together = ('album','order')
+        ordering = ['order']
+
+
+    def __str__(self):
+        return '%d: %s' %(self.order,self.title)
+
+
+
+

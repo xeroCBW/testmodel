@@ -200,3 +200,28 @@ class ChangePasswordSerializer(serializers.Serializer):
 
 
 
+class AlbumSerializers(serializers.ModelSerializer):
+
+    '''
+    track_list 只是一个外键链接,并不是自己model所拥有的字段
+    '''
+    # track_list = serializers.StringRelatedField(many=True)
+    # 一定要设置成query_set=Menu.objects.all()
+    #或者设置成read_only = True
+    # 默认是主键
+    track_list = serializers.PrimaryKeyRelatedField(many=True,read_only=True)
+    # 设置超链接
+    # track_list = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='track-detail')
+
+    class Meta:
+        model = Album
+        fields = ['album_name','artist','track_list']
+
+
+class TrackSerilizers(serializers.ModelSerializer):
+
+    class Meta:
+        model = Track
+        fields = '__all__'
+
+

@@ -338,3 +338,12 @@ class ChangePasswordtViewSet(UpdateModelMixin,viewsets.GenericViewSet):
 #     def get_queryset(self):
 #         queryset = RoleMenu.objects.all()
 #         return queryset
+
+
+class AlbumtViewSet(viewsets.ModelViewSet):
+    queryset = Album.objects.all()
+    serializer_class = AlbumSerializers
+
+class TrackViewSet(viewsets.ModelViewSet):
+    queryset = Track.objects.all()
+    serializer_class = TrackSerilizers

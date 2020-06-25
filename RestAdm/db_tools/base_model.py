@@ -5,7 +5,7 @@ from django.db import models
 class BaseModel(models.Model):
 
     create_user = models.IntegerField(verbose_name="创建人",null=True, blank=True,help_text='创建者')
-    create_time = models.DateTimeField("创建时间",default=datetime.now,help_text='创建时间')
+    create_time = models.DateTimeField("创建时间",auto_now_add = True,help_text='创建时间')
 
     update_user = models.IntegerField(verbose_name="修改人",null=True, blank=True,help_text='修改者')
     update_time = models.DateTimeField("修改时间", default=datetime.now,help_text='修改时间')
