@@ -212,11 +212,11 @@ class AlbumSerializers(serializers.ModelSerializer):
     track_list = serializers.PrimaryKeyRelatedField(many=True,read_only=True)
     # 设置超链接
     # track_list = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='track-detail')
-
+    image = serializers.ImageField(source='album_image.image',read_only=True)
 
     class Meta:
         model = Album
-        fields = ['album_name','artist','track_list',]
+        fields = ['album_name','artist','track_list','image']
 
 
 class TrackSerilizers(serializers.ModelSerializer):

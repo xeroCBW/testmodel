@@ -10,3 +10,9 @@
 ```
 python manage.py dumpdata > dp.json
 ```
+
+
+### 没有的字段序列化
+
+1. 可以通过elated_name对字段进行添加
+2. OneToOneField 继承于 foreignKey
