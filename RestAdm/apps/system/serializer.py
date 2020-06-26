@@ -229,6 +229,11 @@ class TrackSerilizers(serializers.ModelSerializer):
 
 class AlbumImageSerilizers(serializers.ModelSerializer):
 
+    # 设置默认用户,不用用户填,也不用显示
+    update_user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
+
     # 这个不能再这里进行序列化,否则会出问题
     # 或者设置成readOnly 这个可以看做是补充
     album = AlbumSerializers(read_only=True)

@@ -16,3 +16,5 @@ python manage.py dumpdata > dp.json
 
 1. 可以通过elated_name对字段进行添加
 2. OneToOneField 继承于 foreignKey
+3. field 都有source这个字段
+4. 貌似hyperLinkRelate不能显示图片
