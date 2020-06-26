@@ -132,3 +132,15 @@ class Track(BaseModel):
 
 
 
+class AlbumImage(BaseModel):
+    album = models.OneToOneField(Album,on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='album',null=True,blank=True,verbose_name='专辑图片',help_text='专辑图片')
+    pass
+
+    class Meta:
+        verbose_name = '专辑图片'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        # 这里是返回用户的名字,本质是用户的图片
+        return self.album.album_name

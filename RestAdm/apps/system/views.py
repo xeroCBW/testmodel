@@ -347,3 +347,8 @@ class AlbumtViewSet(viewsets.ModelViewSet):
 class TrackViewSet(viewsets.ModelViewSet):
     queryset = Track.objects.all()
     serializer_class = TrackSerilizers
+
+class AlbumImageViewSet(viewsets.ModelViewSet):
+
+    queryset = AlbumImage.objects.all()
+    serializer_class = AlbumImageSerilizers

@@ -224,4 +224,9 @@ class TrackSerilizers(serializers.ModelSerializer):
         model = Track
         fields = '__all__'
 
+class AlbumImageSerilizers(serializers.ModelSerializer):
+
+    class Meta:
+        model = AlbumImage
+        fields = '__all__'
 
