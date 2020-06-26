@@ -18,3 +18,4 @@ python manage.py dumpdata > dp.json
 2. OneToOneField 继承于 foreignKey
 3. field 都有source这个字段
 4. 貌似hyperLinkRelate不能显示图片
+5. 可以设置通用tag,具体详情见[通用关系](https://github.com/fangweiren/Django-REST-framework-documentation/blob/master/API-Guide/Serializer-relations.md)
