@@ -41,8 +41,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
+
     'system',
+    'rest_framework',
     # 设置查询过滤器,注意不能大于版本2.0.2
     # 'django_filter',
     'rest_framework.authtoken',
@@ -145,7 +146,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-AUTH_USER_MODEL = 'system.UserProfile'
+
 
 
 MEDIA_URL = '/media/'
@@ -176,5 +177,4 @@ REST_FRAMEWORK = {
     ),
 }
 
-
-
+AUTH_USER_MODEL = 'system.UserProfile'

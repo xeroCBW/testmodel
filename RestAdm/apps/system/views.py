@@ -324,6 +324,19 @@ class ChangePasswordtViewSet(UpdateModelMixin,viewsets.GenericViewSet):
 
 
 
+class UserAddressViewSet(viewsets.ModelViewSet):
+
+    '''
+    收货地址管理
+    list:收货地址列表
+    create:创建收货地址
+    update:更新收货地址
+    delete:删除收货地址
+
+    '''
+    queryset = UserAddress.objects.all()
+    serializer_class = UserAddressSerializer
+
 
 # class TestViewSet(viewsets.ModelViewSet):
 #

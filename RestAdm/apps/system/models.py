@@ -3,7 +3,9 @@ from django.db import models
 from db_tools.base_model import *
 # Create your models here.
 
-
+# 这里不能同时存在 user 和 userprofile
+# from django.contrib.auth import get_user_model
+# User = get_user_model()
 
 class Menu(BaseModel):
 
@@ -100,6 +102,27 @@ class UserInfo(BaseModel):
 
 
 
+class UserAddress(models.Model):
+    """
+    用户收货地址
+    """
+    # 这个收货地址是一对多的关系
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name="用户",related_name='user_address' )
+    province = models.CharField("省份",max_length=100, default="")
+    city = models.CharField("城市",max_length=100, default="")
+    district = models.CharField("区域",max_length=100, default="")
+    address = models.CharField("详细地址",max_length=100, default="")
+    signer_name = models.CharField("签收人",max_length=100, default="")
+    signer_mobile = models.CharField("电话",max_length=11, default="")
+
+    class Meta:
+        verbose_name = "收货地址"
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.address
+
+
 # 以下是测试demo
 
 class Album(BaseModel):
@@ -120,17 +143,12 @@ class Track(BaseModel):
     duration = models.IntegerField
     album = models.ForeignKey(Album,related_name='track_list',on_delete=models.CASCADE)
 
-
     class Meta:
         unique_together = ('album','order')
         ordering = ['order']
 
-
     def __str__(self):
         return '%d: %s' %(self.order,self.title)
-
-
-
 
 class AlbumImage(BaseModel):
 

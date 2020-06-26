@@ -61,71 +61,6 @@ class RoleSerializer(serializers.ModelSerializer):
         model = Role
         fields = '__all__'
 
-# class RoleMenuListSerializer(serializers.ModelSerializer):
-#
-#     '''
-#     角色菜单列表展示
-#     '''
-#     role = RoleSerializer()
-#
-#     # 序列化的作用是将ID 转化成对象
-#     # 注意,这里不可以设置成many=True
-#     menu = MenuSerializer()
-#
-#
-#
-#     class Meta:
-#         model = RoleMenu
-#         fields = '__all__'
-
-
-# class RoleMenuTreeSerializer(serializers.ModelSerializer):
-#
-#     # role = RoleSerializer()
-#     # menu = serializers.SerializerMethodField()
-#     #
-#     # def get_menu(self,obj):
-#     #
-#     #     print(obj)
-#     #
-#     #
-#     #     # # user = self.request.user
-#     #     # # print(user)
-#     #     # user = UserProfile.objects.filter(id=2)[0]
-#     #     # # print(user.id)
-#     #     #
-#     #     # userRole = UserRole.objects.filter(user = user.id)[0]
-#     #     #
-#     #     # # print(userRole.role.id)
-#     #     #
-#     #     # menu_list = RoleMenu.objects.values('menu').filter(role__id=userRole.role.id)
-#     #     # print(menu_list)
-#     #
-#     #     return  None
-#
-#     class Meta:
-#         model = RoleMenu
-#         fields = ('role','menu')
-
-
-
-
-# class RoleMenuSerializer(serializers.Serializer):
-#
-#     class Meta:
-#         # validate实现唯一联合，一个菜单只能被角色设置一次
-#         validators = [
-#             UniqueTogetherValidator(
-#                 queryset=RoleMenu.objects.all(),
-#                 fields=('role', 'menu'),
-#                 # message的信息可以自定义
-#                 message="已经设置"
-#             )
-#         ]
-#         model = RoleMenu
-#         fields = '__all__'
-
-
 class UserProfileListSerializer(serializers.ModelSerializer):
 
 
@@ -134,8 +69,6 @@ class UserProfileListSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UserProfileSerializer(serializers.ModelSerializer):
-
-
 
     class Meta:
         model = UserProfile
@@ -147,6 +80,16 @@ class UserProfileSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+
+class UserAddressSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserAddress
+        fields = '__all__'
+
+    pass
 
 
 # class UserRoleListSerializer(serializers.ModelSerializer):
@@ -230,9 +173,10 @@ class TrackSerilizers(serializers.ModelSerializer):
 class AlbumImageSerilizers(serializers.ModelSerializer):
 
     # 设置默认用户,不用用户填,也不用显示
-    update_user = serializers.HiddenField(
-        default=serializers.CurrentUserDefault()
-    )
+    # 这样设置会默认不显示
+    # update_user = serializers.HiddenField(
+    #     default=serializers.CurrentUserDefault()
+    # )
 
     # 这个不能再这里进行序列化,否则会出问题
     # 或者设置成readOnly 这个可以看做是补充
@@ -241,3 +185,5 @@ class AlbumImageSerilizers(serializers.ModelSerializer):
     class Meta:
         model = AlbumImage
         fields = '__all__'
+
+
