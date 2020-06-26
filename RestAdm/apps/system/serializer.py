@@ -230,7 +230,8 @@ class TrackSerilizers(serializers.ModelSerializer):
 class AlbumImageSerilizers(serializers.ModelSerializer):
 
     # 这个不能再这里进行序列化,否则会出问题
-    # album = AlbumSerializers(required=True)
+    # 或者设置成readOnly 这个可以看做是补充
+    album = AlbumSerializers(read_only=True)
 
     class Meta:
         model = AlbumImage
