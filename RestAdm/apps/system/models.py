@@ -123,6 +123,25 @@ class UserAddress(models.Model):
         return self.address
 
 
+
+class UserMessage(BaseModel):
+
+
+    MESSAGE_CHOICE = (
+        (1,'留言'),
+        (2,'投诉'),
+        (3,'询问'),
+        (4,'售后'),
+        (5,'求购'),
+    )
+
+    user = models.ForeignKey(UserProfile,on_delete=models.CASCADE,verbose_name='用户',help_text='用户')
+    message_type = models.IntegerField(default=1,choices=MESSAGE_CHOICE,verbose_name='留言类型',help_text='留言类型:(1,留言),(2,投诉),(3,询问),(4,售后),(5,求购)')
+    subject = models.CharField(max_length=100,verbose_name='留言主题',help_text='留言主题')
+    text = models.TextField(max_length=1000,default='',verbose_name='留言内容',help_text='留言内容')
+    file = models.FileField(upload_to='message',verbose_name='上传的文件',help_text='上传的文件')
+
+
 # 以下是测试demo
 
 class Album(BaseModel):

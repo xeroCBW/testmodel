@@ -18,6 +18,9 @@ router.register('user-permission', UserPermissionListViewSet,base_name='user-per
 # router.register('role-permission', RolePermissionListViewSet,base_name='role-permission')
 router.register('change-password', ChangePasswordtViewSet,base_name='change-password')
 router.register('user-address', UserAddressViewSet,base_name='user-address')
+router.register('user-message', UserMessageViewSet,base_name='user-message')
+
+
 
 router.register('album', AlbumtViewSet,base_name='album')
 router.register('track', TrackViewSet,base_name='track')

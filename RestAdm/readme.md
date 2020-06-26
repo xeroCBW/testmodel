@@ -19,3 +19,4 @@ python manage.py dumpdata > dp.json
 3. field 都有source这个字段
 4. 貌似hyperLinkRelate不能显示图片
 5. 可以设置通用tag,具体详情见[通用关系](https://github.com/fangweiren/Django-REST-framework-documentation/blob/master/API-Guide/Serializer-relations.md)
+6. 设置时间可以设置成readonly = true 这样就不会要求用户算时间了

@@ -89,7 +89,16 @@ class UserAddressSerializer(serializers.ModelSerializer):
         model = UserAddress
         fields = '__all__'
 
-    pass
+
+class UserMessageSerializer(serializers.ModelSerializer):
+
+
+
+    create_time = serializers.DateTimeField(read_only=True)
+    update_time = serializers.DateTimeField(read_only=True)
+    class Meta:
+        model = UserMessage
+        fields = '__all__'
 
 
 # class UserRoleListSerializer(serializers.ModelSerializer):

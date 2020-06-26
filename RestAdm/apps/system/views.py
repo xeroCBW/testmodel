@@ -336,6 +336,10 @@ class UserAddressViewSet(viewsets.ModelViewSet):
     '''
     queryset = UserAddress.objects.all()
     serializer_class = UserAddressSerializer
+class UserMessageViewSet(viewsets.ModelViewSet):
+
+    queryset = UserMessage.objects.all()
+    serializer_class = UserMessageSerializer
 
 
 # class TestViewSet(viewsets.ModelViewSet):
