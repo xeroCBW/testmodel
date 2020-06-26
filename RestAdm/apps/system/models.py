@@ -133,9 +133,10 @@ class Track(BaseModel):
 
 
 class AlbumImage(BaseModel):
-    album = models.OneToOneField(Album,on_delete=models.CASCADE)
+
+    album = models.OneToOneField(Album,on_delete=models.CASCADE,)
     image = models.ImageField(upload_to='album',null=True,blank=True,verbose_name='专辑图片',help_text='专辑图片')
-    pass
+
 
     class Meta:
         verbose_name = '专辑图片'

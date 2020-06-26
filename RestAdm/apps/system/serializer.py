@@ -213,9 +213,10 @@ class AlbumSerializers(serializers.ModelSerializer):
     # 设置超链接
     # track_list = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='track-detail')
 
+
     class Meta:
         model = Album
-        fields = ['album_name','artist','track_list']
+        fields = ['album_name','artist','track_list',]
 
 
 class TrackSerilizers(serializers.ModelSerializer):
@@ -224,9 +225,13 @@ class TrackSerilizers(serializers.ModelSerializer):
         model = Track
         fields = '__all__'
 
+
+
 class AlbumImageSerilizers(serializers.ModelSerializer):
+
+    # 这个不能再这里进行序列化,否则会出问题
+    # album = AlbumSerializers(required=True)
 
     class Meta:
         model = AlbumImage
         fields = '__all__'
-
