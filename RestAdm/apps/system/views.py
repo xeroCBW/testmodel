@@ -388,6 +388,25 @@ class BannerViewSet(viewsets.ModelViewSet):
     queryset = Banner.objects.all().order_by('index')
     serializer_class = BannerSerilizer
 
+
+
+class CartViewSet(viewsets.ModelViewSet):
+    '''
+    购物车
+    list:获取购物车列表
+    update:更新某样商品
+    retrieve:获取某项商品详情
+    '''
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return CartListSerializer
+        else:
+            return CartSerializer
+
+    def get_queryset(self):
+        return Cart.objects.filter(user=self.request.user)
+
+
 # class TestViewSet(viewsets.ModelViewSet):
 #
 #     def get_serializer_class(self):

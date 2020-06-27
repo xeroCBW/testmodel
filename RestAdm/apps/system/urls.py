@@ -23,6 +23,7 @@ router.register('category', CategoryViewSet,base_name='category')
 router.register('good',GoodViewSet,base_name='good')
 router.register('user-fav',UserFavorateViewSet,base_name='user-fav')
 router.register('banner',BannerViewSet,base_name='banner')
+router.register('cart',CartViewSet,base_name='cart')
 
 router.register('album', AlbumtViewSet,base_name='album')
 router.register('track', TrackViewSet,base_name='track')

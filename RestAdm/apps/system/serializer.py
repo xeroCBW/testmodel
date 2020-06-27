@@ -279,3 +279,50 @@ class BannerSerilizer(serializers.ModelSerializer):
     class Meta:
         model = Banner
         fields = '__all__'
+
+class CartListSerializer(serializers.ModelSerializer):
+
+    good = GooodSerializer(read_only=True)
+    id = serializers.HyperlinkedRelatedField(read_only=True,view_name='cart-detail')
+    class Meta:
+        model = Cart
+        fields = ('good','num','id')
+
+class CartSerializer(serializers.Serializer):
+
+    create_time = serializers.DateTimeField(read_only=True)
+    update_time = serializers.DateTimeField(read_only=True)
+    # 使用当前用户,并且隐藏这个字段
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault(),
+    )
+    num = serializers.IntegerField(required=True,
+                                   label='数量',
+                                   min_value=1,
+                                   error_messages={
+                                     'min_value' :'商品的数量不能小于1','required':'请输入商品数量'
+                                   },
+                                   )
+    good = serializers.PrimaryKeyRelatedField(queryset=Good.objects.all(),required=True)
+
+    #有就利用原来的,没有就创建一个新的,整理不需要去验证唯一性
+    def create(self, validated_data):
+
+        user = self.context['request'].user
+        num = validated_data['num']
+        good = validated_data['good']
+
+        existed = Cart.objects.filter(user=user,good=good)
+
+        if existed:
+            existed = existed[0]
+            existed.num += num
+            existed.save()
+        else:
+            existed = Cart.objects.create(**validated_data)
+        return existed
+
+    def update(self, instance, validated_data):
+        instance.num = validated_data['num']
+        instance.save()
+        return instance

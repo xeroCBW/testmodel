@@ -274,3 +274,20 @@ class Banner(BaseModel):
 
     def __str__(self):
         return self.good.name
+
+
+class Cart(BaseModel):
+
+    good = models.ForeignKey(Good,on_delete=models.CASCADE,null=True,blank=True,help_text='商品',verbose_name='商品')
+    user = models.ForeignKey(UserProfile,on_delete=models.CASCADE,null=True,blank=True,help_text='用户',verbose_name='用户')
+    num = models.IntegerField(verbose_name='商品数量',help_text='商品数量')
+
+    class Meta:
+        ordering = ['id']
+        verbose_name='购物车'
+        verbose_name_plural=verbose_name
+        unique_together = ['good','user' ]
+
+    def __str__(self):
+        return '%s: %d' %(self.good.name,self.num)
+
