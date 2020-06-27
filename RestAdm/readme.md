@@ -24,3 +24,4 @@ python manage.py dumpdata > dp.json
 8. 可以再model 和 serializer 进行数据的校验
 9. 设置成外键的时候,一定要设置成自己
 10. 设置金钱的时候用decaimal digit 是总数 place 是小数
+11. 超级用户可以查看所有,自己只能查看自己这个还没有思路

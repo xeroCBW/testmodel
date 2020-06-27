@@ -269,3 +269,13 @@ class UserFavorateSerializer(serializers.ModelSerializer):
         ]
         model = UserFavorate
         fields = '__all__'
+
+
+class BannerSerilizer(serializers.ModelSerializer):
+
+    create_time = serializers.DateTimeField(read_only=True)
+    update_time = serializers.DateTimeField(read_only=True)
+
+    class Meta:
+        model = Banner
+        fields = '__all__'

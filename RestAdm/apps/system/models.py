@@ -257,3 +257,20 @@ class UserFavorate(BaseModel):
 
     def __str__(self):
         return self.user.username
+
+
+
+class Banner(BaseModel):
+
+    good = models.ForeignKey(Good,on_delete=models.CASCADE,verbose_name='商品',help_text='商品',null=True,blank=True)
+    image = models.ImageField(upload_to='banner',null=True,blank=True,verbose_name='图片',help_text='图片')
+    index = models.IntegerField(default=1,verbose_name='轮播顺序',help_text='轮播顺序')
+
+
+    class Meta:
+        ordering = ['-id']
+        verbose_name = '轮播图'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.good.name

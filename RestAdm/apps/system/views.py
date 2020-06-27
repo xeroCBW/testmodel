@@ -364,11 +364,24 @@ class GoodViewSet(viewsets.ModelViewSet):
     serializer_class = GooodSerializer
 
 class UserFavorateViewSet(viewsets.ModelViewSet):
-
+    # 搜索的时候用的good的id,注意不能使用双下划线
+    # 默认是pk
+    lookup_field = 'pk'
+    # lookup_field = 'good_id'
     serializer_class = UserFavorateSerializer
+    queryset = UserFavorate.objects.all()
 
-    def get_queryset(self):
-        return UserFavorate.objects.filter(user=self.request.user)
+
+    # def get_queryset(self):
+    #     # if self.request.user
+    #
+    #     return UserFavorate.objects.filter(user=self.request.user)
+
+
+class BannerViewSet(viewsets.ModelViewSet):
+
+    queryset = Banner.objects.all().order_by('index')
+    serializer_class = BannerSerilizer
 
 # class TestViewSet(viewsets.ModelViewSet):
 #
