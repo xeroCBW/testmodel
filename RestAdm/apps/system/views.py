@@ -1,5 +1,6 @@
 import json
 
+import django_filters
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.hashers import make_password
@@ -14,6 +15,7 @@ from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework.mixins import *
 from rest_framework.views import APIView
 
+from system.filters import GoodFilter
 from system.models import *
 from system.serializer import *
 
@@ -362,6 +364,9 @@ class GoodViewSet(viewsets.ModelViewSet):
 
     queryset = Good.objects.all()
     serializer_class = GooodSerializer
+
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_class = GoodFilter
 
 class UserFavorateViewSet(viewsets.ModelViewSet):
     # 搜索的时候用的good的id,注意不能使用双下划线

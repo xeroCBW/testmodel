@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
     'system',
     'rest_framework',
+    'django_filters',
     # 设置查询过滤器,注意不能大于版本2.0.2
     # 'django_filter',
     'rest_framework.authtoken',

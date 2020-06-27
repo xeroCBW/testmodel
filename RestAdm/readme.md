@@ -25,3 +25,11 @@ python manage.py dumpdata > dp.json
 9. 设置成外键的时候,一定要设置成自己
 10. 设置金钱的时候用decaimal digit 是总数 place 是小数
 11. 超级用户可以查看所有,自己只能查看自己这个还没有思路
+12. 添加过滤器之后的查询链接为:http://localhost:8000/system/good/?is_new=true&is_hot=true
+要用到的类有:控件 + 自定义类
+
+```python
+filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+filter_class = GoodFilter
+```
+
