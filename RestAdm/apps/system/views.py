@@ -358,6 +358,12 @@ class CategoryViewSet(viewsets.ModelViewSet):
         else:
             return CategorySerializer
 
+class GoodViewSet(viewsets.ModelViewSet):
+
+    queryset = Good.objects.all()
+    serializer_class = GooodSerializer
+
+
 
 # class TestViewSet(viewsets.ModelViewSet):
 #
@@ -372,6 +378,10 @@ class CategoryViewSet(viewsets.ModelViewSet):
 #     def get_queryset(self):
 #         queryset = RoleMenu.objects.all()
 #         return queryset
+
+
+
+
 
 
 class AlbumtViewSet(viewsets.ModelViewSet):

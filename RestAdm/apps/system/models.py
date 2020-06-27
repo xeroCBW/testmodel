@@ -208,5 +208,35 @@ class Category(BaseModel):
     def __str__(self):
         return self.name
 
+class Good(BaseModel):
 
+
+    category = models.ForeignKey(Category,on_delete=Category,default=None,null=True,blank=True,verbose_name='分类',help_text='分类',related_name='good_list')
+    good_sn = models.IntegerField(null=True,blank=True,verbose_name='货物号',help_text='货物号')
+    name = models.CharField(max_length=100,null=True,blank=True,verbose_name='商品名',help_text='商品名')
+    desc = models.TextField(max_length=1000,null=True,blank=True,verbose_name='商品的描述',help_text='商品的描述')
+    image = models.ImageField(null=True,blank=True,upload_to='goods',verbose_name='商品的主图片',help_text='商品的主图片')
+
+    market_price = models.DecimalField(default=0.0,max_digits=20,decimal_places=3,verbose_name='市场的价格',help_text='市场的价格')
+    shop_price = models.DecimalField(default=0.0, max_digits=20, decimal_places=3, verbose_name='本店的价格',help_text='本店的价格')
+
+    click_num = models.IntegerField(default=0,verbose_name='点击次数',help_text='点击次数')
+    favorate_num = models.IntegerField(default=0, verbose_name='喜欢次数', help_text='喜欢次数')
+    sold_num = models.IntegerField(default=0, verbose_name='已卖数量', help_text='已卖数量')
+    good_num = models.IntegerField(default=0, verbose_name='库存数量', help_text='库存数量')
+
+    is_hot = models.BooleanField(default=False,verbose_name='商品是否热卖',help_text='商品是否热卖')
+    is_new = models.BooleanField(default=False,verbose_name='是否新产品',help_text='是否新产品')
+
+    ship_free = models.BooleanField(default=False,verbose_name='是否包邮',help_text='是否包邮')
+
+
+
+
+    class Meta:
+        ordering = ['-id']
+        verbose_name='商品'
+        verbose_name_plural = verbose_name
+
+    pass
 

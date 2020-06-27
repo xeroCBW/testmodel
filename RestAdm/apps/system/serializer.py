@@ -236,3 +236,11 @@ class CategoryListSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class GooodSerializer(serializers.ModelSerializer):
+
+    create_time = serializers.DateTimeField(read_only=True)
+    update_time = serializers.DateTimeField(read_only=True)
+
+    class Meta:
+        model = Good
+        fields = '__all__'
