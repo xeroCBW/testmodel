@@ -169,8 +169,7 @@ class Track(BaseModel):
     def __str__(self):
         return '%d: %s' %(self.order,self.title)
 
-class AlbumImage(BaseModel):
-
+class  AlbumImage(BaseModel):
     album = models.OneToOneField(Album,on_delete=models.CASCADE,related_name='album_image')
     image = models.ImageField(upload_to='album',null=True,blank=True,verbose_name='专辑图片',help_text='专辑图片')
 
@@ -182,3 +181,32 @@ class AlbumImage(BaseModel):
     def __str__(self):
         # 这里是返回用户的名字,本质是用户的图片
         return self.album.album_name
+
+
+
+class Category(BaseModel):
+
+    CATEGORY_TYPE = (
+        (1,'一级类别'),
+        (2,'二级类别'),
+        (3,'三级类别')
+    )
+    name = models.CharField(max_length=100,verbose_name='标题',help_text='标题')
+    desc = models.CharField(max_length=1000,verbose_name='描述',help_text='描述')
+    type = models.IntegerField(choices=CATEGORY_TYPE,default=1,verbose_name='类型',help_text='类型')
+    code = models.CharField(max_length=100,verbose_name='编码',help_text='编码')
+    is_top = models.BooleanField(default=False,verbose_name='是否是顶级菜单',help_text='是否是顶级菜单')
+    # 设置foreignKey 一定要设置成自己
+    parent_id = models.ForeignKey('self',default=None,null=True,blank=True,verbose_name='父菜单',help_text='父菜单',on_delete=models.CASCADE,related_name='sub_category')
+
+
+    class Meta:
+        ordering = ['-id']
+        verbose_name='类别'
+        verbose_name_plural=verbose_name
+
+    def __str__(self):
+        return self.name
+
+
+

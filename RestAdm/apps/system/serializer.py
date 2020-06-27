@@ -196,3 +196,43 @@ class AlbumImageSerilizers(serializers.ModelSerializer):
         fields = '__all__'
 
 
+
+
+
+class CategorySerializer(serializers.ModelSerializer):
+
+    create_time = serializers.DateTimeField(read_only=True)
+    update_time = serializers.DateTimeField(read_only=True)
+
+    # update_user = serializers.PrimaryKeyRelatedField(
+    #     read_only=True,
+    #     default=serializers.CurrentUserDefault(),
+    # )
+    #
+    # create_user = serializers.PrimaryKeyRelatedField(
+    #     read_only=True,
+    #     default=serializers.CurrentUserDefault(),
+    # )
+
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+
+class CategoryList2Serializer(serializers.ModelSerializer):
+    sub_category = CategorySerializer(many=True)
+
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+class CategoryListSerializer(serializers.ModelSerializer):
+    '''
+    是以总的反向的来看的,这里没有显式的写sub_category
+    '''
+    sub_category = CategoryList2Serializer(many=True)
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+

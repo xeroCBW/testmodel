@@ -20,3 +20,6 @@ python manage.py dumpdata > dp.json
 4. 貌似hyperLinkRelate不能显示图片
 5. 可以设置通用tag,具体详情见[通用关系](https://github.com/fangweiren/Django-REST-framework-documentation/blob/master/API-Guide/Serializer-relations.md)
 6. 设置时间可以设置成readonly = true 这样就不会要求用户算时间了
+7. lookup_field = 'goods_id' /user/1/ 这个是url 数字中搜索的ID
+8. 可以再model 和 serializer 进行数据的校验
+9. 设置成外键的时候,一定要设置成自己

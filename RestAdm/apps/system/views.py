@@ -342,6 +342,23 @@ class UserMessageViewSet(viewsets.ModelViewSet):
     serializer_class = UserMessageSerializer
 
 
+class CategoryViewSet(viewsets.ModelViewSet):
+
+
+
+    def get_queryset(self):
+        if self.action == 'list':
+            return Category.objects.filter(is_top=True)
+        else:
+            return Category.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return CategoryListSerializer
+        else:
+            return CategorySerializer
+
+
 # class TestViewSet(viewsets.ModelViewSet):
 #
 #     def get_serializer_class(self):
