@@ -238,5 +238,22 @@ class Good(BaseModel):
         verbose_name='商品'
         verbose_name_plural = verbose_name
 
-    pass
+    def __str__(self):
+        return self.name
 
+
+
+class UserFavorate(BaseModel):
+
+    user = models.ForeignKey(UserProfile,on_delete=models.CASCADE,verbose_name='用户')
+    good = models.ForeignKey(Good,on_delete=models.CASCADE,verbose_name='商品')
+
+    class Meta:
+        ordering = ['-id']
+        unique_together = ("user", "good")
+        verbose_name = '用户收藏'
+        verbose_name_plural = verbose_name
+
+
+    def __str__(self):
+        return self.user.username

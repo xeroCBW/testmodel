@@ -21,7 +21,7 @@ router.register('user-address', UserAddressViewSet,base_name='user-address')
 router.register('user-message', UserMessageViewSet,base_name='user-message')
 router.register('category', CategoryViewSet,base_name='category')
 router.register('good',GoodViewSet,base_name='good')
-
+router.register('user-fav',UserFavorateViewSet,base_name='user-fav')
 
 router.register('album', AlbumtViewSet,base_name='album')
 router.register('track', TrackViewSet,base_name='track')

@@ -23,3 +23,4 @@ python manage.py dumpdata > dp.json
 7. lookup_field = 'goods_id' /user/1/ 这个是url 数字中搜索的ID
 8. 可以再model 和 serializer 进行数据的校验
 9. 设置成外键的时候,一定要设置成自己
+10. 设置金钱的时候用decaimal digit 是总数 place 是小数

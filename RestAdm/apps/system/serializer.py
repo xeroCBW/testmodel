@@ -244,3 +244,28 @@ class GooodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Good
         fields = '__all__'
+
+class UserFavorateSerializer(serializers.ModelSerializer):
+
+
+    user = serializers.HiddenField(
+
+        default=serializers.CurrentUserDefault(),
+    )
+
+    create_time = serializers.DateTimeField(read_only=True)
+    update_time = serializers.DateTimeField(read_only=True)
+
+
+
+    class Meta:
+        validators= [
+            UniqueTogetherValidator(
+                queryset=UserFavorate.objects.all(),
+                fields = ('user','good'),
+                message='已经收藏,清重新选择'
+            )
+
+        ]
+        model = UserFavorate
+        fields = '__all__'

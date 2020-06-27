@@ -363,7 +363,12 @@ class GoodViewSet(viewsets.ModelViewSet):
     queryset = Good.objects.all()
     serializer_class = GooodSerializer
 
+class UserFavorateViewSet(viewsets.ModelViewSet):
 
+    serializer_class = UserFavorateSerializer
+
+    def get_queryset(self):
+        return UserFavorate.objects.filter(user=self.request.user)
 
 # class TestViewSet(viewsets.ModelViewSet):
 #
