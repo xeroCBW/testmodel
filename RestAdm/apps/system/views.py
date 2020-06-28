@@ -362,11 +362,36 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
 class GoodViewSet(viewsets.ModelViewSet):
 
+    '''
+    list:获取所有商品的详情
+    retrieve:是获取点击商品的次数,可以看做是page View
+    '''
+
     queryset = Good.objects.all()
     serializer_class = GooodSerializer
 
+    # 设置过滤/多个字段查找
+    #做个是显示过滤的控件
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_class = GoodFilter
+
+
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.click_num += 1
+        instance.save()
+
+        serializer = self.get_serializer(instance)
+
+        return Response(serializer.data)
+
+
+
+
+
+
+
 
 class UserFavorateViewSet(viewsets.ModelViewSet):
     # 搜索的时候用的good的id,注意不能使用双下划线
