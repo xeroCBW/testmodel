@@ -253,6 +253,8 @@ class GooodSerializer(serializers.ModelSerializer):
 class UserFavorateSerializer(serializers.ModelSerializer):
 
 
+    id = serializers.HyperlinkedRelatedField(read_only=True,view_name='user-fav-detail')
+    good = GooodSerializer(read_only=True)
     user = serializers.HiddenField(
 
         default=serializers.CurrentUserDefault(),
