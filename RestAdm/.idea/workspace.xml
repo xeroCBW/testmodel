@@ -94,11 +94,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/system/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="226">
-              <caret line="429" column="16" lean-forward="false" selection-start-line="429" selection-start-column="16" selection-end-line="429" selection-end-column="16" />
+            <state relative-caret-position="-114">
+              <caret line="423" column="29" lean-forward="true" selection-start-line="423" selection-start-column="29" selection-end-line="423" selection-end-column="29" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -106,11 +106,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="serializer.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="serializer.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/system/serializer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="353" column="9" lean-forward="true" selection-start-line="353" selection-start-column="9" selection-end-line="353" selection-end-column="9" />
+            <state relative-caret-position="278">
+              <caret line="354" column="23" lean-forward="false" selection-start-line="354" selection-start-column="23" selection-end-line="354" selection-end-column="23" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -227,8 +227,8 @@
         <option value="$PROJECT_DIR$/db_tools/base_model.py" />
         <option value="$PROJECT_DIR$/apps/system/urls.py" />
         <option value="$PROJECT_DIR$/apps/system/models.py" />
-        <option value="$PROJECT_DIR$/apps/system/serializer.py" />
         <option value="$PROJECT_DIR$/apps/system/views.py" />
+        <option value="$PROJECT_DIR$/apps/system/serializer.py" />
       </list>
     </option>
   </component>
@@ -936,16 +936,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/system/serializer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="353" column="9" lean-forward="true" selection-start-line="353" selection-start-column="9" selection-end-line="353" selection-end-column="9" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/system/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="175">
@@ -956,8 +946,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/system/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="429" column="16" lean-forward="false" selection-start-line="429" selection-start-column="16" selection-end-line="429" selection-end-column="16" />
+        <state relative-caret-position="-114">
+          <caret line="423" column="29" lean-forward="true" selection-start-line="423" selection-start-column="29" selection-end-line="423" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/system/serializer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="278">
+          <caret line="354" column="23" lean-forward="false" selection-start-line="354" selection-start-column="23" selection-end-line="354" selection-end-column="23" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>

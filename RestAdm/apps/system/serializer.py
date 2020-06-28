@@ -352,6 +352,7 @@ class OrderSerilizer(serializers.ModelSerializer):
             user_id = self.context['request'].user.id,
             random_str = Random().randint(10,99)
         )
+        return order_sn
     # 自定义订单号
     def validate(self, attrs):
         attrs['order_sn'] = self.generate_order_sn()
