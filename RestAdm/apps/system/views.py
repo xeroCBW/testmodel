@@ -375,8 +375,6 @@ class GoodViewSet(viewsets.ModelViewSet):
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
     filter_class = GoodFilter
 
-
-
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         instance.click_num += 1
@@ -385,13 +383,6 @@ class GoodViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(instance)
 
         return Response(serializer.data)
-
-
-
-
-
-
-
 
 class UserFavorateViewSet(viewsets.ModelViewSet):
     # 搜索的时候用的good的id,注意不能使用双下划线
@@ -408,12 +399,17 @@ class UserFavorateViewSet(viewsets.ModelViewSet):
     #     return UserFavorate.objects.filter(user=self.request.user)
 
 
+    # 将喜欢数+1
+    def perform_create(self, serializer):
+        instance = serializer.save()
+        good = instance.good
+        good.favorate_num += 1
+        good.save()
+
 class BannerViewSet(viewsets.ModelViewSet):
 
     queryset = Banner.objects.all().order_by('index')
     serializer_class = BannerSerilizer
-
-
 
 class CartViewSet(viewsets.ModelViewSet):
     '''
@@ -430,8 +426,6 @@ class CartViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Cart.objects.filter(user=self.request.user)
-
-
 
 # 订单不能删除,智能取消
 class OrderViewSet(mixins.ListModelMixin,mixins.CreateModelMixin,mixins.RetrieveModelMixin,mixins.DestroyModelMixin,viewsets.GenericViewSet):
@@ -471,9 +465,6 @@ class OrderGoodViewSet(viewsets.ModelViewSet):
     queryset = OrderGood.objects.all()
     serializer_class = OrderGoodSerilizer
 
-
-
-
 # class TestViewSet(viewsets.ModelViewSet):
 #
 #     def get_serializer_class(self):
@@ -487,8 +478,6 @@ class OrderGoodViewSet(viewsets.ModelViewSet):
 #     def get_queryset(self):
 #         queryset = RoleMenu.objects.all()
 #         return queryset
-
-
 
 
 class AlbumtViewSet(viewsets.ModelViewSet):

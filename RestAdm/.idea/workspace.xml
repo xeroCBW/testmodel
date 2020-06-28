@@ -62,18 +62,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="base_model.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db_tools/base_model.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="15" column="34" lean-forward="true" selection-start-line="15" selection-start-column="34" selection-end-line="15" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#45#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/system/urls.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -84,14 +72,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/system/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="89">
-              <caret line="400" column="31" lean-forward="false" selection-start-line="400" selection-start-column="31" selection-end-line="400" selection-end-column="31" />
+            <state relative-caret-position="297">
+              <caret line="404" column="28" lean-forward="true" selection-start-line="404" selection-start-column="28" selection-end-line="404" selection-end-column="28" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="viewsets.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/rest_framework/viewsets.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="163" column="32" lean-forward="true" selection-start-line="163" selection-start-column="32" selection-end-line="163" selection-end-column="32" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -109,18 +107,18 @@
       <file leaf-file-name="mixins.py" pinned="false" current-in-tab="false">
         <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/rest_framework/mixins.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-160">
-              <caret line="55" column="34" lean-forward="false" selection-start-line="55" selection-start-column="24" selection-end-line="55" selection-end-column="34" />
+            <state relative-caret-position="257">
+              <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="serializer.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="serializer.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/system/serializer.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="258" column="0" lean-forward="true" selection-start-line="258" selection-start-column="0" selection-end-line="258" selection-end-column="0" />
+            <state relative-caret-position="139">
+              <caret line="257" column="4" lean-forward="false" selection-start-line="257" selection-start-column="4" selection-end-line="257" selection-end-column="4" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -227,9 +225,9 @@
         <option value="$PROJECT_DIR$/db_tools/base_model.py" />
         <option value="$PROJECT_DIR$/apps/system/urls.py" />
         <option value="$PROJECT_DIR$/apps/system/models.py" />
-        <option value="$PROJECT_DIR$/apps/system/views.py" />
         <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/apps/system/serializer.py" />
+        <option value="$PROJECT_DIR$/apps/system/views.py" />
       </list>
     </option>
   </component>
@@ -515,7 +513,7 @@
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24547102" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18663195" sideWeight="0.53899086" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18663195" sideWeight="0.53899086" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Anonymous Apex" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -830,14 +828,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/rest_framework/viewsets.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="37">
-          <caret line="145" column="6" lean-forward="false" selection-start-line="145" selection-start-column="6" selection-end-line="145" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/rest_framework/fields.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -930,14 +920,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/rest_framework/mixins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-160">
-          <caret line="55" column="34" lean-forward="false" selection-start-line="55" selection-start-column="24" selection-end-line="55" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/readme.md">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="363">
@@ -946,20 +928,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/system/views.py">
+    <entry file="file://$PROJECT_DIR$/apps/system/serializer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="89">
-          <caret line="400" column="31" lean-forward="false" selection-start-line="400" selection-start-column="31" selection-end-line="400" selection-end-column="31" />
+        <state relative-caret-position="139">
+          <caret line="257" column="4" lean-forward="false" selection-start-line="257" selection-start-column="4" selection-end-line="257" selection-end-column="4" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/system/serializer.py">
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/rest_framework/viewsets.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="258" column="0" lean-forward="true" selection-start-line="258" selection-start-column="0" selection-end-line="258" selection-end-column="0" />
+        <state relative-caret-position="153">
+          <caret line="163" column="32" lean-forward="true" selection-start-line="163" selection-start-column="32" selection-end-line="163" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/anaconda3/lib/python3.6/site-packages/rest_framework/mixins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/system/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="297">
+          <caret line="404" column="28" lean-forward="true" selection-start-line="404" selection-start-column="28" selection-end-line="404" selection-end-column="28" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
