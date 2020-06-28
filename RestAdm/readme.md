@@ -8,9 +8,19 @@
 ### 数据导出
 
 ```
-python manage.py dumpdata > dp.json
+python manage.py dumpdata > db.json
 ```
 
+### 启动项目
+```
+nohup python manage.py runserver 0.0.0.0:80 &
+```
+
+### 导出requirement
+
+```
+pip freeze > requirements.txt
+```
 
 ### 没有的字段序列化
 
@@ -37,3 +47,5 @@ filter_class = GoodFilter
 14. 为什么要保存当时的订单号,因为用户可能在下订单后修改,所以保存下单时刻的订单
 14. 生成订单号,年月日时分秒+两位数随机数
 15. 设置retrieve 本质是pageView 每次进去后,就会将商品的浏览数量加一
+16. 通过signal来导入信号量
+17 .商品的库存数量,是基于购物车;购物车加入商品就减去;购物车新增,商品也减去;购物车清空商品数量加

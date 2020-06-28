@@ -400,11 +400,12 @@ class UserFavorateViewSet(viewsets.ModelViewSet):
 
 
     # 将喜欢数+1
-    def perform_create(self, serializer):
-        instance = serializer.save()
-        good = instance.good
-        good.favorate_num += 1
-        good.save()
+    # 或者使用信号量
+    # def perform_create(self, serializer):
+    #     instance = serializer.save()
+    #     good = instance.good
+    #     good.favorate_num += 1
+    #     good.save()
 
 class BannerViewSet(viewsets.ModelViewSet):
 
