@@ -241,6 +241,8 @@ class CategoryListSerializer(serializers.ModelSerializer):
 
 class GooodSerializer(serializers.ModelSerializer):
 
+    id = serializers.HyperlinkedRelatedField(read_only=True,view_name='good-detail')
+
     create_time = serializers.DateTimeField(read_only=True)
     update_time = serializers.DateTimeField(read_only=True)
 
