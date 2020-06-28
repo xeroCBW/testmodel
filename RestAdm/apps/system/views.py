@@ -407,6 +407,48 @@ class CartViewSet(viewsets.ModelViewSet):
         return Cart.objects.filter(user=self.request.user)
 
 
+
+# 订单不能删除,智能取消
+class OrderViewSet(mixins.ListModelMixin,mixins.CreateModelMixin,mixins.RetrieveModelMixin,mixins.DestroyModelMixin,viewsets.GenericViewSet):
+    '''
+    list:获取当前用户订单
+    retrieve:获取订单详情
+    create:创建订单
+    destroy:取消订单
+    '''
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return OrderSerilizer
+        if self.action == 'retrieve':
+            return OrderGoodListSerilizer
+        return OrderSerilizer
+    def get_queryset(self):
+        return Order.objects.filter(user=self.request.user)
+
+    def perform_create(self, serializer):
+
+        # 设置订单保存
+        order = serializer.save()
+
+        cart = Cart.objects.filter(user=self.request.user)
+        for x in cart:
+            order_good = OrderGood()
+            order_good.good = x.good
+            order_good.num = x.num
+            order_good.order = order
+            order_good.save()
+            # 删除数据---这是一个对象,并不是删除list中的元素,而是删除orm元素
+            x.delete()
+        return order
+
+class OrderGoodViewSet(viewsets.ModelViewSet):
+
+    queryset = OrderGood.objects.all()
+    serializer_class = OrderGoodSerilizer
+
+
+
+
 # class TestViewSet(viewsets.ModelViewSet):
 #
 #     def get_serializer_class(self):
@@ -420,8 +462,6 @@ class CartViewSet(viewsets.ModelViewSet):
 #     def get_queryset(self):
 #         queryset = RoleMenu.objects.all()
 #         return queryset
-
-
 
 
 

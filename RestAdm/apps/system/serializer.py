@@ -1,3 +1,6 @@
+import time
+from random import Random
+
 from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
@@ -326,3 +329,51 @@ class CartSerializer(serializers.Serializer):
         instance.num = validated_data['num']
         instance.save()
         return instance
+
+
+class OrderSerilizer(serializers.ModelSerializer):
+
+    id = serializers.HyperlinkedRelatedField(read_only=True,view_name='order-detail')
+    user = serializers.HiddenField(
+        default=serializers.CurrentUserDefault()
+    )
+
+    pay_status = serializers.CharField(read_only=True)
+    trade_no = serializers.CharField(read_only=True)
+    order_sn = serializers.CharField(read_only=True)
+    pay_time = serializers.DateTimeField(read_only=True)
+    nonce_str = serializers.CharField(read_only=True)
+    pay_type = serializers.IntegerField(read_only=True)
+
+    def generate_order_sn(self):
+
+        order_sn = '{time_str}{user_id}{random_str}'.format(
+            time_str = time.strftime('%Y%m%d%H%M%S'),
+            user_id = self.context['request'].user.id,
+            random_str = Random().randint(10,99)
+        )
+    # 自定义订单号
+    def validate(self, attrs):
+        attrs['order_sn'] = self.generate_order_sn()
+        return attrs
+
+    class Meta:
+
+        model = Order
+        fields = '__all__'
+
+
+class OrderGoodSerilizer(serializers.ModelSerializer):
+
+    good = GooodSerializer()
+    class Meta:
+        model = OrderGood
+        fields = '__all__'
+
+class OrderGoodListSerilizer(serializers.ModelSerializer):
+    # 查询出多个商品
+    good_list = OrderGoodSerilizer(many=True)
+
+    class Meta:
+        model = Order
+        fields = '__all__'
