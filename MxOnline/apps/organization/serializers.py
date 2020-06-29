@@ -14,3 +14,10 @@ class CourseOrganizationSerializer(serializers.ModelSerializer):
     class Meta:
         model = CourseOrg
         fields = '__all__'
+
+
+class TeacherSerializer(serializers.ModelSerializer):
+    add_time = serializers.DateTimeField(read_only=True)
+    class Meta:
+        model = Teacher
+        fields = '__all__'

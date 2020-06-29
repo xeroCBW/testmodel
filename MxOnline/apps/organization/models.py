@@ -48,7 +48,7 @@ class CourseOrg(models.Model):
 
 
 class Teacher(models.Model):
-    org = models.ForeignKey(CourseOrg,verbose_name='所属机构',on_delete=models.CASCADE)
+
     name = models.CharField('教师名',max_length=50)
     work_years = models.IntegerField('工作年限',default=0)
     work_company = models.CharField('就职公司',max_length=50)
@@ -57,6 +57,9 @@ class Teacher(models.Model):
     click_nums = models.IntegerField('点击数',default=0)
     fav_nums = models.IntegerField('收藏数',default=0)
     add_time = models.DateTimeField(default=datetime.now)
+    org = models.ForeignKey(CourseOrg, verbose_name='所属机构', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='teacher',null=True,blank=True)
+    age = models.IntegerField(default=0)
 
     class Meta:
         verbose_name = '教师'
@@ -64,4 +67,6 @@ class Teacher(models.Model):
 
     def __str__(self):
         return "[{0}]的教师: {1}".format(self.org, self.name)
+
+
 

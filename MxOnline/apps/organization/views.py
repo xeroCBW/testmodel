@@ -22,3 +22,6 @@ class CourseOrganizationViewSet(viewsets.ModelViewSet):
     serializer_class = CourseOrganizationSerializer
     queryset = CourseOrg.objects.all()
 
+class TeacherViewSet(viewsets.ModelViewSet):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherSerializer

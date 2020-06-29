@@ -5,7 +5,7 @@ from .views import *
 router = DefaultRouter()
 router.register('course-org',CourseOrganizationViewSet,base_name='organization-org')
 router.register('city',CityViewSet,base_name='organization-city')
-# router.register('category',CategoryViewSet,base_name='category')
+router.register('teacher',TeacherViewSet,base_name='teacher')
 
 urlpatterns = [
 
