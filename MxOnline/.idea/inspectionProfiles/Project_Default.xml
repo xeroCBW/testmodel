@@ -4,7 +4,7 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="239">
+          <list size="281">
             <item index="0" class="java.lang.String" itemvalue="greenlet" />
             <item index="1" class="java.lang.String" itemvalue="Babel" />
             <item index="2" class="java.lang.String" itemvalue="scikit-learn" />
@@ -244,6 +244,48 @@
             <item index="236" class="java.lang.String" itemvalue="ply" />
             <item index="237" class="java.lang.String" itemvalue="scrapy-redis-cluster" />
             <item index="238" class="java.lang.String" itemvalue="openpyxl" />
+            <item index="239" class="java.lang.String" itemvalue="scrapy-redis" />
+            <item index="240" class="java.lang.String" itemvalue="tzlocal" />
+            <item index="241" class="java.lang.String" itemvalue="Automat" />
+            <item index="242" class="java.lang.String" itemvalue="pygame" />
+            <item index="243" class="java.lang.String" itemvalue="queuelib" />
+            <item index="244" class="java.lang.String" itemvalue="orderedmultidict" />
+            <item index="245" class="java.lang.String" itemvalue="adslproxy" />
+            <item index="246" class="java.lang.String" itemvalue="Click" />
+            <item index="247" class="java.lang.String" itemvalue="pyasn1" />
+            <item index="248" class="java.lang.String" itemvalue="constantly" />
+            <item index="249" class="java.lang.String" itemvalue="scrapyd" />
+            <item index="250" class="java.lang.String" itemvalue="websocket-client" />
+            <item index="251" class="java.lang.String" itemvalue="selenium" />
+            <item index="252" class="java.lang.String" itemvalue="pyOpenSSL" />
+            <item index="253" class="java.lang.String" itemvalue="websocket" />
+            <item index="254" class="java.lang.String" itemvalue="docker-py" />
+            <item index="255" class="java.lang.String" itemvalue="scrapyd-client" />
+            <item index="256" class="java.lang.String" itemvalue="shub" />
+            <item index="257" class="java.lang.String" itemvalue="PyDispatcher" />
+            <item index="258" class="java.lang.String" itemvalue="scrapy-crawlera" />
+            <item index="259" class="java.lang.String" itemvalue="scrapy-redis-bloomfilter" />
+            <item index="260" class="java.lang.String" itemvalue="beautifulsoup4" />
+            <item index="261" class="java.lang.String" itemvalue="hyperlink" />
+            <item index="262" class="java.lang.String" itemvalue="service-identity" />
+            <item index="263" class="java.lang.String" itemvalue="django-apscheduler" />
+            <item index="264" class="java.lang.String" itemvalue="pymongo" />
+            <item index="265" class="java.lang.String" itemvalue="pyppeteer" />
+            <item index="266" class="java.lang.String" itemvalue="scrapy-splash" />
+            <item index="267" class="java.lang.String" itemvalue="xlwt" />
+            <item index="268" class="java.lang.String" itemvalue="zope.interface" />
+            <item index="269" class="java.lang.String" itemvalue="incremental" />
+            <item index="270" class="java.lang.String" itemvalue="toml" />
+            <item index="271" class="java.lang.String" itemvalue="attrs" />
+            <item index="272" class="java.lang.String" itemvalue="docker-pycreds" />
+            <item index="273" class="java.lang.String" itemvalue="chardet" />
+            <item index="274" class="java.lang.String" itemvalue="parsel" />
+            <item index="275" class="java.lang.String" itemvalue="retrying" />
+            <item index="276" class="java.lang.String" itemvalue="scrapinghub" />
+            <item index="277" class="java.lang.String" itemvalue="furl" />
+            <item index="278" class="java.lang.String" itemvalue="python-scrapyd-api" />
+            <item index="279" class="java.lang.String" itemvalue="pyquery" />
+            <item index="280" class="java.lang.String" itemvalue="Twisted" />
           </list>
         </value>
       </option>

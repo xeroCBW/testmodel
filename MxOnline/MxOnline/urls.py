@@ -18,8 +18,6 @@ from django.contrib import admin
 # from django.urls import path
 from rest_framework.routers import DefaultRouter
 
-from course.views import CourseViewset
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
