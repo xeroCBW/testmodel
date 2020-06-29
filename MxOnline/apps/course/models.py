@@ -53,7 +53,8 @@ class Lesson(models.Model):
 class Video(models.Model):
     lesson = models.ForeignKey(Lesson, verbose_name="章节",on_delete=models.CASCADE)
     name = models.CharField("视频名",max_length=100)
-
+    url = models.CharField(max_length=100,null=True,blank=True)
+    learn_times = models.IntegerField(default=0)
     add_time = models.DateTimeField("添加时间", default=datetime.now)
 
     class Meta:

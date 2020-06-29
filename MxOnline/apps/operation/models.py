@@ -1,9 +1,7 @@
 # operation/models.py
 
 from datetime import datetime
-
 from django.db import models
-
 from course.models import Course
 from users.models import UserProfile
 
@@ -62,6 +60,7 @@ class UserMessage(models.Model):
 
 
 class UserCourse(models.Model):
+
     user = models.ForeignKey(UserProfile,verbose_name='用户',on_delete=models.CASCADE)
     course = models.ForeignKey(Course,verbose_name='课程',on_delete=models.CASCADE)
     add_time = models.DateTimeField('添加时间', default=datetime.now)

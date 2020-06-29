@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from .models import *
-import django_filters
 
 
 class CitySerializer(serializers.ModelSerializer):

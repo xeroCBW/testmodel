@@ -25,3 +25,8 @@ class LessonViewSet(viewsets.ModelViewSet):
 
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
+
+class VideoViewSet(viewsets.ModelViewSet):
+
+    queryset = Video.objects.all()
+    serializer_class = VideoSerializer

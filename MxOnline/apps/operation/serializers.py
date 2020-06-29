@@ -1,30 +1,34 @@
 from rest_framework import serializers
+from .models import *
 
-from course.models import *
+class UserCourseSerializer(serializers.ModelSerializer):
 
-
-class CourseSerializer(serializers.ModelSerializer):
     add_time = serializers.DateTimeField(read_only=True)
-    class Meta:
-        model = Course
-        fields = '__all__'
-    pass
 
-class CourseResourceSerializer(serializers.ModelSerializer):
-    add_time = serializers.DateTimeField(read_only=True)
     class Meta:
-        model = CourseResource
+        model = UserCourse
         fields = '__all__'
 
+class UserAskSerializer(serializers.ModelSerializer):
 
-class LessonSerializer(serializers.ModelSerializer):
     add_time = serializers.DateTimeField(read_only=True)
+
     class Meta:
-        model = Lesson
+        model = UserAsk
         fields = '__all__'
 
-class VideoSerializer(serializers.ModelSerializer):
+
+class UserMessageSerializer(serializers.ModelSerializer):
+
     add_time = serializers.DateTimeField(read_only=True)
     class Meta:
-        model = Video
+        model = UserMessage
+        fields = '__all__'
+
+
+class CourseCommentsSerializer(serializers.ModelSerializer):
+
+    add_time = serializers.DateTimeField(read_only=True)
+    class Meta:
+        model = CourseComments
         fields = '__all__'
