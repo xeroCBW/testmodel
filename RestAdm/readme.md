@@ -50,3 +50,21 @@ filter_class = GoodFilter
 15. 设置retrieve 本质是pageView 每次进去后,就会将商品的浏览数量加一
 16. 通过signal来导入信号量
 17 .商品的库存数量,是基于购物车;购物车加入商品就减去;购物车新增,商品也减去;购物车清空商品数量加
+
+
+
+### 开启跨域
+
+1. pip install django-cors-headers==2.2.0
+2. installed_apps 装入app
+
+INSTALLED_APPS = [
+    'corsheaders',
+]
+
+3. 加入middleware 放入第一个
+MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+4. CORS_ORIGIN_ALLOW_ALL = True
