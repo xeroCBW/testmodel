@@ -11,3 +11,7 @@ http://localhost:8000/organization/course-org/?ordering=-click_nums
 ```
 http://localhost:8000/organization/course-org/?click_nums=&fav_nums=&city=3&search=%E5%8C%97%E4%BA%AC
 ```
+
+
+### 不明白的地方
+fav_id 13 啥意思

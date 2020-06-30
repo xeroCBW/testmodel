@@ -1,3 +1,4 @@
+
 ### 数据的导入导出
 1. python manage.py dumpdata > db.json.
 2. Change the database settings to new database such as of MySQL / PostgreSQL.
