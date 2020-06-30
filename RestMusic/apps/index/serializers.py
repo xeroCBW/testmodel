@@ -27,7 +27,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class DynamicSerializer(serializers.ModelSerializer):
 
-    song = SongSerializer()
+    song = SongSerializer(read_only=True)
 
     class Meta:
         model = Dynamic

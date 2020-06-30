@@ -51,19 +51,19 @@ class CommentViewSet(viewsets.ModelViewSet):
 
 
 
-class DynamicViewSet(viewsets.ModelViewSet):
+class DynamicViewSet(mixins.ListModelMixin,mixins.RetrieveModelMixin,viewsets.GenericViewSet):
     '''
     list:
         列表数据
     '''
 
-    filter_backends = (filters.SearchFilter,filters.OrderingFilter,django_filters.rest_framework.DjangoFilterBackend)
-
-    # 一定要将字段放进去,否则排序将不起作用
-    ordering_fields = ('create_time', )
-    search_fields = ('song__name', )
-    filter_class = DynamicFilter
-    # 设置分页
+    # filter_backends = (filters.SearchFilter,filters.OrderingFilter,django_filters.rest_framework.DjangoFilterBackend)
+    #
+    # # 一定要将字段放进去,否则排序将不起作用
+    # ordering_fields = ('create_time', )
+    # search_fields = ('song__name', )
+    # filter_class = DynamicFilter
+    # # 设置分页
     pagination_class = GlobalPagination
 
     queryset = Dynamic.objects.all().order_by('-play_num')
