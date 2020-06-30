@@ -169,12 +169,24 @@ class AlbumSerializers(serializers.ModelSerializer):
     # track_list = serializers.HyperlinkedRelatedField(many=True,read_only=True,view_name='track-detail')
     image = serializers.ImageField(source='album_image.image',read_only=True)
 
+
     class Meta:
         model = Album
         fields = ['album_name','artist','track_list','image']
 
 
 class TrackSerilizers(serializers.ModelSerializer):
+
+    # update_user = serializers.PrimaryKeyRelatedField(read_only=True,default=serializers.CurrentUserDefault().user.id)
+    # create_user = serializers.PrimaryKeyRelatedField(read_only=True,default=serializers.CurrentUserDefault().user.id)
+
+    # def validate_create_user(self,data):
+    #
+    #
+    #
+    #     return data
+
+
 
     class Meta:
         model = Track
