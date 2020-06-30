@@ -27,6 +27,8 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class DynamicSerializer(serializers.ModelSerializer):
 
+    song = SongSerializer()
+
     class Meta:
         model = Dynamic
         fields = '__all__'

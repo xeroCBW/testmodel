@@ -52,11 +52,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="readme.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="readme.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/readme.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="21" column="3" lean-forward="false" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
+            <state relative-caret-position="-177">
+              <caret line="42" column="33" lean-forward="false" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -74,11 +74,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/system/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="21" selection-end-column="47" />
+            <state relative-caret-position="254">
+              <caret line="375" column="29" lean-forward="false" selection-start-line="375" selection-start-column="19" selection-end-line="375" selection-end-column="29" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -89,8 +89,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/system/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="179">
-              <caret line="35" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+            <state relative-caret-position="525">
+              <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
               <folding>
                 <element signature="e#0#58#0" expanded="true" />
               </folding>
@@ -101,8 +101,8 @@
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RestAdm/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="29" column="37" lean-forward="true" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
+            <state relative-caret-position="435">
+              <caret line="29" column="37" lean-forward="false" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
               <folding>
                 <element signature="e#631#667#0" expanded="true" />
               </folding>
@@ -161,9 +161,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>base</find>
-      <find>null</find>
-      <find>django_filter</find>
       <find>Structure</find>
       <find>role</find>
       <find>RoleMenu</find>
@@ -186,11 +183,14 @@
       <find>good</find>
       <find>related_name</find>
       <find>goods</find>
-      <find>filter</find>
       <find>pill</find>
       <find>cros</find>
       <find>cors</find>
       <find>llow</find>
+      <find>filter</find>
+      <find>searchfilter</find>
+      <find>django_filters</find>
+      <find>GoodFilter</find>
     </findStrings>
     <replaceStrings>
       <replace>None</replace>
@@ -235,8 +235,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-68" />
-    <option name="y" value="26" />
+    <option name="x" value="86" />
+    <option name="y" value="23" />
     <option name="width" value="1194" />
     <option name="height" value="705" />
   </component>
@@ -255,8 +255,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -284,6 +282,8 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -490,7 +490,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-68" y="26" width="1194" height="705" extended-state="0" />
+    <frame x="86" y="23" width="1194" height="705" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -802,7 +802,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-21">
           <caret line="268" column="6" lean-forward="false" selection-start-line="268" selection-start-column="6" selection-end-line="268" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -817,7 +816,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="222">
           <caret line="938" column="28" lean-forward="false" selection-start-line="938" selection-start-column="28" selection-end-line="938" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -874,19 +872,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/readme.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="21" column="3" lean-forward="false" selection-start-line="21" selection-start-column="3" selection-end-line="21" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../RestMusic/db.sqlite3">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -900,20 +889,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/RestAdm/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="29" column="37" lean-forward="true" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
+        <state relative-caret-position="435">
+          <caret line="29" column="37" lean-forward="false" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
           <folding>
             <element signature="e#631#667#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/system/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="35" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#58#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -928,13 +907,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/apps/system/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="525">
+          <caret line="35" column="0" lean-forward="false" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#58#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/apps/system/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="21" selection-end-column="47" />
+        <state relative-caret-position="254">
+          <caret line="375" column="29" lean-forward="false" selection-start-line="375" selection-start-column="19" selection-end-line="375" selection-end-column="29" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/readme.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-177">
+          <caret line="42" column="33" lean-forward="false" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="33" />
+          <folding />
         </state>
       </provider>
     </entry>
