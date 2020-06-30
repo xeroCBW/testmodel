@@ -15,7 +15,7 @@ class DynamicFilter(django_filters.rest_framework.FilterSet):
 
     class Meta:
         model = Dynamic
-        fields = ['song',]
+        fields = ['song__label',]
 
 class SongFilter(django_filters.rest_framework.FilterSet):
 

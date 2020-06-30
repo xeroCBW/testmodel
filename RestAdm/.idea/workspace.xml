@@ -133,7 +133,7 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/system/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="122">
+            <state relative-caret-position="232">
               <caret line="172" column="89" lean-forward="false" selection-start-line="172" selection-start-column="78" selection-end-line="172" selection-end-column="89" />
               <folding />
             </state>
@@ -939,7 +939,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/system/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="122">
+        <state relative-caret-position="232">
           <caret line="172" column="89" lean-forward="false" selection-start-line="172" selection-start-column="78" selection-end-line="172" selection-end-column="89" />
           <folding />
         </state>

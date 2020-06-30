@@ -49,12 +49,16 @@ class Song(models.Model):
     label = models.ForeignKey(Label,on_delete=models.CASCADE,verbose_name='歌曲分类',related_name='label_song')
     create_time = models.DateTimeField('创建时间',blank=True,null=True, auto_now_add=True)
 
+    class Meta:
+        ordering = ['id',]
+
+
     def __str__(self):
         return self.name
 
 class Dynamic(models.Model):
 
-    song = models.ForeignKey(Song,on_delete=models.CASCADE,verbose_name='歌名',related_name='song_dynamic')
+    song = models.OneToOneField(Song,on_delete=models.CASCADE,verbose_name='歌名',related_name='song_dynamic')
 
     play_num = models.IntegerField('播放次数')
     search_num = models.IntegerField('搜索次数')
