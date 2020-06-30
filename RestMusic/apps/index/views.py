@@ -20,6 +20,15 @@ class SongViewSet(viewsets.ModelViewSet):
         列表数据
     '''
 
+    filter_backends = (filters.SearchFilter,filters.OrderingFilter,django_filters.rest_framework.DjangoFilterBackend)
+
+    # 一定要将字段放进去,否则排序将不起作用
+    ordering_fields = ('create_time', )
+    search_fields = ('name', )
+    filter_class = SongFilter
+    # 设置分页
+    pagination_class = GlobalPagination
+
     queryset = Song.objects.all()
     serializer_class = SongSerializer
 
