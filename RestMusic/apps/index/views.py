@@ -23,7 +23,7 @@ class SongViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.SearchFilter,filters.OrderingFilter,django_filters.rest_framework.DjangoFilterBackend)
 
     # 一定要将字段放进去,否则排序将不起作用
-    ordering_fields = ('id', )
+    ordering_fields = ('release','id' )
     search_fields = ('name', )
     filter_class = SongFilter
     # 设置分页
@@ -60,7 +60,7 @@ class DynamicViewSet(mixins.ListModelMixin,mixins.RetrieveModelMixin,viewsets.Ge
     filter_backends = (filters.SearchFilter,filters.OrderingFilter,django_filters.rest_framework.DjangoFilterBackend)
 
     # 一定要将字段放进去,否则排序将不起作用
-    ordering_fields = ('id', )
+    ordering_fields = ('id', 'play_num','down_num','search_num')
     search_fields = ('song__name', )
     filter_class = DynamicFilter
     # # 设置分页
