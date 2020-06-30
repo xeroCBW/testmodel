@@ -68,3 +68,8 @@ MIDDLEWARE = [
 ]
 
 4. CORS_ORIGIN_ALLOW_ALL = True
+5. 允许携带cookie CORS_ALLOW_CREDENTIALS = True
+
+
+[跨域链接](https://segmentfault.com/a/1190000018025987)
+
