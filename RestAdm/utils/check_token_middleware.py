@@ -20,7 +20,7 @@ class CheckTokenMiddleware(MiddlewareMixin):
 
     def process_request(self,request):
 
-        print('----CheckTokenMiddleware start ....---')
+        print('----CheckTokenMiddleware request start ....---')
         print(request.path)
         if request.method == 'POST':
             print(json.dumps(request.POST,ensure_ascii=False,indent=4))
@@ -56,5 +56,7 @@ class CheckTokenMiddleware(MiddlewareMixin):
             user.save()
             return response
         else:
+            print('----CheckTokenMiddleware resonse start ....---')
+            print(json.dumps(response.data, ensure_ascii=False, indent=4))
             return response
 
