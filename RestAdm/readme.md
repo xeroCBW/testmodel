@@ -73,3 +73,16 @@ MIDDLEWARE = [
 
 [跨域链接](https://segmentfault.com/a/1190000018025987)
 
+### 关于外网访问
+
+#### 局域网内访问
+
+1. 在终端中运行 $ python3 manage.py runserver 0.0.0.0:8000 开启 django dev server 。注：因为 $ python3 manage.py runserver 默认运行的是 $ python3 manage.py runserver 127.0.0.1:8000 （默认是 8000 端口）即运行本地 localhost 服务
+2. 在 settings.py 中添加服务器（本机）局域网 IP 地址实现局域网内「IP+端口号」访问
+```
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ '192.168.x.xxx' ]
+```
+3. 此时局域网内访问 192.168.x.xxx:8000/admin 即可访问 Django 的 admin 页面
+
+[网络访问链接](https://github.com/FatliTalk/blog/issues/76)

@@ -10,7 +10,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import viewsets, filters, mixins
+from rest_framework import filters
+from rest_framework.viewsets import *
 from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework.mixins import *
 from rest_framework.views import APIView
@@ -18,10 +19,17 @@ from rest_framework.views import APIView
 from system.filters import GoodFilter
 from system.models import *
 from system.serializer import *
+from .utils.RestModelViewSet import *
 
 from rest_framework.filters import SearchFilter
 User = get_user_model()
 
+def jwt_response_payload_handler(token,user=None,request=None):
+    return {
+        'token': token,
+        'user_id': user.id,
+        'username': user.username
+    }
 
 # class CustomBackend(ModelBackend):
 #     """
@@ -37,7 +45,7 @@ User = get_user_model()
 #         except Exception as e:
 #             return None
 
-class StructureListViewSet(viewsets.ModelViewSet):
+class StructureListViewSet(CustomBaseModelViewSet):
     '''
     list:
         部门列表数据
@@ -59,7 +67,7 @@ class StructureListViewSet(viewsets.ModelViewSet):
             return StructureCreateSerializer
 
 
-class MenuListViewSet(viewsets.ModelViewSet):
+class MenuListViewSet(CustomBaseModelViewSet):
     '''
     list:
         部门列表数据
@@ -86,7 +94,7 @@ class MenuListViewSet(viewsets.ModelViewSet):
             return Menu.objects.all()
 
 
-class RoleListViewSet(viewsets.ModelViewSet):
+class RoleListViewSet(CustomBaseModelViewSet):
     '''
     list:
         部门列表数据
@@ -96,7 +104,7 @@ class RoleListViewSet(viewsets.ModelViewSet):
     serializer_class = RoleSerializer
 
 
-# class RoleMenuListViewSet(viewsets.ModelViewSet):
+# class RoleMenuListViewSet(CustomBaseModelViewSet):
 #     '''
 #     list:
 #         部门列表数据
@@ -139,7 +147,7 @@ class RoleListViewSet(viewsets.ModelViewSet):
     #     pass
 
 
-# class UserRoleListViewSet(viewsets.ModelViewSet):
+# class UserRoleListViewSet(CustomBaseModelViewSet):
 #     '''
 #     list:
 #         部门列表数据
@@ -177,7 +185,7 @@ class RoleListViewSet(viewsets.ModelViewSet):
 #             return UserRoleSerializer
 #
 
-class UserListViewSet(viewsets.ModelViewSet):
+class UserListViewSet(CustomBaseModelViewSet):
     '''
         list:
             用户列表数据
@@ -238,7 +246,7 @@ def build_tree(data, p_id, level=0):
     return tree
 
 
-class UserPermissionListViewSet(RetrieveModelMixin,viewsets.GenericViewSet):
+class UserPermissionListViewSet(CustomBaseRetrieveModelMixin,viewsets.GenericViewSet):
     '''
         list:根据用户名来查询菜单
     '''
@@ -295,7 +303,7 @@ class UserPermissionListViewSet(RetrieveModelMixin,viewsets.GenericViewSet):
 #         return  menu_list
 #
 
-class ChangePasswordtViewSet(UpdateModelMixin,viewsets.GenericViewSet):
+class ChangePasswordtViewSet(CustomBaseUpdateModelMixin,viewsets.GenericViewSet):
     '''
     update:修改用户密码
     '''
@@ -326,7 +334,7 @@ class ChangePasswordtViewSet(UpdateModelMixin,viewsets.GenericViewSet):
 
 
 
-class UserAddressViewSet(viewsets.ModelViewSet):
+class UserAddressViewSet(CustomBaseModelViewSet):
 
     '''
     收货地址管理
@@ -338,13 +346,13 @@ class UserAddressViewSet(viewsets.ModelViewSet):
     '''
     queryset = UserAddress.objects.all()
     serializer_class = UserAddressSerializer
-class UserMessageViewSet(viewsets.ModelViewSet):
+class UserMessageViewSet(CustomBaseModelViewSet):
 
     queryset = UserMessage.objects.all()
     serializer_class = UserMessageSerializer
 
 
-class CategoryViewSet(viewsets.ModelViewSet):
+class CategoryViewSet(CustomBaseModelViewSet):
 
 
 
@@ -360,7 +368,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
         else:
             return CategorySerializer
 
-class GoodViewSet(viewsets.ModelViewSet):
+class GoodViewSet(CustomBaseModelViewSet):
 
     '''
     list:获取所有商品的详情
@@ -384,7 +392,7 @@ class GoodViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.data)
 
-class UserFavorateViewSet(viewsets.ModelViewSet):
+class UserFavorateViewSet(CustomBaseModelViewSet):
     # 搜索的时候用的good的id,注意不能使用双下划线
     # 默认是pk
     lookup_field = 'pk'
@@ -407,12 +415,12 @@ class UserFavorateViewSet(viewsets.ModelViewSet):
     #     good.favorate_num += 1
     #     good.save()
 
-class BannerViewSet(viewsets.ModelViewSet):
+class BannerViewSet(CustomBaseModelViewSet):
 
     queryset = Banner.objects.all().order_by('index')
     serializer_class = BannerSerilizer
 
-class CartViewSet(viewsets.ModelViewSet):
+class CartViewSet(CustomBaseModelViewSet):
     '''
     购物车
     list:获取购物车列表
@@ -429,7 +437,7 @@ class CartViewSet(viewsets.ModelViewSet):
         return Cart.objects.filter(user=self.request.user)
 
 # 订单不能删除,智能取消
-class OrderViewSet(mixins.ListModelMixin,mixins.CreateModelMixin,mixins.RetrieveModelMixin,mixins.DestroyModelMixin,viewsets.GenericViewSet):
+class OrderViewSet(CustomBaseListModelMixin,CustomBaseCreateModelMixin,CustomBaseRetrieveModelMixin,CustomBaseDestroyModelMixin,GenericViewSet):
     '''
     list:获取当前用户订单
     retrieve:获取订单详情
@@ -461,12 +469,12 @@ class OrderViewSet(mixins.ListModelMixin,mixins.CreateModelMixin,mixins.Retrieve
             x.delete()
         return order
 
-class OrderGoodViewSet(viewsets.ModelViewSet):
+class OrderGoodViewSet(CustomBaseModelViewSet):
 
     queryset = OrderGood.objects.all()
     serializer_class = OrderGoodSerilizer
 
-# class TestViewSet(viewsets.ModelViewSet):
+# class TestViewSet(CustomBaseModelViewSet):
 #
 #     def get_serializer_class(self):
 #         if self.action == "list":
@@ -481,15 +489,15 @@ class OrderGoodViewSet(viewsets.ModelViewSet):
 #         return queryset
 
 
-class AlbumtViewSet(viewsets.ModelViewSet):
+class AlbumtViewSet(CustomBaseModelViewSet):
     queryset = Album.objects.all()
     serializer_class = AlbumSerializers
 
-class TrackViewSet(viewsets.ModelViewSet):
+class TrackViewSet(CustomBaseModelViewSet):
     queryset = Track.objects.all()
     serializer_class = TrackSerilizers
 
-class AlbumImageViewSet(viewsets.ModelViewSet):
+class AlbumImageViewSet(CustomBaseModelViewSet):
 
     queryset = AlbumImage.objects.all()
     serializer_class = AlbumImageSerilizers

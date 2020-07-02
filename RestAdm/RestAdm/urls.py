@@ -29,7 +29,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('system/', include('system.urls')),
     path('docs',include_docs_urls(title='后台管理系统')),
-    path('login', obtain_jwt_token),
+    path('user/login', obtain_jwt_token),
 
     #文件
     path('media/<path:path>',serve,{'document_root':MEDIA_ROOT}),

@@ -9,6 +9,13 @@
           </mappings>
         </serverdata>
       </paths>
+      <paths name="RestAdm-xw">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/root/projects/RestAdm" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
     </serverData>
   </component>
 </project>

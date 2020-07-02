@@ -27,3 +27,6 @@ class RbacMiddleware(MiddlewareMixin):
             #     ret = dict(url=[url for url in permission_url if url is not None])
             #     ret['request_url'] = request_url
             #     return render(request, 'page404.html', ret)
+
+    
+

@@ -155,17 +155,22 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+
+
 #有效期限
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),    #也可以设置seconds=20
     'JWT_AUTH_HEADER_PREFIX': 'JWT',                       #JWT跟前端保持一致，比如“token”这里设置成JWT
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'system.views.jwt_response_payload_handler',
+
 }
 
 REST_FRAMEWORK = {
-    #分页
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    #每页显示的个数
-    'PAGE_SIZE': 10,
+    # #分页
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # #每页显示的个数
+    # 'PAGE_SIZE': 10,
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
@@ -181,4 +186,6 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'system.UserProfile'
-CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ORIGIN_ALLOW_ALL = True # If this is used then `CORS_ORIGIN_WHITELIST` will not have any effect
+CORS_ALLOW_CREDENTIALS = True
