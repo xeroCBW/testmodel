@@ -20,14 +20,13 @@ class CheckTokenMiddleware(MiddlewareMixin):
 
     def process_request(self,request):
 
-        print('----CheckTokenMiddleware request start ....---')
-        print(request.path)
-        if request.method == 'POST':
-            print(json.dumps(request.POST,ensure_ascii=False,indent=4))
-
-        if request.method == 'PUT':
-            print(json.dumps(QueryDict(request.body), ensure_ascii=False, indent=4))
-
+        # print('----CheckTokenMiddleware request start ....---')
+        # print(request.path)
+        # if request.method == 'POST':
+        #     print(json.dumps(request.POST,ensure_ascii=False,indent=4))
+        #
+        # if request.method == 'PUT':
+        #     print(json.dumps(QueryDict(request.body), ensure_ascii=False, indent=4))
 
         jwt_token = request.META.get('Authorization', None)
         if jwt_token is not None and jwt_token != '':
@@ -56,7 +55,5 @@ class CheckTokenMiddleware(MiddlewareMixin):
             user.save()
             return response
         else:
-            print('----CheckTokenMiddleware resonse start ....---')
-            print(json.dumps(response.data, ensure_ascii=False, indent=4))
             return response
 
