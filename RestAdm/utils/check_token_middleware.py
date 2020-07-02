@@ -5,6 +5,8 @@ from jwt import InvalidSignatureError
 from rest_framework.exceptions import ValidationError
 from rest_framework_jwt.serializers import VerifyJSONWebTokenSerializer
 from rest_framework import status
+import json
+from django.http import QueryDict
 
 class CheckTokenMiddleware(MiddlewareMixin):
     '''
@@ -17,6 +19,16 @@ class CheckTokenMiddleware(MiddlewareMixin):
     '''
 
     def process_request(self,request):
+
+        print('----CheckTokenMiddleware start ....---')
+        print(request.path)
+        if request.method == 'POST':
+            print(json.dumps(request.POST,ensure_ascii=False,indent=4))
+
+        if request.method == 'PUT':
+            print(json.dumps(QueryDict(request.body), ensure_ascii=False, indent=4))
+
+
         jwt_token = request.META.get('Authorization', None)
         if jwt_token is not None and jwt_token != '':
             data = {
@@ -32,7 +44,7 @@ class CheckTokenMiddleware(MiddlewareMixin):
             if user.user_jwt != data['token']:
                 user.user_secret = uuid4()
                 user.save()
-                return HttpResponse("{'msg','请重新登入'}", content_type='application/json', status=400)
+                return HttpResponse("{'msg','请重新登入'}", content_type='application/json', status=status.HTTP_401_UNAUTHORIZED)
 
     def process_response(self, request, response):
         # 仅用于处理 login请求

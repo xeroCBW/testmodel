@@ -24,13 +24,6 @@ from .utils.RestModelViewSet import *
 from rest_framework.filters import SearchFilter
 User = get_user_model()
 
-def jwt_response_payload_handler(token,user=None,request=None):
-    return {
-        'token': token,
-        'user_id': user.id,
-        'username': user.username
-    }
-
 # class CustomBackend(ModelBackend):
 #     """
 #     自定义用户验证
@@ -64,6 +57,7 @@ class StructureListViewSet(CustomBaseModelViewSet):
         if self.action == "list":
             return StructureSerializer
         else:
+
             return StructureCreateSerializer
 
 

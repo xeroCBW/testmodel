@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from db_tools.base_model import *
+from uuid import uuid4
 # Create your models here.
 
 # 这里不能同时存在 user 和 userprofile
@@ -82,6 +83,9 @@ class UserProfile(AbstractUser):
 
 
     role_list = models.ManyToManyField(Role,related_name='user_list')
+
+    """用户模型类"""
+    user_secret = models.UUIDField(default=uuid4(), verbose_name='用户JWT秘钥')
 
     class Meta:
         verbose_name = "用户表"
