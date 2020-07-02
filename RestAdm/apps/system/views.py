@@ -6,7 +6,7 @@ from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.hashers import make_password
 from django.db.models import Q
 from django.forms import model_to_dict
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -303,8 +303,6 @@ class ChangePasswordtViewSet(CustomBaseUpdateModelMixin,viewsets.GenericViewSet)
 
     # update 不需要query_set  只有list才有query_set
     serializer_class = ChangePasswordSerializer
-
-
     def update(self, request, *args, **kwargs):
 
         user_id = kwargs['pk']
@@ -315,15 +313,25 @@ class ChangePasswordtViewSet(CustomBaseUpdateModelMixin,viewsets.GenericViewSet)
         user = User.objects.get(id = user_id)
 
         if not user:
-            return Response({'msg':'用户不存在'}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(data={}, msg="用户不存在", code=400, status=status.HTTP_400_BAD_REQUEST, )
 
         if not user.check_password(old_password):
-            return Response({'msg': '密码错误'}, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(data={}, msg="密码错误", code=400, status=status.HTTP_400_BAD_REQUEST, )
 
         user.password = make_password(new_password)
         user.save()
+        return JsonResponse(data={}, msg="修改密码成功", code=200, status=status.HTTP_200_OK,)
 
-        return Response({'msg': '修改密码成功'}, status=status.HTTP_202_ACCEPTED)
+class LogoutViewSet(CustomBaseCreateModelMixin,GenericViewSet):
+
+    serializer_class = serializers.Serializer
+
+    def create(self, request, *args, **kwargs):
+        user = request.user
+        user.user_secret = uuid4()
+        user.save()
+        return JsonResponse(data={}, msg="登出成功", code=200, status=status.HTTP_200_OK, )
+
 
 
 

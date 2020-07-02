@@ -3,7 +3,7 @@ from django.http import HttpResponse, JsonResponse
 from django.utils.deprecation import MiddlewareMixin
 from jwt import InvalidSignatureError
 from rest_framework.exceptions import ValidationError
-from rest_framework_jwt.serializers import VerifyJSONWebTokenSerializer
+from rest_framework_jwt.serializers import VerifyJSONWebTokenSerializer, jwt_decode_handler
 from rest_framework import status
 import json
 from django.http import QueryDict
@@ -36,16 +36,21 @@ class CheckTokenMiddleware(MiddlewareMixin):
             if user.user_secret != data['token']:
                 user.user_secret = uuid4()
                 user.save()
-                return JsonResponse(data={'msg': '请重新登入', 'data': data, 'code': 401},status=status.HTTP_401_UNAUTHORIZED)
+                return JsonResponse(data={'msg': '登录状态异常,请重新登入', 'data': data, 'code': 401},status=status.HTTP_401_UNAUTHORIZED)
 
     def process_response(self, request, response):
         # 仅用于处理 login请求
-        if request.path == '/user/login':
+        if request.path == '/user/login' and request.method == 'POST' and response.data.get('token'):
             data = response.data
-            valid_data = VerifyJSONWebTokenSerializer().validate(data)
-            user = valid_data['user']
-            user.user_secret = valid_data['token']
-            user.save()
+            try:
+                valid_data = VerifyJSONWebTokenSerializer().validate(data)
+                user = valid_data['user']
+                user.user_secret = valid_data['token']
+                user.save()
+            except(InvalidSignatureError, ValidationError):
+                # 找不到用户，说明token 不合法或者身份过期
+                return JsonResponse(data={'msg': '用户名或者密码错误,请重新登录','data':data,'code':400}, status=status.HTTP_400_BAD_REQUEST)
+
             return response
         else:
             return response

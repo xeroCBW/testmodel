@@ -18,6 +18,8 @@ class RequestLogMiddleware(MiddlewareMixin):
         if request.method == 'PUT':
             request_body = QueryDict(request.body)
 
+
+
         # if response['content-type'] == 'application/json':
         #     if getattr(response, 'streaming', False):
         #         response_body = '<<<Streaming>>>'
@@ -26,7 +28,10 @@ class RequestLogMiddleware(MiddlewareMixin):
         # else:
         #     response_body = '<<<Not JSON>>>'
 
-        response_body = response.data
+        if response.content:
+            response_body = "<<<NOT JSON>>>"
+        else:
+            response_body = response.data
 
         log_data = {
             'user': request.user.pk,

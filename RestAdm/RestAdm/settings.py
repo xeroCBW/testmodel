@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'utils.check_token_middleware.CheckTokenMiddleware',
+    'utils.check_token_middleware.CheckTokenMiddleware',
     'utils.log_middleware.RequestLogMiddleware',
 ]
 
@@ -184,6 +184,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         # 'system.permissions.IsOwnerOrReadOnly',

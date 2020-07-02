@@ -17,6 +17,9 @@ router.register('user', UserListViewSet,base_name='user')
 router.register('user-permission', UserPermissionListViewSet,base_name='user-permission')
 # router.register('role-permission', RolePermissionListViewSet,base_name='role-permission')
 router.register('change-password', ChangePasswordtViewSet,base_name='change-password')
+router.register('logout', LogoutViewSet,base_name='logout')
+
+
 router.register('user-address', UserAddressViewSet,base_name='user-address')
 router.register('user-message', UserMessageViewSet,base_name='user-message')
 router.register('category', CategoryViewSet,base_name='category')
@@ -30,7 +33,6 @@ router.register('order',OrderViewSet,base_name='order')
 router.register('album', AlbumtViewSet,base_name='album')
 router.register('track', TrackViewSet,base_name='track')
 router.register('album-image', AlbumImageViewSet,base_name='album-image')
-
 
 urlpatterns = [
 
