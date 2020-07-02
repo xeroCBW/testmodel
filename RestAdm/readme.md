@@ -51,7 +51,8 @@ filter_class = GoodFilter
 16. 通过signal来导入信号量
 17 .商品的库存数量,是基于购物车;购物车加入商品就减去;购物车新增,商品也减去;购物车清空商品数量加
 18. JsonResponse 继承于 HttpResponse
-18. orderdict()只能放一个元素,注意不能放多个,多个用数组括起来[]
+19. orderdict()只能放一个元素,注意不能放多个,多个用数组括起来[]
+20. hasattr(response,'accepted_media_type')判断是否有某个属性
 
 ### 开启跨域
 

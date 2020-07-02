@@ -37,7 +37,7 @@ class RequestLogMiddleware(MiddlewareMixin):
         #     response_body = '<<<Not JSON>>>'
 
         response_body = dict()
-        if response.accepted_media_type and response.accepted_media_type == 'application/json':
+        if hasattr(response,'accepted_media_type') and response.accepted_media_type == 'application/json':
             response_body = response.data
         else:
             response_body = "<<<NOT JSON>>>"
