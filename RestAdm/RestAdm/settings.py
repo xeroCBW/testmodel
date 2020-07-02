@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'utils.check_token_middleware.CheckTokenMiddleware',
+    # 'utils.check_token_middleware.CheckTokenMiddleware',
     'utils.log_middleware.RequestLogMiddleware',
 ]
 
@@ -184,7 +184,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         # 'system.permissions.IsOwnerOrReadOnly',
@@ -199,3 +199,88 @@ AUTH_USER_MODEL = 'system.UserProfile'
 
 CORS_ORIGIN_ALLOW_ALL = True # If this is used then `CORS_ORIGIN_WHITELIST` will not have any effect
 CORS_ALLOW_CREDENTIALS = True
+
+
+# LOGGING settings
+LOG_DIR = BASE_DIR + "/log"
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'standard': {
+            'format': '%(asctime)s FuncName:%(funcName)s LINE:%(lineno)d [%(levelname)s]- %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(funcName)s %(message)s'
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'standard'
+        },
+        'default': {
+            'level': 'INFO',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'info.log'),
+            'maxBytes': 1024*1024*50,   # 50 MB
+            'backupCount': 2,
+            'formatter': 'standard',
+        },
+        'default_debug': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'debug.log'),
+            'maxBytes': 1024*1024*50,  # 50 MB
+            'backupCount': 2,
+            'formatter': 'standard',
+        },
+        'request_handler': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'common.log'),
+            'maxBytes': 1024*1024*50,  # 50 MB
+            'backupCount': 2,
+            'formatter': 'standard',
+        },
+        'restful_api': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'filename': os.path.join(LOG_DIR, 'api.log'),
+            'maxBytes': 1024*1024*50,  # 50 MB
+            'backupCount': 2,
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'default_debug'],
+            'level': 'INFO',
+            'propagate': False
+        },
+        'django.request': {
+            'handlers': ['request_handler'],
+            'level': 'INFO',
+            'propagate': False
+        },
+        'common': {
+            'handlers': ['default', 'console'],
+            'level': 'INFO',
+            'propagate': True
+        },
+        'api': {
+            'handlers': ['restful_api'],
+            'level': 'INFO',
+            'propagate': True
+        },
+    }
+}
