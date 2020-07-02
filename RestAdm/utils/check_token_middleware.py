@@ -1,5 +1,5 @@
 from uuid import uuid4
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.utils.deprecation import MiddlewareMixin
 from jwt import InvalidSignatureError
 from rest_framework.exceptions import ValidationError
@@ -20,18 +20,10 @@ class CheckTokenMiddleware(MiddlewareMixin):
 
     def process_request(self,request):
 
-        # print('----CheckTokenMiddleware request start ....---')
-        # print(request.path)
-        # if request.method == 'POST':
-        #     print(json.dumps(request.POST,ensure_ascii=False,indent=4))
-        #
-        # if request.method == 'PUT':
-        #     print(json.dumps(QueryDict(request.body), ensure_ascii=False, indent=4))
-
-        jwt_token = request.META.get('Authorization', None)
+        jwt_token = request.headers.get('Authorization', None)
         if jwt_token is not None and jwt_token != '':
             data = {
-                'token': jwt_token.split(' ')[1],  # [0] 是前缀，默认为JWT
+                'token': jwt_token.split()[1],  # [0] 是前缀，默认为JWT
             }
 
             try:
@@ -39,11 +31,13 @@ class CheckTokenMiddleware(MiddlewareMixin):
                 user = valid_data['user']
             except (InvalidSignatureError, ValidationError):
                 # 找不到用户，说明token 不合法或者身份过期
-                return HttpResponse({'msg': '身份已经过期，请重新登入'}, content_type='application/json', status=status.HTTP_401_UNAUTHORIZED)
+                return JsonResponse(data={'msg': '身份已经过期或不合法，请重新登入','data':data,'code':401}, status=status.HTTP_401_UNAUTHORIZED)
+
             if user.user_jwt != data['token']:
                 user.user_secret = uuid4()
                 user.save()
-                return HttpResponse("{'msg','请重新登入'}", content_type='application/json', status=status.HTTP_401_UNAUTHORIZED)
+                return JsonResponse(data={'msg': '请重新登入', 'data': data, 'code': 401}, code=401, msg="身份已经过期，请重新登入",
+                                    status=status.HTTP_401_UNAUTHORIZED)
 
     def process_response(self, request, response):
         # 仅用于处理 login请求
