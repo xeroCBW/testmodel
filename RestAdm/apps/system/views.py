@@ -20,6 +20,7 @@ from system.filters import GoodFilter
 from system.models import *
 from system.serializer import *
 from .utils.RestModelViewSet import *
+from .paginations import GlobalPagination
 
 from rest_framework.filters import SearchFilter
 User = get_user_model()
@@ -378,6 +379,7 @@ class GoodViewSet(CustomBaseModelViewSet):
 
     queryset = Good.objects.all()
     serializer_class = GooodSerializer
+    pagination_class = GlobalPagination
 
     # 设置过滤/多个字段查找
     #做个是显示过滤的控件
