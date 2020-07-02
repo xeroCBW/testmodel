@@ -17,7 +17,7 @@ from django.conf.urls import include
 from django.contrib import admin
 from django.urls import include,path
 from django.views.static import serve
-from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import obtain_jwt_token,refresh_jwt_token
 
 from rest_framework.documentation import include_docs_urls
 
@@ -30,6 +30,7 @@ urlpatterns = [
     path('system/', include('system.urls')),
     path('docs',include_docs_urls(title='后台管理系统')),
     path('user/login', obtain_jwt_token),
+    path('user/refresh_token', refresh_jwt_token),
 
     #文件
     path('media/<path:path>',serve,{'document_root':MEDIA_ROOT}),

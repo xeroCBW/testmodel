@@ -160,7 +160,12 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 #有效期限
 JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7),    #也可以设置seconds=20
+    # 允许刷新
+    'JWT_ALLOW_REFRESH': True,
+    # 允许续期
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(hours=24),
+
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),    #也可以设置seconds=20
     'JWT_AUTH_HEADER_PREFIX': 'JWT',                       #JWT跟前端保持一致，比如“token”这里设置成JWT
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'system.views.jwt_response_payload_handler',
 
