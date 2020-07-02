@@ -85,7 +85,7 @@ class UserProfile(AbstractUser):
     role_list = models.ManyToManyField(Role,related_name='user_list')
 
     """用户模型类"""
-    user_secret = models.UUIDField(default=uuid4(), verbose_name='用户JWT秘钥')
+    user_secret = models.CharField(max_length=500,default=uuid4(), verbose_name='用户JWT秘钥')
 
     class Meta:
         verbose_name = "用户表"

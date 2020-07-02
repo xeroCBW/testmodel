@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'utils.check_token_middleware.CheckTokenMiddleware',
+    # 'utils.check_token_middleware.CheckTokenMiddleware',
     'utils.log_middleware.RequestLogMiddleware',
 ]
 
@@ -171,7 +171,7 @@ JWT_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'JWT',                       #JWT跟前端保持一致，比如“token”这里设置成JWT
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'utils.users.jwt_response_payload_handler',
     # 自定义用户的secret_key
-    'JWT_GET_USER_SECRET_KEY': 'utils.users.jwt_get_user_secret',
+    # 'JWT_GET_USER_SECRET_KEY': 'utils.users.jwt_get_user_secret',
 
 }
 

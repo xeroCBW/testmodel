@@ -33,19 +33,18 @@ class CheckTokenMiddleware(MiddlewareMixin):
                 # 找不到用户，说明token 不合法或者身份过期
                 return JsonResponse(data={'msg': '身份已经过期或不合法，请重新登入','data':data,'code':401}, status=status.HTTP_401_UNAUTHORIZED)
 
-            if user.user_jwt != data['token']:
+            if user.user_secret != data['token']:
                 user.user_secret = uuid4()
                 user.save()
-                return JsonResponse(data={'msg': '请重新登入', 'data': data, 'code': 401}, code=401, msg="身份已经过期，请重新登入",
-                                    status=status.HTTP_401_UNAUTHORIZED)
+                return JsonResponse(data={'msg': '请重新登入', 'data': data, 'code': 401},status=status.HTTP_401_UNAUTHORIZED)
 
     def process_response(self, request, response):
         # 仅用于处理 login请求
-        if request.META['PATH_INFO'] == '/user/login/':
-            rep_data = response.data
-            valid_data = VerifyJSONWebTokenSerializer().validate(rep_data)
+        if request.path == '/user/login':
+            data = response.data
+            valid_data = VerifyJSONWebTokenSerializer().validate(data)
             user = valid_data['user']
-            user.user_jwt = rep_data['token']
+            user.user_secret = valid_data['token']
             user.save()
             return response
         else:

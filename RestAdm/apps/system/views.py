@@ -263,8 +263,7 @@ class UserPermissionListViewSet(CustomBaseRetrieveModelMixin,viewsets.GenericVie
         menu_list = sorted(menu_list,key=lambda k:k['id'])
         # 对数据进行排序
         res = build_tree(data=menu_list,p_id=None,level=0)
-        return Response({'data':res}, status=status.HTTP_202_ACCEPTED)
-
+        return JsonResponse(data=res, msg="success", code=200,status=status.HTTP_200_OK,)
 #
 
 # class RolePermissionListViewSet(ListModelMixin,viewsets.GenericViewSet):

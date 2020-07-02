@@ -6,4 +6,5 @@ def jwt_response_payload_handler(token,user=None,request=None):
     }
 
 def jwt_get_user_secret(user):
+    print(user)
     return user.user_secret
