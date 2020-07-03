@@ -50,7 +50,7 @@ class Page(BaseModel):
 class Button(BaseModel):
     page = models.ForeignKey(Page, on_delete=models.CASCADE,related_name='page_button')
     name = models.CharField(max_length=100, null=True, blank=True)
-    url = models.CharField(max_length=100, unique=True)
+    url = models.CharField(max_length=100)
 
     class Meta:
         ordering = ['-id']
@@ -64,6 +64,7 @@ class Button(BaseModel):
 class Role(BaseModel):
 
     name = models.CharField(max_length=20,verbose_name="名称")
+    code = models.CharField(max_length=20,default='staff')
 
     # menu_list = models.ManyToManyField(Menu,related_name='role_list')
 

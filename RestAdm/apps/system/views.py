@@ -264,50 +264,60 @@ class UserPermissionListViewSet(CustomBaseRetrieveModelMixin,viewsets.GenericVie
         # # 对数据进行排序
         # res = build_tree(data=menu_list,p_id=None,level=0)
 
-        items = []
+        roles = list()
+        page_list = list()
+        items = list()
+        permissions = list()
+
         for role in user.role_list.all():
-            r = dict()
-            # tmp = dict()
-            # tmp['id'] = role.id
-            # tmp['code']
-            r['id'] = role.id
-            r['name'] = role.name
-            r['desc'] = role.desc
-            r['state'] = role.state
-
-            r['permissions'] = list()
+            roles += [role.code]
             for page in role.page_list.all():
-                p = dict()
-                p['id'] = page.id
-                p['code'] = page.url
-                p['name'] = page.name
-                p['desc'] = page.desc
-                p['state'] = page.state
+                page_list += [page]
 
-                all_button_dict_list = Button.objects.values('url').filter(page=page.id)
-                all_button = list(x['url'] for x in all_button_dict_list)
-                select_button = list(x.url for x in role.button_list.all())
+        # 使用set 对数据进行去重
+        page_list = set(page_list)
+        page_list = list(page_list)
 
-                if set(select_button)>=set(all_button):
-                    p['checkAll'] = True
+        for page in page_list:
+
+            p = dict()
+            p['id'] = page.id
+            p['code'] = page.url
+            p['name'] = page.name
+            p['desc'] = page.desc
+            p['state'] = page.state
+
+            all_button_dict_list = Button.objects.values('url').filter(page=page.id)
+            all_button = list(x['url'] for x in all_button_dict_list)
+            select_button = list(x.url for x in role.button_list.all())
+
+            if set(select_button)>=set(all_button):
+                p['checkAll'] = True
+            else:
+                p['checkAll'] = False
+
+            p['selected'] = list()
+            p['actionsOptions'] = list()
+
+            for x in all_button:
+                if x in select_button:
+                    p['selected'] += [x]
                 else:
-                    p['checkAll'] = False
+                    p['actionsOptions'] += [x]
 
-                p['selected'] = list()
-                p['actionsOptions'] = list()
+            permissions += [p]
 
-                for x in all_button:
-                    if x in select_button:
-                        p['selected'] += [x]
-                    else:
-                        p['actionsOptions'] += [x]
-
-                r['permissions'] += [p]
-
-            items += [r]
-
-
-        res = {'items':items}
+        res = {
+            'permissions':permissions,
+            'roles':roles,
+            "avatar":'',
+            "name": user.name,
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "timestamp": "2019-08-15T09:03:40.775Z",
+            "state": user.is_active
+        }
 
         return JsonResponse(data=res, msg="success", code=200,status=status.HTTP_200_OK,)
 #

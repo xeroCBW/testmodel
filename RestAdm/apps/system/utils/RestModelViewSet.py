@@ -32,7 +32,9 @@ class CustomBaseModelViewSet(viewsets.ModelViewSet):
             return self.get_paginated_response(serializer.data)
 
         serializer = self.get_serializer(queryset, many=True)
-        return JsonResponse(data=serializer.data, code=200, msg="success", status=status.HTTP_200_OK)
+
+        res = {'items':serializer.data}
+        return JsonResponse(data=res, code=200, msg="success", status=status.HTTP_200_OK)
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
