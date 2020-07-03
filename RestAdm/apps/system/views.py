@@ -266,17 +266,22 @@ class UserPermissionListViewSet(CustomBaseRetrieveModelMixin,viewsets.GenericVie
 
         roles = list()
         page_list = list()
-        items = list()
+        button_list = list()
         permissions = list()
 
         for role in user.role_list.all():
             roles += [role.code]
             for page in role.page_list.all():
                 page_list += [page]
+            for button in role.button_list.all():
+                button_list += [button]
 
         # 使用set 对数据进行去重
         page_list = set(page_list)
         page_list = list(page_list)
+
+        button_list = set(button_list)
+        button_list = list(button_list)
 
         for page in page_list:
 
@@ -287,9 +292,9 @@ class UserPermissionListViewSet(CustomBaseRetrieveModelMixin,viewsets.GenericVie
             p['desc'] = page.desc
             p['state'] = page.state
 
-            all_button_dict_list = Button.objects.values('url').filter(page=page.id)
-            all_button = list(x['url'] for x in all_button_dict_list)
-            select_button = list(x.url for x in role.button_list.all())
+            all_button_dict_list = Button.objects.values('url','id').filter(page=page.id)
+            all_button = list(x['id'] for x in all_button_dict_list)
+            select_button = list(x.id for x in button_list)
 
             if set(select_button)>=set(all_button):
                 p['checkAll'] = True
@@ -299,11 +304,16 @@ class UserPermissionListViewSet(CustomBaseRetrieveModelMixin,viewsets.GenericVie
             p['selected'] = list()
             p['actionsOptions'] = list()
 
-            for x in all_button:
-                if x in select_button:
-                    p['selected'] += [x]
-                else:
-                    p['actionsOptions'] += [x]
+            for x in all_button_dict_list:
+                flag = False
+                for v in button_list:
+                    if x['id'] == v.id:
+                        p['selected'] += [x['url']]
+                        flag = True
+                        break
+                if not flag:
+                    p['actionsOptions'] += [x['url']]
+
 
             permissions += [p]
 

@@ -58,7 +58,7 @@ class Button(BaseModel):
         verbose_name_plural = verbose_name
 
     def __str__(self):
-        return self.name
+        return '(%s)%s' %(self.page.name,self.name)
 
 
 class Role(BaseModel):
