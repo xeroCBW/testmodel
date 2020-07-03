@@ -34,18 +34,51 @@ class Menu(BaseModel):
         return self.name + '(' + str(self.menu_type) + ')'
 
 
+class Page(BaseModel):
+    name = models.CharField(max_length=100)
+    url = models.CharField(max_length=100, unique=True)
+
+    class Meta:
+        ordering = ['-id']
+        verbose_name = '页面'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+
+
+class Button(BaseModel):
+    page = models.ForeignKey(Page, on_delete=models.CASCADE,related_name='page_button')
+    name = models.CharField(max_length=100, null=True, blank=True)
+    url = models.CharField(max_length=100, unique=True)
+
+    class Meta:
+        ordering = ['-id']
+        verbose_name = '按钮'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return self.name
+
 
 class Role(BaseModel):
 
     name = models.CharField(max_length=20,verbose_name="名称")
 
-    menu_list = models.ManyToManyField(Menu,related_name='role_list')
+    # menu_list = models.ManyToManyField(Menu,related_name='role_list')
+
+    page_list = models.ManyToManyField(Page,related_name='page_role')
+    button_list = models.ManyToManyField(Button,related_name='button_role')
+
     class Meta:
         ordering = ['-id']
         verbose_name='角色表'
 
     def __str__(self):
         return self.name
+
+
+
 
 
 
@@ -196,7 +229,7 @@ class Category(BaseModel):
         (3,'三级类别')
     )
     name = models.CharField(max_length=100,verbose_name='标题',help_text='标题')
-    desc = models.CharField(max_length=1000,verbose_name='描述',help_text='描述')
+    # desc = models.CharField(max_length=1000,verbose_name='描述',help_text='描述')
     type = models.IntegerField(choices=CATEGORY_TYPE,default=1,verbose_name='类型',help_text='类型')
     code = models.CharField(max_length=100,verbose_name='编码',help_text='编码')
     is_top = models.BooleanField(default=False,verbose_name='是否是顶级菜单',help_text='是否是顶级菜单')
@@ -218,7 +251,7 @@ class Good(BaseModel):
     category = models.ForeignKey(Category,on_delete=Category,default=None,null=True,blank=True,verbose_name='分类',help_text='分类',related_name='good_list')
     good_sn = models.IntegerField(null=True,blank=True,verbose_name='货物号',help_text='货物号')
     name = models.CharField(max_length=100,null=True,blank=True,verbose_name='商品名',help_text='商品名')
-    desc = models.TextField(max_length=1000,null=True,blank=True,verbose_name='商品的描述',help_text='商品的描述')
+    # desc = models.TextField(max_length=1000,null=True,blank=True,verbose_name='商品的描述',help_text='商品的描述')
     image = models.ImageField(null=True,blank=True,upload_to='goods',verbose_name='商品的主图片',help_text='商品的主图片')
 
     market_price = models.DecimalField(default=0.0,max_digits=20,decimal_places=3,verbose_name='市场的价格',help_text='市场的价格')
@@ -352,3 +385,22 @@ class OrderGood(BaseModel):
 
     def __str__(self):
         return self.order.order_sn
+
+
+
+
+
+
+#
+# class RolePageButton(BaseModel):
+#
+#     role = models.ForeignKey(Role,on_delete=models.CASCADE)
+#     page = models.ForeignKey(Page,on_delete=models.CASCADE)
+#     button = models.ForeignKey(Button,on_delete=models.CASCADE)
+#
+#     class Meta:
+#         unique_together = ['role','page','button']
+#
+#     def __str__(self):
+#         return "%s %s %s" %(self.role.name , self.page.name,self.button.name)
+

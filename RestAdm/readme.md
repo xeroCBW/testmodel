@@ -54,8 +54,8 @@ filter_class = GoodFilter
 19. orderdict()只能放一个元素,注意不能放多个,多个用数组括起来[]
 20. hasattr(response,'accepted_media_type')判断是否有某个属性
 21. pip 和python 环境不一致,导致包不同[移除原先链接,增加新的链接](https://stackoverflow.com/questions/43743509/how-to-make-python3-command-run-python-3-6-instead-of-3-5)
-22.
-
+22. 登录登出要关闭csrf这个验证,否者会遇到很多问题
+23. log不能使用request.POST方法
 ### 开启跨域
 
 1. pip install django-cors-headers==2.2.0

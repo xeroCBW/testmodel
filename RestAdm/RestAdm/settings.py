@@ -62,9 +62,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'utils.check_token_middleware.CheckTokenMiddleware',
-    'utils.log_middleware.RequestLogMiddleware',
+    # 'utils.check_token_middleware.CheckTokenMiddleware',
+    # 'utils.log_middleware.RequestLogMiddleware',
     'utils.disable_csrf_middleware.DisableCSRFCheck',
+    # 'utils.ip_block_middleware.IPBlockMiddleWare',
 ]
 
 ROOT_URLCONF = 'RestAdm.urls'

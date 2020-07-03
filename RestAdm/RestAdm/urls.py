@@ -28,7 +28,8 @@ from RestAdm.settings import MEDIA_ROOT
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('system/', include('system.urls')),
+    path('', include('system.urls')),
+    # path('system/', include('system.urls')),
     path('docs',include_docs_urls(title='后台管理系统')),
     path('user/login', obtain_jwt_token),
     path('user/refresh_token', refresh_jwt_token),

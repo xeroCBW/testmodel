@@ -58,8 +58,26 @@ class MenuSerializer(serializers.ModelSerializer):
         model = Menu
         fields = '__all__'
 
+class PageSerilizer(serializers.ModelSerializer):
+
+    page_button = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='button-detail')
+
+    class Meta:
+        model = Page
+        fields = '__all__'
+
+
+
+class ButtonSerilizer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Button
+        fields = '__all__'
 
 class RoleSerializer(serializers.ModelSerializer):
+
+
+
     class Meta:
         model = Role
         fields = '__all__'
@@ -394,3 +412,12 @@ class OrderGoodListSerilizer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = '__all__'
+
+
+
+
+
+# class RolePageButtonSerilizer(serializers.ModelSerializer):
+#     class Meta:
+#         model = RolePageButton
+#         fields = '__all__'

@@ -4,6 +4,9 @@ from django.db import models
 
 class BaseModel(models.Model):
 
+    desc = models.TextField(max_length=1000,null=True,blank=True)
+    state = models.BooleanField(default=True)
+
     create_user = models.IntegerField(verbose_name="创建人",null=True, blank=True,help_text='创建者')
     create_time = models.DateTimeField("创建时间",auto_now_add = True,help_text='创建时间')
 

@@ -8,31 +8,36 @@ router = DefaultRouter()
 
 #配置goods的url
 # router.register('user', UserListViewSet,base_name='user')
-router.register('menu', MenuListViewSet,base_name='menu')
-router.register('structure', StructureListViewSet,base_name='structure')
+# router.register('menu', MenuListViewSet,base_name='menu')
+# router.register('structure', StructureListViewSet,base_name='structure')
 router.register('role', RoleListViewSet,base_name='role')
 # router.register('role-menu', RoleMenuListViewSet,base_name='role-menu')
 # router.register('user-role', UserRoleListViewSet,base_name='user-role')
 router.register('user', UserListViewSet,base_name='user')
 router.register('user-permission', UserPermissionListViewSet,base_name='user-permission')
 # router.register('role-permission', RolePermissionListViewSet,base_name='role-permission')
-router.register('change-password', ChangePasswordtViewSet,base_name='change-password')
-router.register('logout', LogoutViewSet,base_name='logout')
+# router.register('change-password', ChangePasswordtViewSet,base_name='change-password')
+# router.register('logout', LogoutViewSet,base_name='logout')
 
 
-router.register('user-address', UserAddressViewSet,base_name='user-address')
-router.register('user-message', UserMessageViewSet,base_name='user-message')
-router.register('category', CategoryViewSet,base_name='category')
-router.register('good',GoodViewSet,base_name='good')
-router.register('user-fav',UserFavorateViewSet,base_name='user-fav')
-router.register('banner',BannerViewSet,base_name='banner')
-router.register('cart',CartViewSet,base_name='cart')
-router.register('order',OrderViewSet,base_name='order')
+# router.register('user-address', UserAddressViewSet,base_name='user-address')
+# router.register('user-message', UserMessageViewSet,base_name='user-message')
+# router.register('category', CategoryViewSet,base_name='category')
+# router.register('good',GoodViewSet,base_name='good')
+# router.register('user-fav',UserFavorateViewSet,base_name='user-fav')
+# router.register('banner',BannerViewSet,base_name='banner')
+# router.register('cart',CartViewSet,base_name='cart')
+# router.register('order',OrderViewSet,base_name='order')
 # router.register('order-good',OrderGoodViewSet,base_name='order-good')
 
-router.register('album', AlbumtViewSet,base_name='album')
-router.register('track', TrackViewSet,base_name='track')
-router.register('album-image', AlbumImageViewSet,base_name='album-image')
+# router.register('album', AlbumtViewSet,base_name='album')
+# router.register('track', TrackViewSet,base_name='track')
+# router.register('album-image', AlbumImageViewSet,base_name='album-image')
+
+
+router.register('page', PageViewSet,base_name='page')
+router.register('button', ButtonViewSet,base_name='button')
+# router.register('role-page-button', RolePageButtonViewSet,base_name='role-page-button')
 
 urlpatterns = [
 

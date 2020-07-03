@@ -255,15 +255,60 @@ class UserPermissionListViewSet(CustomBaseRetrieveModelMixin,viewsets.GenericVie
 
         user = User.objects.filter(id=id)[0]
 
-        menu_list = []
+        # menu_list = []
+        # for role in user.role_list.all():
+        #     for menu in role.menu_list.all():
+        #         menu_list += [model_to_dict(menu,fields=('id','name','menu_type','url','icon','is_top','code','parent'))]
+        #
+        # menu_list = sorted(menu_list,key=lambda k:k['id'])
+        # # 对数据进行排序
+        # res = build_tree(data=menu_list,p_id=None,level=0)
+
+        items = []
         for role in user.role_list.all():
-            for menu in role.menu_list.all():
+            r = dict()
+            # tmp = dict()
+            # tmp['id'] = role.id
+            # tmp['code']
+            r['id'] = role.id
+            r['name'] = role.name
+            r['desc'] = role.desc
+            r['state'] = role.state
 
-                menu_list += [model_to_dict(menu,fields=('id','name','menu_type','url','icon','is_top','code','parent'))]
+            r['permissions'] = list()
+            for page in role.page_list.all():
+                p = dict()
+                p['id'] = page.id
+                p['code'] = page.url
+                p['name'] = page.name
+                p['desc'] = page.desc
+                p['state'] = page.state
 
-        menu_list = sorted(menu_list,key=lambda k:k['id'])
-        # 对数据进行排序
-        res = build_tree(data=menu_list,p_id=None,level=0)
+                all_button_dict_list = Button.objects.values('url').filter(page=page.id)
+                all_button = list(x['url'] for x in all_button_dict_list)
+                select_button = list(x.url for x in role.button_list.all())
+
+                if set(select_button)>=set(all_button):
+                    p['checkAll'] = True
+                else:
+                    p['checkAll'] = False
+
+                p['selected'] = list()
+                p['actionsOptions'] = list()
+
+                for x in all_button:
+                    if x in select_button:
+                        p['selected'] += [x]
+                    else:
+                        p['actionsOptions'] += [x]
+
+                r['permissions'] += [p]
+
+            items += [r]
+
+
+        res = {'items':items}
+
         return JsonResponse(data=res, msg="success", code=200,status=status.HTTP_200_OK,)
 #
 
@@ -504,3 +549,19 @@ class AlbumImageViewSet(CustomBaseModelViewSet):
 
     queryset = AlbumImage.objects.all()
     serializer_class = AlbumImageSerilizers
+
+
+class PageViewSet(CustomBaseModelViewSet):
+
+    queryset = Page.objects.all()
+    serializer_class = PageSerilizer
+
+class ButtonViewSet(CustomBaseModelViewSet):
+
+    queryset = Button.objects.all()
+    serializer_class = ButtonSerilizer
+
+# class RolePageButtonViewSet(CustomBaseModelViewSet):
+#
+#     queryset = RolePageButton.objects.all()
+#     serializer_class = RolePageButtonSerilizer
