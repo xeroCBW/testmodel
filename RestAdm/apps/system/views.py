@@ -269,7 +269,7 @@ class UserPermissionListViewSet(CustomBaseRetrieveModelMixin,viewsets.GenericVie
         button_list = list()
         permissions = list()
 
-        for role in user.role_list.all():
+        for role in user.roles.all():
             roles += [role.code]
             for page in role.page_list.all():
                 page_list += [page]
@@ -320,7 +320,7 @@ class UserPermissionListViewSet(CustomBaseRetrieveModelMixin,viewsets.GenericVie
         res = {
             'permissions':permissions,
             'roles':roles,
-            "avatar":'',
+            "avatar": request._request._current_scheme_host + user.avatar.url,
             "name": user.name,
             "id": user.id,
             "username": user.username,

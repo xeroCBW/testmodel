@@ -66,6 +66,7 @@ class PageSerilizer(serializers.ModelSerializer):
         read_only=True,
         slug_field='url'
     )
+    code = serializers.CharField(read_only=True,source='url')
 
     class Meta:
         model = Page
@@ -95,16 +96,17 @@ class UserProfileListSerializer(serializers.ModelSerializer):
     roles  = serializers.SlugRelatedField(many=True,slug_field='code',read_only=True)
     class Meta:
         model = UserProfile
-        # fields = '__all__'
-        exclude = ('groups','user_permissions','password',)
+        exclude = ('groups','user_permissions','password','last_login')
 
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
 
+    roles = serializers.SlugRelatedField(many=True, slug_field='code', queryset=Role.objects.all())
+
     class Meta:
         model = UserProfile
-        fields = '__all__'
+        exclude = ('groups', 'user_permissions','last_login',)
 
     # 注意要使用active时候才可以登录
     def create(self, validated_data):

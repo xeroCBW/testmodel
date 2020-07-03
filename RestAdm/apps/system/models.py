@@ -118,6 +118,8 @@ class UserProfile(AbstractUser):
 
     roles = models.ManyToManyField(Role,related_name='user_list')
 
+    avatar = models.ImageField(upload_to='avatar',null=True,blank=True)
+
     """用户模型类"""
     # user_secret = models.CharField(max_length=500,default=uuid4(), verbose_name='用户JWT秘钥')
 
