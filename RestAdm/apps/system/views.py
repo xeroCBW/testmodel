@@ -578,6 +578,7 @@ class PageViewSet(CustomBaseModelViewSet):
 
 class ButtonViewSet(CustomBaseModelViewSet):
 
+    pagination_class = GlobalPagination
     queryset = Button.objects.all()
     serializer_class = ButtonSerilizer
 

@@ -35,6 +35,7 @@ class Menu(BaseModel):
 
 
 class Page(BaseModel):
+
     name = models.CharField(max_length=100)
     url = models.CharField(max_length=100, unique=True)
 
@@ -115,11 +116,10 @@ class UserProfile(AbstractUser):
     mobile = models.CharField(max_length=11, default="", verbose_name="电话")
     email = models.EmailField(max_length=100, verbose_name="邮箱")
 
-
-    role_list = models.ManyToManyField(Role,related_name='user_list')
+    roles = models.ManyToManyField(Role,related_name='user_list')
 
     """用户模型类"""
-    user_secret = models.CharField(max_length=500,default=uuid4(), verbose_name='用户JWT秘钥')
+    # user_secret = models.CharField(max_length=500,default=uuid4(), verbose_name='用户JWT秘钥')
 
     class Meta:
         verbose_name = "用户表"

@@ -60,7 +60,12 @@ class MenuSerializer(serializers.ModelSerializer):
 
 class PageSerilizer(serializers.ModelSerializer):
 
-    page_button = serializers.HyperlinkedRelatedField(many=True, read_only=True, view_name='button-detail')
+    permissions = serializers.SlugRelatedField(
+        source='page_button',
+        many=True,
+        read_only=True,
+        slug_field='url'
+    )
 
     class Meta:
         model = Page
@@ -85,9 +90,15 @@ class RoleSerializer(serializers.ModelSerializer):
 class UserProfileListSerializer(serializers.ModelSerializer):
 
 
+    # role_list = serializers.StringRelatedField(many=True)
+    # role_list = serializers.HyperlinkedRelatedField( many=True,read_only=True, view_name='role-detail')
+    roles  = serializers.SlugRelatedField(many=True,slug_field='code',read_only=True)
     class Meta:
         model = UserProfile
-        fields = '__all__'
+        # fields = '__all__'
+        exclude = ('groups','user_permissions','password',)
+
+
 
 class UserProfileSerializer(serializers.ModelSerializer):
 

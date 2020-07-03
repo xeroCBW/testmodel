@@ -64,7 +64,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'utils.check_token_middleware.CheckTokenMiddleware',
     # 'utils.log_middleware.RequestLogMiddleware',
-    'utils.disable_csrf_middleware.DisableCSRFCheck',
+    # 'utils.disable_csrf_middleware.DisableCSRFCheck',
     # 'utils.ip_block_middleware.IPBlockMiddleWare',
 ]
 
@@ -218,7 +218,7 @@ CORS_ALLOW_CREDENTIALS = True
 LOG_DIR = BASE_DIR + "/log"
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': True,
+    'disable_existing_loggers': False,
     'formatters': {
         'standard': {
             'format': '%(asctime)s FuncName:%(funcName)s LINE:%(lineno)d [%(levelname)s]- %(message)s'
@@ -295,5 +295,10 @@ LOGGING = {
             'level': 'INFO',
             'propagate': True
         },
+        # 'django.db.backends': {
+        #     'handlers': ['console'],
+        #     'propagate': True,
+        #     'level':'DEBUG',
+        # },
     }
 }
