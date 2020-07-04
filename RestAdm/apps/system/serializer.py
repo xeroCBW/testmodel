@@ -84,7 +84,7 @@ class ButtonSerilizer(serializers.ModelSerializer):
 class Button2Serilizer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
-        return instance['url']
+        return instance.url
     class Meta:
         model = Button
         # fields = ('id',)
@@ -102,21 +102,21 @@ class Page2Serilizer(serializers.ModelSerializer):
 
     def get_actionsOptions(self,obj):
         # print('-----------1-----------')
-        buttons = Button.objects.values('id','name','url','desc','state').filter(page=obj['id'])
+        buttons = Button.objects.filter(page=obj.id)
         return Button2Serilizer(buttons,many=True, read_only=True,).data
 
     def get_selected(self,obj):
         # print('***********1-----------')
         role = self.context['role']
-        buttons = selected_button = Button.objects.values('id','name','url','desc','state').filter(page=obj['id']).filter(button_role=role['id'])
+        buttons = selected_button = Button.objects.filter(page=obj.id).filter(button_role=role.id)
         return Button2Serilizer(buttons,many=True,context={'request': self.context['request']},read_only=True).data
 
     def get_checkAll(self,obj):
         # print('~~~~~~~~~~~1-----------')
         role = self.context['role']
-        all_buttons_cnt = Button.objects.values('id').filter(page=obj['id']).count()
+        all_buttons_cnt = Button.objects.values('id').filter(page=obj.id).count()
         selected_buttons_cnt = selected_button = Button.objects.values('id').filter(
-            page=obj['id']).filter(button_role=role['id']).count()
+            page=obj.id).filter(button_role=role.id).count()
         res = True if all_buttons_cnt == selected_buttons_cnt else False
         return res
 
@@ -133,7 +133,7 @@ class RoleListSerializer(serializers.ModelSerializer):
 
         # print('=====================================')
         # print(obj['page_list'])
-        page_list = Page.objects.values('id', 'name', 'url', 'desc', 'state').filter(id = obj['page_list'])
+        page_list = obj.page_list
         return Page2Serilizer(page_list,many=True,context={
             'request': self.context['request'],
             'role':obj

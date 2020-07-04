@@ -90,7 +90,7 @@ class RoleListViewSet(CustomBaseModelViewSet):
         角色列表数据
     '''
 
-    queryset = Role.objects.values('id','name','code','desc','state','create_time','update_time','page_list',).all()
+    queryset = Role.objects.all()
     serializer_class = RoleListSerializer
 
     def get_serializer_class(self):
