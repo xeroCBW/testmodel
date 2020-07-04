@@ -48,9 +48,6 @@ INSTALLED_APPS = [
     # 设置查询过滤器,注意不能大于版本2.0.2
     # 'django_filter',
     'rest_framework.authtoken',
-
-
-
 ]
 
 MIDDLEWARE = [
@@ -295,10 +292,10 @@ LOGGING = {
             'level': 'INFO',
             'propagate': True
         },
-        'django.db.backends': {
-            'handlers': ['console'],
-            'propagate': True,
-            'level':'DEBUG',
-        },
+        # 'django.db.backends': {
+        #     'handlers': ['console'],
+        #     'propagate': True,
+        #     'level':'DEBUG',
+        # },
     }
 }

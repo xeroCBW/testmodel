@@ -83,9 +83,8 @@ class ButtonSerilizer(serializers.ModelSerializer):
 
 class Button2Serilizer(serializers.ModelSerializer):
 
-
     def to_representation(self, instance):
-        return instance.url
+        return instance['url']
     class Meta:
         model = Button
         # fields = ('id',)
@@ -97,21 +96,28 @@ class Page2Serilizer(serializers.ModelSerializer):
     #     default=serializers.CurrentUserDefault()
     # )
 
-    actionsOptions = Button2Serilizer(many=True,read_only=True,source='page_button',)
+    actionsOptions = serializers.SerializerMethodField()
     selected = serializers.SerializerMethodField()
     checkAll = serializers.SerializerMethodField()
 
+    def get_actionsOptions(self,obj):
+        # print('-----------1-----------')
+        buttons = Button.objects.values('id','name','url','desc','state').filter(page=obj['id'])
+        return Button2Serilizer(buttons,many=True, read_only=True,).data
+
     def get_selected(self,obj):
+        # print('***********1-----------')
         role = self.context['role']
-        selected_button = role.button_list.filter(page=obj)
-        # queryset=selected_button,
-        return Button2Serilizer(selected_button,many=True,context={'request': self.context['request']},read_only=True).data
+        buttons = selected_button = Button.objects.values('id','name','url','desc','state').filter(page=obj['id']).filter(button_role=role['id'])
+        return Button2Serilizer(buttons,many=True,context={'request': self.context['request']},read_only=True).data
 
     def get_checkAll(self,obj):
-
+        # print('~~~~~~~~~~~1-----------')
         role = self.context['role']
-        selected_button_cnt = role.button_list.filter(page=obj).count()
-        res = True if len((obj.page_button.all())) == selected_button_cnt else False
+        all_buttons_cnt = Button.objects.values('id').filter(page=obj['id']).count()
+        selected_buttons_cnt = selected_button = Button.objects.values('id').filter(
+            page=obj['id']).filter(button_role=role['id']).count()
+        res = True if all_buttons_cnt == selected_buttons_cnt else False
         return res
 
     class Meta:
@@ -125,17 +131,44 @@ class RoleListSerializer(serializers.ModelSerializer):
 
     def get_pages(self,obj):
 
-        page_list = obj.page_list.all()
+        # print('=====================================')
+        # print(obj['page_list'])
+        page_list = Page.objects.values('id', 'name', 'url', 'desc', 'state').filter(id = obj['page_list'])
         return Page2Serilizer(page_list,many=True,context={
             'request': self.context['request'],
             'role':obj
-                                                                               }).data
+                                                          }).data
 
     class Meta:
         model = Role
-        # fields = '__all__'
         exclude = ('page_list','button_list')
 
+
+class Page3Serilizer(serializers.Serializer):
+
+
+    id = serializers.IntegerField()
+    name = serializers.CharField(max_length=200)
+    desc = serializers.CharField(max_length=200)
+    url = serializers.CharField(max_length=200)
+    state = serializers.BooleanField()
+
+
+    pass
+
+class Button3Serilizer(serializers.Serializer):
+
+    pass
+
+class RoleList2Serializer(serializers.Serializer):
+
+    id = serializers.IntegerField()
+    name = serializers.CharField(max_length=200)
+    desc = serializers.CharField(max_length=200)
+    code = serializers.CharField(max_length=200)
+    state = serializers.BooleanField()
+    # pages = Page3Serilizer(many=True)
+    # buttons = Button3Serilizer(many=True)
 
 class RoleSerializer(serializers.ModelSerializer):
 
