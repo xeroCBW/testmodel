@@ -80,13 +80,67 @@ class ButtonSerilizer(serializers.ModelSerializer):
         model = Button
         fields = '__all__'
 
-class RoleSerializer(serializers.ModelSerializer):
 
 
+class RoleListSerializer(serializers.ModelSerializer):
+
+    pages = serializers.SerializerMethodField()
+
+    def get_pages(self,obj):
+
+        pages_json = list()
+
+        page_list = obj.page_list.all()
+        button_list = obj.button_list
+
+        selected = list()
+        actionsOptions = list()
+
+        for page_id in page_list:
+            page = Page.objects.filter(id = page_id)
+            page_json = PageSerilizer(page, context={'request': self.context['request']}).data
+
+            page_json['selected'] = list()
+            page_json['actionsOptions'] = list()
+
+
+            page_all_button_list = [x.id for x in page.page_button]
+
+            if set(page_all_button_list) <= set(button_list):
+                page_json['checkedAll'] = True
+            else:
+                page_json['checkedAll'] = False
+
+
+            for page_all_button in page.page_button:
+                flag = False
+                for button_id in button_list:
+                    if button_id == page_all_button.id:
+                        flag  = True
+                        page_json['selected'].append(page_all_button.url)
+                        break
+
+                if flag == False:
+                    page_json['actionsOptions'].append(page_all_button.url)
+
+            pages_json.append(page_json)
+
+        return pages_json
 
     class Meta:
         model = Role
         fields = '__all__'
+        # exclude = ('page_list','button_list')
+
+class RoleSerializer(serializers.ModelSerializer):
+
+    pages = serializers.SlugRelatedField(read_only=True,many=True,source='page_list',slug_field='url')
+    # buttons = serializers.SlugRelatedField(read_only=True, many=True,source='button_list', slug_field='url')
+
+    class Meta:
+        model = Role
+        # fields = '__all__'
+        exclude = ('page_list',)
 
 class UserProfileListSerializer(serializers.ModelSerializer):
 

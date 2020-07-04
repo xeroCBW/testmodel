@@ -99,6 +99,13 @@ class RoleListViewSet(CustomBaseModelViewSet):
     serializer_class = RoleSerializer
 
 
+    # def get_serializer_class(self):
+    #     if self.action == 'list':
+    #         return RoleListSerializer
+    #     else:
+    #         return RoleSerializer
+
+
 # class RoleMenuListViewSet(CustomBaseModelViewSet):
 #     '''
 #     list:
