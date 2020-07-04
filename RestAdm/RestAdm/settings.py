@@ -64,7 +64,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # 'utils.check_token_middleware.CheckTokenMiddleware',
     'utils.log_middleware.RequestLogMiddleware',
-    'utils.disable_csrf_middleware.DisableCSRFCheck',
+    # 'utils.disable_csrf_middleware.DisableCSRFCheck',
     # 'utils.ip_block_middleware.IPBlockMiddleWare',
 ]
 
@@ -295,10 +295,10 @@ LOGGING = {
             'level': 'INFO',
             'propagate': True
         },
-        # 'django.db.backends': {
-        #     'handlers': ['console'],
-        #     'propagate': True,
-        #     'level':'DEBUG',
-        # },
+        'django.db.backends': {
+            'handlers': ['console'],
+            'propagate': True,
+            'level':'DEBUG',
+        },
     }
 }

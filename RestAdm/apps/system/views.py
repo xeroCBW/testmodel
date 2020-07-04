@@ -92,18 +92,19 @@ class MenuListViewSet(CustomBaseModelViewSet):
 class RoleListViewSet(CustomBaseModelViewSet):
     '''
     list:
-        部门列表数据
+        角色列表数据
     '''
 
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
 
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return RoleListSerializer
+        else:
+            return RoleSerializer
 
-    # def get_serializer_class(self):
-    #     if self.action == 'list':
-    #         return RoleListSerializer
-    #     else:
-    #         return RoleSerializer
+
 
 
 # class RoleMenuListViewSet(CustomBaseModelViewSet):
@@ -312,22 +313,18 @@ class UserPermissionListViewSet(CustomBaseRetrieveModelMixin,viewsets.GenericVie
             p['actionsOptions'] = list()
 
             for x in all_button_dict_list:
-                flag = False
+                p['actionsOptions'] += [x['url']]
                 for v in button_list:
                     if x['id'] == v.id:
                         p['selected'] += [x['url']]
-                        flag = True
                         break
-                if not flag:
-                    p['actionsOptions'] += [x['url']]
-
 
             permissions += [p]
 
         res = {
             'permissions':permissions,
             'roles':roles,
-            "avatar": request._request._current_scheme_host + user.avatar.url,
+            "avatar": user.avatar.url,
             "name": user.name,
             "id": user.id,
             "username": user.username,

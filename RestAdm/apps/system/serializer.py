@@ -66,7 +66,6 @@ class PageSerilizer(serializers.ModelSerializer):
         read_only=True,
         slug_field='url'
     )
-    code = serializers.CharField(read_only=True,source='url')
 
     class Meta:
         model = Page
@@ -82,72 +81,78 @@ class ButtonSerilizer(serializers.ModelSerializer):
 
 
 
+class Button2Serilizer(serializers.ModelSerializer):
+
+
+    def to_representation(self, instance):
+        return instance.url
+    class Meta:
+        model = Button
+        # fields = ('id',)
+
+
+class Page2Serilizer(serializers.ModelSerializer):
+
+    # user = serializers.HiddenField(
+    #     default=serializers.CurrentUserDefault()
+    # )
+
+    actionsOptions = Button2Serilizer(many=True,read_only=True,source='page_button',)
+    selected = serializers.SerializerMethodField()
+    checkAll = serializers.SerializerMethodField()
+
+    def get_selected(self,obj):
+        role = self.context['role']
+        selected_button = role.button_list.filter(page=obj)
+        # queryset=selected_button,
+        return Button2Serilizer(selected_button,many=True,context={'request': self.context['request']},read_only=True).data
+
+    def get_checkAll(self,obj):
+
+        role = self.context['role']
+        selected_button_cnt = role.button_list.filter(page=obj).count()
+        res = True if len((obj.page_button.all())) == selected_button_cnt else False
+        return res
+
+    class Meta:
+        model = Page
+        exclude = ('create_time','update_time')
+
+
 class RoleListSerializer(serializers.ModelSerializer):
 
     pages = serializers.SerializerMethodField()
 
     def get_pages(self,obj):
 
-        pages_json = list()
-
         page_list = obj.page_list.all()
-        button_list = obj.button_list
+        return Page2Serilizer(page_list,many=True,context={
+            'request': self.context['request'],
+            'role':obj
+                                                                               }).data
 
-        selected = list()
-        actionsOptions = list()
-
-        for page_id in page_list:
-            page = Page.objects.filter(id = page_id)
-            page_json = PageSerilizer(page, context={'request': self.context['request']}).data
-
-            page_json['selected'] = list()
-            page_json['actionsOptions'] = list()
+    class Meta:
+        model = Role
+        # fields = '__all__'
+        exclude = ('page_list','button_list')
 
 
-            page_all_button_list = [x.id for x in page.page_button]
+class RoleSerializer(serializers.ModelSerializer):
 
-            if set(page_all_button_list) <= set(button_list):
-                page_json['checkedAll'] = True
-            else:
-                page_json['checkedAll'] = False
-
-
-            for page_all_button in page.page_button:
-                flag = False
-                for button_id in button_list:
-                    if button_id == page_all_button.id:
-                        flag  = True
-                        page_json['selected'].append(page_all_button.url)
-                        break
-
-                if flag == False:
-                    page_json['actionsOptions'].append(page_all_button.url)
-
-            pages_json.append(page_json)
-
-        return pages_json
+    # pages = serializers.SlugRelatedField(read_only=True,many=True,source='page_list',slug_field='url')
+    # buttons = serializers.SlugRelatedField(read_only=True, many=True,source='button_list', slug_field='url')
 
     class Meta:
         model = Role
         fields = '__all__'
         # exclude = ('page_list','button_list')
 
-class RoleSerializer(serializers.ModelSerializer):
-
-    pages = serializers.SlugRelatedField(read_only=True,many=True,source='page_list',slug_field='url')
-    # buttons = serializers.SlugRelatedField(read_only=True, many=True,source='button_list', slug_field='url')
-
-    class Meta:
-        model = Role
-        # fields = '__all__'
-        exclude = ('page_list',)
-
 class UserProfileListSerializer(serializers.ModelSerializer):
 
 
     # role_list = serializers.StringRelatedField(many=True)
     # role_list = serializers.HyperlinkedRelatedField( many=True,read_only=True, view_name='role-detail')
-    roles  = serializers.SlugRelatedField(many=True,slug_field='code',read_only=True)
+    roles  = serializers.SlugRelatedField(many=True,slug_field='code',read_only=True,)
     class Meta:
         model = UserProfile
         exclude = ('groups','user_permissions','password','last_login')
@@ -160,7 +165,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
-        exclude = ('groups', 'user_permissions','last_login',)
+        exclude = ('groups', 'user_permissions','last_login','password')
 
     # 注意要使用active时候才可以登录
     def create(self, validated_data):
