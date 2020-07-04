@@ -93,6 +93,8 @@ class RoleListViewSet(CustomBaseModelViewSet):
     queryset = Role.objects.all()
     serializer_class = RoleListSerializer
 
+    extensions_auto_optimize = True
+
     def get_serializer_class(self):
         if self.action == 'list' or self.action == 'retrieve':
             return RoleListSerializer
