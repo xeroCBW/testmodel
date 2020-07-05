@@ -101,18 +101,18 @@ class Page2Serilizer(serializers.ModelSerializer):
     checkAll = serializers.SerializerMethodField()
 
     def get_actionsOptions(self,obj):
-        print('-----------1-----------')
+        # print('-----------1-----------')
         buttons = Button.objects.filter(page=obj.id)
         return Button2Serilizer(buttons,many=True, read_only=True,).data
 
     def get_selected(self,obj):
-        print('***********1-----------')
+        # print('***********1-----------')
         role = self.context['role']
         buttons = selected_button = Button.objects.filter(page=obj.id).filter(button_role=role.id)
         return Button2Serilizer(buttons,many=True,context={'request': self.context['request']},read_only=True).data
 
     def get_checkAll(self,obj):
-        print('~~~~~~~~~~~1-----------')
+        # print('~~~~~~~~~~~1-----------')
         role = self.context['role']
         all_buttons_cnt = Button.objects.values('id').filter(page=obj.id).count()
         selected_buttons_cnt = selected_button = Button.objects.values('id').filter(
@@ -131,7 +131,7 @@ class RoleListSerializer(serializers.ModelSerializer):
 
     def get_pages(self,obj):
 
-        print('=====================================')
+        # print('=====================================')
         # print(obj['page_list'])
         page_list = obj.page_list.all()
         # page_list = Page.objects.filter(page_role=obj)

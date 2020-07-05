@@ -4,7 +4,7 @@ import django_filters
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.hashers import make_password
-from django.db.models import Q, QuerySet
+from django.db.models import Q
 from django.forms import model_to_dict
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
@@ -21,10 +21,6 @@ from system.models import *
 from system.serializer import *
 from .utils.RestModelViewSet import *
 from .paginations import GlobalPagination
-
-
-from .utils.custom_object import *
-from .utils.custom_serializer import *
 
 from rest_framework.filters import SearchFilter
 User = get_user_model()
@@ -104,8 +100,9 @@ class RoleListViewSet(CustomBaseModelViewSet):
 
     # def list(self, request, *args, **kwargs):
     #
-    #     queryset = Role.objects.values('id','name','desc','code','state').all()
-
+    #     role_list = Role.objects.values('id','name','state','desc','code').all()
+    #     for role in role_list:
+    #         pass
 
 
 
