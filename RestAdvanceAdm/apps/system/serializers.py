@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.validators import *
 from .models import *
 
 class ButtonTypeSerializer(serializers.ModelSerializer):
@@ -8,12 +9,12 @@ class ButtonTypeSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class PermissionSerializer(serializers.ModelSerializer):
-    parent_id = serializers.PrimaryKeyRelatedField(read_only=True)
+
     class Meta:
         model = Permission
-        fields = ('id','name','desc','code','type','icon','order_num','parent_id','sub_permission')
-    def get_related_field(self, model_field):
-        return PermissionSerializer()
+        fields = ('id','name','desc','code','type','icon','order_num','parent_id',)
+
+
 
 class RoleSerializer(serializers.ModelSerializer):
 

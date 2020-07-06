@@ -14,13 +14,22 @@ class ButtonType(BaseModel):
     desc = models.TextField(null=True,blank=True)
     icon = models.CharField(max_length=100, null=True, blank=True)
 
+    class Meta:
+        verbose_name = '按钮'
+
+
+    def __str__(self):
+
+        return self.name
+
 
 
 class Permission(BaseModel):
 
     TYPE_CHOICES = {
         (1,'菜单'),
-        (2,'页面')
+        (2,'页面'),
+        (3,'按钮'),
     }
 
     name = models.CharField(max_length=100,null=True,blank=True)
@@ -32,16 +41,19 @@ class Permission(BaseModel):
     type = models.IntegerField(choices=TYPE_CHOICES,default=1)
     perms = models.CharField(max_length=500,blank=True,null=True)
 
-    # 设置基本数据
+    # check_all = models.BooleanField(default=False)
+    # actionsOption = models.ForeignKey('self',on_delete=models.CASCADE,null=True,blank=True,related_name='sub_actionsOption')
 
     is_top = models.BooleanField(default=False)
 
 
     class Meta:
+
         verbose_name='权限'
 
     def __str__(self):
-        return self.name
+        return '%s %s' %(self.parent_id.name if self.parent_id else '',self.name)
+
 
 
 class Role(BaseModel):

@@ -7,11 +7,11 @@ from .views import *
 router = DefaultRouter()
 
 #配置goods的url
-router.register('button-type', ButtonTypeViewSets,base_name='button-type')
+# router.register('button-type', ButtonTypeViewSets,base_name='button-type')
 router.register('permission', PermissionViewSets,base_name='permission')
 router.register('role', RoleViewSets,base_name='role')
 router.register('user', UserViewSets,base_name='user')
-
+router.register('user-permission', UserPermissionViewSets,base_name='user-permission')
 urlpatterns = [
 
     path('', include(router.urls)),
