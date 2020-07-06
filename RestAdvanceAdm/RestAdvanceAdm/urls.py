@@ -16,10 +16,11 @@ Including another URLconf
 from django.conf.urls import include
 from django.contrib import admin
 from django.urls import include,path
-
+from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
 
-
+# 设置图片位置
+from .settings import MEDIA_ROOT
 urlpatterns = [
     path('admin/', admin.site.urls),
     # path('api-auth/', include('rest_framework.urls')),
@@ -30,5 +31,5 @@ urlpatterns = [
     # path('user/refresh_token', refresh_jwt_token),
 
     # #文件
-    # path('media/<path:path>',serve,{'document_root':MEDIA_ROOT}),
+    path('media/<path:path>',serve,{'document_root':MEDIA_ROOT}),
 ]
