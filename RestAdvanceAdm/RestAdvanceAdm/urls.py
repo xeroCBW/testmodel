@@ -20,14 +20,15 @@ from django.views.static import serve
 from rest_framework.documentation import include_docs_urls
 
 # 设置图片位置
+from rest_framework_jwt.views import obtain_jwt_token
+
 from .settings import MEDIA_ROOT
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api-auth/', include('rest_framework.urls')),
+    path('api-auth/', include('rest_framework.urls')),
     path('', include('system.urls')),
-    # path('system/', include('system.urls')),
     path('docs',include_docs_urls(title='后台管理系统')),
-    # path('user/login', obtain_jwt_token),
+    path('user/login', obtain_jwt_token),
     # path('user/refresh_token', refresh_jwt_token),
 
     # #文件

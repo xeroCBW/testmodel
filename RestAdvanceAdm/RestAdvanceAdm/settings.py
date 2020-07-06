@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
-
+import datetime
 import os,sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework.authtoken',
     'system'
 ]
 
@@ -137,6 +138,40 @@ AUTH_USER_MODEL = 'system.UserProfile'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+#有效期限
+JWT_AUTH = {
+    # 允许刷新
+    'JWT_ALLOW_REFRESH': True,
+    # 允许续期
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(hours=24),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),    #也可以设置seconds=20
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',                       #JWT跟前端保持一致，比如“token”这里设置成JWT
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'utils.users.jwt_response_payload_handler',
+    # 自定义用户的secret_key
+    # 'JWT_GET_USER_SECRET_KEY': 'utils.users.jwt_get_user_secret',
+
+}
+
+REST_FRAMEWORK = {
+    # #分页
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # #每页显示的个数
+    # 'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        # 'system.permissions.IsOwnerOrReadOnly',
+        # 设置要求登陆,原先登陆的会无效
+        'rest_framework.permissions.IsAuthenticated',
+        # 'system.permissions.IsOwnerOrReadOnly',
+    ),
+}
 
 
 LOG_DIR = BASE_DIR + "/log"
