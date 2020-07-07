@@ -9,12 +9,12 @@ from rest_framework import mixins
 class CustomBaseModelViewSet(viewsets.ModelViewSet):
     # pagination_class = LargeResultsSetPagination
     # filter_class = ServerFilter
-    queryset = ''
-    serializer_class = ''
-    permission_classes = ()
-    filter_fields = ()
-    search_fields = ()
-    filter_backends = (rest_framework.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter,)
+    # queryset = ''
+    # serializer_class = ''
+    # permission_classes = ()
+    # filter_fields = ()
+    # search_fields = ()
+    # filter_backends = (rest_framework.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter,)
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

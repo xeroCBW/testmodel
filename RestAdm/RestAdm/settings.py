@@ -205,6 +205,9 @@ REST_FRAMEWORK = {
         # 'system.permissions.IsOwnerOrReadOnly',
 
     ),
+    # 'DEFAULT_RENDERER_CLASSES': (
+    #     'rest_framework_csv.renderers.CSVRenderer',
+    # ),
 }
 
 AUTH_USER_MODEL = 'system.UserProfile'

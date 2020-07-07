@@ -1,26 +1,19 @@
-import json
-
 import django_filters
 from django.contrib.auth import get_user_model
-from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.hashers import make_password
-from django.db.models import Q
-from django.forms import model_to_dict
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render
+from rest_framework.generics import ListAPIView
+from rest_framework.pagination import PageNumberPagination
 
-# Create your views here.
-from rest_framework import filters
 from rest_framework.viewsets import *
-from rest_framework.generics import GenericAPIView, ListAPIView
 from rest_framework.mixins import *
-from rest_framework.views import APIView
+from rest_pandas import PandasView, PandasViewSet, PandasSerializer, PandasMixin
 
-from system.filters import GoodFilter
+from system.filters import GoodFilter,ButtonFilter
 from system.models import *
 from system.serializer import *
 from .utils.RestModelViewSet import *
-from .paginations import GlobalPagination
+from .paginations import GlobalPagination, NormalPagination
 
 from rest_framework.filters import SearchFilter
 User = get_user_model()
@@ -501,11 +494,61 @@ class PageViewSet(CustomBaseModelViewSet):
 
 class ButtonViewSet(CustomBaseModelViewSet):
 
-    pagination_class = GlobalPagination
     queryset = Button.objects.all()
     serializer_class = ButtonSerilizer
+    pagination_class = GlobalPagination
+    list_serializer_class = PandasSerializer
+
+    # 自定义将这个去掉了
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter)
+    filter_class = ButtonFilter
+    search_fields = ('id', 'name', 'desc')
+    ordering_fields = ('id', )
+
+
+
+
+
+
 
 # class RolePageButtonViewSet(CustomBaseModelViewSet):
 #
 #     queryset = RolePageButton.objects.all()
 #     serializer_class = RolePageButtonSerilizer
+
+
+
+# class ButtonRenderViewSets(viewsets.GenericViewSet,mixins.ListModelMixin):
+
+class ButtonRenderViewSets(PandasViewSet):
+
+    serializer_class = ButtonSerilizer
+    queryset = Button.objects.all()
+
+    # pagination_class = NormalPagination
+    #
+    # # 自定义将这个去掉了
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter)
+    filter_class = ButtonFilter
+    search_fields = ('=id', 'name',)
+
+
+    # def filter_queryset(self, queryset):
+    #
+    #     print(queryset)
+    #     return queryset
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

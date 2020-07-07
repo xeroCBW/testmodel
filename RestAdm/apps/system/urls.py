@@ -23,9 +23,9 @@ router.register('user-permission', UserPermissionListViewSet,base_name='user-per
 # router.register('user-address', UserAddressViewSet,base_name='user-address')
 # router.register('user-message', UserMessageViewSet,base_name='user-message')
 # router.register('category', CategoryViewSet,base_name='category')
-# router.register('good',GoodViewSet,base_name='good')
-# router.register('user-fav',UserFavorateViewSet,base_name='user-fav')
+router.register('good',GoodViewSet,base_name='good')
 # router.register('banner',BannerViewSet,base_name='banner')
+# router.register('user-fav',UserFavorateViewSet,base_name='user-fav')
 # router.register('cart',CartViewSet,base_name='cart')
 # router.register('order',OrderViewSet,base_name='order')
 # router.register('order-good',OrderGoodViewSet,base_name='order-good')
@@ -37,12 +37,11 @@ router.register('user-permission', UserPermissionListViewSet,base_name='user-per
 
 router.register('page', PageViewSet,base_name='page')
 router.register('button', ButtonViewSet,base_name='button')
-# router.register('role-page-button', RolePageButtonViewSet,base_name='role-page-button')
+router.register('download/button', ButtonRenderViewSets,base_name='download/button')
+
 
 urlpatterns = [
 
     path('', include(router.urls)),
-    # path('role-menu-query',RoleMenuQueryView.as_view())
-
 
 ]
