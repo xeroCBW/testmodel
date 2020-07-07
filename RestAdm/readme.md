@@ -127,7 +127,10 @@ ALLOWED_HOSTS = [ '192.168.x.xxx' ]
 
 [网络访问链接](https://github.com/FatliTalk/blog/issues/76)
 
-### 数据输出:
-
+### 数据输入/输出:
+#### 文件下载
 1. 使用插件drf-csv
 2. 使用drf-pandas,设置好类
+3. 重写render类,否者pagination分页结果不一致会报错
+#### 文件上传
+1. 当使用parser_classes = (MultiPartParser,)这种方式上传附件时，客户端请求请求头不能有Content-Type，否则会报错

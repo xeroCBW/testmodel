@@ -1,18 +1,22 @@
+import json
+
 import django_filters
 import six
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from django.core.paginator import InvalidPage
 from django.http import HttpResponse, JsonResponse
+from pyexcel_io import get_data
 from rest_framework.exceptions import NotFound
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import action
+from rest_framework.parsers import MultiPartParser
 
 from rest_framework.viewsets import *
 from rest_framework.mixins import *
 from rest_pandas import PandasView, PandasViewSet, PandasSerializer, PandasMixin, PandasExcelRenderer
-
+import pandas as pd
 from system.filters import GoodFilter,ButtonFilter
 from system.models import *
 from system.serializer import *
@@ -528,7 +532,7 @@ class ButtonViewSet(CustomBaseModelViewSet):
 
 # class ButtonRenderViewSets(viewsets.GenericViewSet,mixins.ListModelMixin):
 
-class ButtonRenderViewSets(PandasViewSet):
+class ButtonDownloadViewSets(PandasViewSet):
 
     serializer_class = ButtonSerilizer
     queryset = Button.objects.all()
@@ -542,6 +546,31 @@ class ButtonRenderViewSets(PandasViewSet):
     renderer_classes = [CustomPandasExcelRender,]
 
     list_serializer_class = PandasSerializer
+
+
+class ButtonUploadViewSets(viewsets.ModelViewSet):
+
+    parser_classes = (MultiPartParser,)
+
+    def create(self, request, *args, **kwargs):
+        file_obj = request.FILES["file"]
+
+        excel_raw_data_dict = pd.read_excel(file_obj, sheet_name=['Sheet1',])
+        excel_raw_data_1 = excel_raw_data_dict['Sheet1']
+        excel_raw_data_1 = excel_raw_data_1.fillna('-----')
+
+        res = list()
+        for i in range(excel_raw_data_1.shape[0]):
+            t = dict()
+            for k, v in excel_raw_data_1.to_dict().items():
+                t[k] = v[i]
+            res += [t]
+
+        for x in res:
+            print(x)
+
+
+        return JsonResponse(data=res,msg='success',code=201,status=status.HTTP_201_CREATED)
 
 
 

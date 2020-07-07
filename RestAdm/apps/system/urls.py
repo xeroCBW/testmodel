@@ -37,8 +37,8 @@ router.register('good',GoodViewSet,basename='good')
 
 router.register('page', PageViewSet,basename='page')
 router.register('button', ButtonViewSet,basename='button')
-router.register('download/button', ButtonRenderViewSets,basename='download/button')
-
+router.register('download/button', ButtonDownloadViewSets,basename='download/button')
+router.register('upload/button', ButtonUploadViewSets,basename='upload/button')
 
 urlpatterns = [
 
