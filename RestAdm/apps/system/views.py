@@ -7,6 +7,7 @@ from django.http import HttpResponse, JsonResponse
 from rest_framework.exceptions import NotFound
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.decorators import action
 
 from rest_framework.viewsets import *
 from rest_framework.mixins import *
@@ -509,8 +510,20 @@ class ButtonViewSet(CustomBaseModelViewSet):
     search_fields = ('id', 'name', 'desc')
     ordering_fields = ('id', )
 
+    def get_renderers(self):
+        if self.action == 'download':
+            return [CustomPandasExcelRender,]
+        else:
+            return super().get_renderers()
 
 
+       # @action(methods=['get'], detail=False)
+    # def download(self,request):
+    #
+    #     queryset = self.filter_queryset(self.get_queryset())
+    #     serializer = self.get_serializer(queryset, many=True)
+    #     return serializer.data
+    # return JsonResponse(data={},msg='success',code=200,status=status.HTTP_200_OK)
 
 
 # class ButtonRenderViewSets(viewsets.GenericViewSet,mixins.ListModelMixin):
