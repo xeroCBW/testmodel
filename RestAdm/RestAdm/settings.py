@@ -15,6 +15,8 @@ import sys
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import datetime
 
+from corsheaders.defaults import default_headers
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, BASE_DIR)
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
@@ -207,10 +209,6 @@ REST_FRAMEWORK = {
 
 AUTH_USER_MODEL = 'system.UserProfile'
 
-CORS_ORIGIN_ALLOW_ALL = True # If this is used then `CORS_ORIGIN_WHITELIST` will not have any effect
-CORS_ALLOW_CREDENTIALS = True
-
-
 # LOGGING settings
 LOG_DIR = BASE_DIR + "/log"
 LOGGING = {
@@ -299,3 +297,36 @@ LOGGING = {
         # },
     }
 }
+
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+
+
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:3000',
+    'http://localhost:8000',
+    'http://localhost:8080',
+    'http://localhost:9001',
+    'http://0.0.0.0:9001',
+    'http://0.0.0.0:8000',
+    'http://0.0.0.0:3000',
+    'http://0.0.0.0:8080',
+)
+
+CORS_ALLOW_METHODS = (
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+    'VIEW',
+)
+
+CORS_ALLOW_HEADERS = default_headers + (
+    'Access-Control-Allow-Headers',
+    'Access-Control-Allow-Origin',
+    'token',
+    'x-token',
+)
+

@@ -57,6 +57,42 @@ filter_class = GoodFilter
 22. 登录登出要关闭csrf这个验证,否者会遇到很多问题
 23. log不能使用request.POST方法
 24. group 和 permission 删除之后速度就快了
+25. 跨域遇到的问题[github链接](https://github.com/adamchainz/django-cors-headers#configuration)
+    ```python
+    INSTALLED_APPS = [
+        ...
+        'corsheaders',
+        ...
+    ]
+    MIDDLEWARE = [
+        ...
+        'corsheaders.middleware.CorsMiddleware',
+        'django.middleware.common.CommonMiddleware',
+        ...
+    ]
+    CORS_ORIGIN_WHITELIST = [
+        "https://example.com",
+        "https://sub.example.com",
+        "http://localhost:8080",
+        "http://127.0.0.1:9000"
+    ]
+    CORS_ALLOW_METHODS = [
+        'DELETE',
+        'GET',
+        'OPTIONS',
+        'PATCH',
+        'POST',
+        'PUT',
+    ]
+    from corsheaders.defaults import default_headers
+    
+    CORS_ALLOW_HEADERS = list(default_headers) + [
+        'my-custom-header',
+    ]
+    CORS_ALLOW_CREDENTIALS = True
+    CORS_ORIGIN_ALLOW_ALL = True
+    ```
+
 ### 开启跨域
 
 1. pip install django-cors-headers==2.2.0
