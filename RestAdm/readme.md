@@ -126,3 +126,8 @@ ALLOWED_HOSTS = [ '192.168.x.xxx' ]
 3. 此时局域网内访问 192.168.x.xxx:8000/admin 即可访问 Django 的 admin 页面
 
 [网络访问链接](https://github.com/FatliTalk/blog/issues/76)
+
+### 数据输出:
+
+1. 使用插件drf-csv
+2. 使用drf-pandas,设置好类

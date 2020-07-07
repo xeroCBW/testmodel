@@ -1,19 +1,23 @@
 import django_filters
+import six
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
+from django.core.paginator import InvalidPage
 from django.http import HttpResponse, JsonResponse
+from rest_framework.exceptions import NotFound
 from rest_framework.generics import ListAPIView
 from rest_framework.pagination import PageNumberPagination
 
 from rest_framework.viewsets import *
 from rest_framework.mixins import *
-from rest_pandas import PandasView, PandasViewSet, PandasSerializer, PandasMixin
+from rest_pandas import PandasView, PandasViewSet, PandasSerializer, PandasMixin, PandasExcelRenderer
 
 from system.filters import GoodFilter,ButtonFilter
 from system.models import *
 from system.serializer import *
 from .utils.RestModelViewSet import *
 from .paginations import GlobalPagination, NormalPagination
+from .utils.custom_pandas_excel_render import CustomPandasExcelRender
 
 from rest_framework.filters import SearchFilter
 User = get_user_model()
@@ -497,7 +501,7 @@ class ButtonViewSet(CustomBaseModelViewSet):
     queryset = Button.objects.all()
     serializer_class = ButtonSerilizer
     pagination_class = GlobalPagination
-    list_serializer_class = PandasSerializer
+
 
     # 自定义将这个去掉了
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter)
@@ -509,46 +513,22 @@ class ButtonViewSet(CustomBaseModelViewSet):
 
 
 
-
-
-# class RolePageButtonViewSet(CustomBaseModelViewSet):
-#
-#     queryset = RolePageButton.objects.all()
-#     serializer_class = RolePageButtonSerilizer
-
-
-
 # class ButtonRenderViewSets(viewsets.GenericViewSet,mixins.ListModelMixin):
 
 class ButtonRenderViewSets(PandasViewSet):
 
     serializer_class = ButtonSerilizer
     queryset = Button.objects.all()
-
-    # pagination_class = NormalPagination
-    #
-    # # 自定义将这个去掉了
+    # 暂时不支持,分页功能的下载
+    pagination_class = NormalPagination
+    # 自定义将这个去掉了
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter)
     filter_class = ButtonFilter
     search_fields = ('=id', 'name',)
 
+    renderer_classes = [CustomPandasExcelRender,]
 
-    # def filter_queryset(self, queryset):
-    #
-    #     print(queryset)
-    #     return queryset
-
-
-
-
-
-
-
-
-
-
-
-
+    list_serializer_class = PandasSerializer
 
 
 
