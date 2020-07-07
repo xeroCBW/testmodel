@@ -52,7 +52,22 @@ class Permission(BaseModel):
         verbose_name='权限'
 
     def __str__(self):
-        return '%s %s' %(self.parent_id.name if self.parent_id else '',self.name)
+        '''
+
+        :return: 权限的层次菜单
+        '''
+
+        # return self.name
+        # return '%s %s' %(self.parent_id.name if self.parent_id else '',self.name)
+        return self.cadena()
+
+    def cadena(self):
+        if self.parent_id is None:
+            return self.name
+        else:
+            return self.parent_id.cadena() + ' - ' + self.name
+
+
 
 
 

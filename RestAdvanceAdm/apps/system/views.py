@@ -125,13 +125,12 @@ class ChangePasswordtViewSet(CustomBaseModelViewSet):
 
     # update 不需要query_set  只有list才有query_set
     serializer_class = ChangePasswordSerializer
+
     def update(self, request, *args, **kwargs):
 
         user_id = kwargs['pk']
-
         new_password = request.data.get('new_password',None)
         old_password = request.data.get('old_password', None)
-
         user = User.objects.get(id = user_id)
 
         if not user:

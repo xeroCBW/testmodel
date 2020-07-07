@@ -28,3 +28,5 @@ class RecursiveField(serializers.Serializer):
         return serializer.data
 
 ```
+7. 若要从多个结果集,返回,直接建议使用json来拼接,这样是目前最快的方法
+8. 使用递归会访问数据库多次
