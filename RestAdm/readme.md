@@ -99,6 +99,40 @@ filter_class = GoodFilter
 30. 不确定自己写的查询语句之前,现在shell 中查询,python manage.py shell/from system.models import *
 31. debug-toolbar 对docs 不起作用
 
+
+### 查询优化
+1. 一对多方面,使用related_name 可以查询出所有的多:page = Page.objects.all() page[0].button_page.all().value('id','name')
+2. 多对多,直接使用属性进行查询 role = Role.objects.all() role[0].button_list.all().value('id',''name')
+3. 多对多查询要首先查出数据来,再prefetch_selected进行一对多查询;如果反向查询加filter(related_name)会导致多加一层inner join;例如
+    ```
+    pages_list = Button.objects.values('id','button_role').filter(button_role__in=roles).distinct()
+    ```
+    sql为:
+    ```
+    SELECT
+        `system_button`.`id`,
+        `system_button`.`url`,
+        `system_button`.`name`,
+        `system_role_button_list`.`role_id` 
+    FROM
+        `system_button`
+        LEFT OUTER JOIN `system_role_button_list` ON ( `system_button`.`id` = `system_role_button_list`.`button_id` ) 
+    ORDER BY
+        `system_button`.`id` DESC 
+    LIMIT 21
+	
+    ```
+
+4. 多对多查询实例
+    ```
+    areas = Area.objects.filter(id__in=[1, 2, 3]).order_by('name').prefetch_related('role_set')
+    
+    for area in areas:
+        roles = area.role_set.all()
+        for role in roles:
+            print area.name, roles.name
+    ```
+
 ### 开启跨域
 
 1. pip install django-cors-headers==2.2.0
@@ -140,3 +174,9 @@ ALLOWED_HOSTS = [ '192.168.x.xxx' ]
 3. 重写render类,否者pagination分页结果不一致会报错
 #### 文件上传
 1. 当使用parser_classes = (MultiPartParser,)这种方式上传附件时，客户端请求请求头不能有Content-Type，否则会报错
+
+
+### pip使用
+1. pip install --upgrade xxx
+2. pip install xxx==yyy
+3. pip freeze > requirements.txt

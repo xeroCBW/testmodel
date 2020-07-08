@@ -106,11 +106,11 @@ class RoleListViewSet(CustomBaseModelViewSet):
             res = self.get_paginated_response(serializer.data)
 
             roles = [x['id'] for x in res.data['data']['items']]
-            buttons_list = Button.objects.values('id', 'url', 'page', 'button_role').filter(button_role__in=roles).distinct()
-            # 不知道为什么不会去重
+            buttons_list = Button.objects.values('id', 'url', 'page', 'button_role').distinct()
+            # 不知道为什么不会去重---加上filter(又会加上一个连接)
             buttons_list = [x for x in buttons_list if x['button_role'] in roles]
 
-            pages_list = Page.objects.values('id','page_role').filter(page_role__in=roles).distinct()
+            pages_list = Page.objects.values('id','page_role').distinct()
             # 不知道为什么不会去重
             pages_list = [x for x in pages_list if x['page_role'] in roles]
 
@@ -297,37 +297,7 @@ class UserPermissionListViewSet(CustomBaseRetrieveModelMixin,viewsets.GenericVie
         }
 
         return JsonResponse(data=res, msg="success", code=200,status=status.HTTP_200_OK,)
-#
 
-# class RolePermissionListViewSet(ListModelMixin,viewsets.GenericViewSet):
-#     '''
-#         list:根据用户名来查询菜单
-#     '''
-#
-#     # 获取列表数据
-#     serializer_class =  MenuListSerializer
-#
-#     def get_queryset(self):
-#
-#         queryset = Role.objects.all()
-#         role_name = self.request.query_params.get('role_name', None)
-#         role_id = self.request.query_params.get('role_id', None)
-#
-#         if role_name is not None:
-#             queryset = queryset.filter(role__name=role_name)
-#         if role_id is not None and role_id.isdigit():
-#             queryset = queryset.filter(role__id=role_id)
-#
-#         role_menu_list = RoleMenu.objects.filter(role__id=queryset[0].id)
-#
-#         menu_list = []
-#         for x in role_menu_list:
-#             y = Menu.objects.get(id = x.menu.id)
-#             if y.is_top:
-#                 menu_list.append(y)
-#
-#         return  menu_list
-#
 
 class ChangePasswordtViewSet(CustomBaseUpdateModelMixin,viewsets.GenericViewSet):
     '''
