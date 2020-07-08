@@ -94,6 +94,8 @@ filter_class = GoodFilter
     ```
 26. 使用slug 和单独使用to_represent 都是很耗性能
 27. 使用serializer 会很耗性能
+28. 数据查询`page_role__id__in`
+29. 不知道查询为什么有时候去不了重复
 ### 开启跨域
 
 1. pip install django-cors-headers==2.2.0

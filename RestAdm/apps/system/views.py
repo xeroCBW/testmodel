@@ -106,17 +106,22 @@ class RoleListViewSet(CustomBaseModelViewSet):
             res = self.get_paginated_response(serializer.data)
 
             roles = [x['id'] for x in res.data['data']['items']]
-            buttons = Button.objects.values('id','page','url','button_role').filter(button_role__in=roles).distinct()
-            pages = Page.objects.values('id','page_role').filter(page_role__in=roles).distinct()
+            buttons_list = Button.objects.values('id', 'url', 'page', 'button_role').filter(button_role__in=roles).distinct()
+            # 不知道为什么不会去重
+            buttons_list = [x for x in buttons_list if x['button_role'] in roles]
+
+            pages_list = Page.objects.values('id','page_role').filter(page_role__in=roles).distinct()
+            # 不知道为什么不会去重
+            pages_list = [x for x in pages_list if x['page_role'] in roles]
 
             roles_mp = dict()
             for role_id in roles:
                 roles_mp[role_id] = dict()
-                for page in pages:
-                    if role_id == page['page_role']:
-                        roles_mp[role_id][page['id']] = list()
+                for x in pages_list:
+                    if role_id == x['page_role']:
+                        roles_mp[role_id][x['id']] = list()
             # 生成 角色 页面 按钮 数组
-            for button in buttons:
+            for button in buttons_list:
                 roles_mp[button['button_role']][button['page']] += [button['url']]
 
 
