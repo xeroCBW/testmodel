@@ -1,21 +1,14 @@
 import json
 
 import django_filters
-import six
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
-from django.core.paginator import InvalidPage
-from django.http import HttpResponse, JsonResponse
-from pyexcel_io import get_data
-from rest_framework.exceptions import NotFound
-from rest_framework.generics import ListAPIView
-from rest_framework.pagination import PageNumberPagination
-from rest_framework.decorators import action
+from django.http import JsonResponse
 from rest_framework.parsers import MultiPartParser
 
 from rest_framework.viewsets import *
 from rest_framework.mixins import *
-from rest_pandas import PandasView, PandasViewSet, PandasSerializer, PandasMixin, PandasExcelRenderer
+from rest_pandas import PandasView, PandasViewSet, PandasSerializer
 import pandas as pd
 from system.filters import GoodFilter,ButtonFilter
 from system.models import *
@@ -90,8 +83,8 @@ class RoleListViewSet(CustomBaseModelViewSet):
 
     queryset = Role.objects.all()
     serializer_class = RoleListSerializer
-
     extensions_auto_optimize = True
+    pagination_class = GlobalPagination
 
     def get_serializer_class(self):
         if self.action == 'list' or self.action == 'retrieve':
@@ -117,9 +110,9 @@ class UserListViewSet(CustomBaseModelViewSet):
     '''
 
     serializer_class = UserProfileSerializer
-
     filter_backends = [SearchFilter, ]
     search_fields = ('user__name', 'user__id',)
+    pagination_class = GlobalPagination
 
     # 实现多条件查询
     # http://localhost:8000/system/role-menu/?role_id=2&menu_name=%E7%B3%BB%E7%BB%9F
@@ -500,6 +493,7 @@ class PageViewSet(CustomBaseModelViewSet):
 
     queryset = Page.objects.all()
     serializer_class = PageSerilizer
+    pagination_class = GlobalPagination
 
 class ButtonViewSet(CustomBaseModelViewSet):
 
@@ -568,6 +562,8 @@ class ButtonUploadViewSets(viewsets.ModelViewSet):
 
         for x in res:
             print(x)
+
+        ans =  ButtonSerilizer(data=res)
 
 
         return JsonResponse(data=res,msg='success',code=201,status=status.HTTP_201_CREATED)

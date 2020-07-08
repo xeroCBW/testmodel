@@ -7,11 +7,11 @@ from .views import *
 router = DefaultRouter()
 
 # router.register('button-type', ButtonTypeViewSets,base_name='button-type')
-router.register('permission', PermissionViewSets,base_name='permission')
-router.register('role', RoleViewSets,base_name='role')
-router.register('user', UserViewSets,base_name='user')
-router.register('user-permission', UserPermissionViewSets,base_name='user-permission')
-router.register('change-password', ChangePasswordtViewSet,base_name='change-password')
+router.register('permission', PermissionViewSets,basename='permission')
+router.register('role', RoleViewSets,basename='role')
+router.register('user', UserViewSets,basename='user')
+router.register('user-permission', UserPermissionViewSets,basename='user-permission')
+router.register('change-password', ChangePasswordtViewSet,basename='change-password')
 
 urlpatterns = [
 

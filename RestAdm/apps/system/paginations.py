@@ -2,6 +2,7 @@ from collections import OrderedDict
 
 from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
 from rest_framework.response import Response
+from rest_framework.utils.urls import replace_query_param
 
 
 class NormalPagination(PageNumberPagination):
@@ -31,6 +32,7 @@ class GlobalPagination(PageNumberPagination):
     #最多能显示多少页
     max_page_size = 100
 
+
     def get_paginated_response(self, data):
         code = 200
         msg = 'success'
@@ -39,7 +41,9 @@ class GlobalPagination(PageNumberPagination):
                 ('count', self.page.paginator.count),
                 ('next', self.get_next_link()),
                 ('previous', self.get_previous_link()),
-                ('items', data)
+                ('page_size',10),
+                ('page_num',self.request.query_params.get(self.page_query_param, 1)),
+                ('items', data),
                 ]
             )
         return Response(OrderedDict([
