@@ -134,11 +134,12 @@ class Button3Serializer(serializers.ModelSerializer):
 
 class Page3Serializer(serializers.ModelSerializer):
 
+    # actionsOptions = serializers.PrimaryKeyRelatedField(many=True,read_only=True,source='page_button')
     # actionsOptions = Button3Serializer(read_only=True,many=True,source='page_button')
-    actionsOptions = serializers.SlugRelatedField(many=True,source='page_button',read_only=True,slug_field='url')
+    # actionsOptions = serializers.SlugRelatedField(many=True,source='page_button',read_only=True,slug_field='url')
     class Meta:
         model = Page
-        fields = ('id','name','desc','url','state','actionsOptions')
+        fields = ('id','name','desc','url','state',)#'actionsOptions')
 
 
 class RoleListSerializer(serializers.ModelSerializer):

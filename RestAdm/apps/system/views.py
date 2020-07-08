@@ -114,6 +114,14 @@ class RoleListViewSet(CustomBaseModelViewSet):
             # 不知道为什么不会去重
             pages_list = [x for x in pages_list if x['page_role'] in roles]
 
+            # 生成所有菜单的按钮
+            page_id_list = {x['id'] for x in pages_list}
+            page_id_list = list(page_id_list)
+            actionsOptions = Button.objects.values('id','url','page').filter(page__in=page_id_list)
+            actionsOptions_mp = {x:list() for x in page_id_list}
+            for x in actionsOptions:
+                actionsOptions_mp[x['page']] += [x['url']]
+
             roles_mp = dict()
             for role_id in roles:
                 roles_mp[role_id] = dict()
@@ -127,6 +135,7 @@ class RoleListViewSet(CustomBaseModelViewSet):
 
             for x in res.data['data']['items']:
                 for y in x['pages']:
+                    y['actionsOptions'] = actionsOptions_mp[y['id']]
                     y['checkAll'] = True if len(y['actionsOptions']) == len(roles_mp[x['id']][y['id']]) else False
                     y['selected'] = roles_mp[x['id']][y['id']]
 
@@ -587,6 +596,9 @@ class ButtonDownloadViewSets(PandasViewSet):
 
 
 class ButtonUploadViewSets(viewsets.ModelViewSet):
+
+    serializer_class = serializers.Serializer
+    queryset = Button.objects.all()
 
     parser_classes = (MultiPartParser,)
 

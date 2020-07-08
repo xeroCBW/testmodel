@@ -96,6 +96,9 @@ filter_class = GoodFilter
 27. 使用serializer 会很耗性能
 28. 数据查询`page_role__id__in`
 29. 不知道查询为什么有时候去不了重复
+30. 不确定自己写的查询语句之前,现在shell 中查询,python manage.py shell/from system.models import *
+31. debug-toolbar 对docs 不起作用
+
 ### 开启跨域
 
 1. pip install django-cors-headers==2.2.0
