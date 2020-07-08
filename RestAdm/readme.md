@@ -92,7 +92,8 @@ filter_class = GoodFilter
     CORS_ALLOW_CREDENTIALS = True
     CORS_ORIGIN_ALLOW_ALL = True
     ```
-
+26. 使用slug 和单独使用to_represent 都是很耗性能
+27. 使用serializer 会很耗性能
 ### 开启跨域
 
 1. pip install django-cors-headers==2.2.0

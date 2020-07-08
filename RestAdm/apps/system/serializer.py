@@ -124,52 +124,43 @@ class Page2Serilizer(serializers.ModelSerializer):
         model = Page
         fields = ('id','name','desc','state','url','checkAll','selected','actionsOptions')
 
+class Button3Serializer(serializers.ModelSerializer):
+    def to_representation(self, instance):
+        return  instance.url
+    class Meta:
+        model = Button
+        exclude = ('id','name','desc','state','page','create_time','update_time')
+
+
+class Page3Serializer(serializers.ModelSerializer):
+
+    # actionsOptions = Button3Serializer(read_only=True,many=True,source='page_button')
+    actionsOptions = serializers.SlugRelatedField(many=True,source='page_button',read_only=True,slug_field='url')
+    class Meta:
+        model = Page
+        fields = ('id','name','desc','url','actionsOptions')
+
 
 class RoleListSerializer(serializers.ModelSerializer):
 
-    pages = serializers.SerializerMethodField()
+    pages = Page3Serializer(many=True,read_only=True,source='page_list')
 
-    def get_pages(self,obj):
-
+    # pages = serializers.SerializerMethodField()
+    # def get_pages(self,obj):
         # print('=====================================')
         # print(obj['page_list'])
-        page_list = obj.page_list.all()
+        # page_list = obj.page_list.all()
         # page_list = Page.objects.filter(page_role=obj)
-        return Page2Serilizer(page_list,many=True,context={
-            'request': self.context['request'],
-            'role':obj
-                                                          }).data
+        # return Page2Serilizer(page_list,many=True,context={
+        #     'request': self.context['request'],
+        #     'role':obj
+        #                                                   }).data
 
     class Meta:
         model = Role
-        fields = ('id','name','code','desc','state','pages')
+        fields = ('id','name','code','desc','state','pages',)
 
 
-class Page3Serilizer(serializers.Serializer):
-
-
-    id = serializers.IntegerField()
-    name = serializers.CharField(max_length=200)
-    desc = serializers.CharField(max_length=200)
-    url = serializers.CharField(max_length=200)
-    state = serializers.BooleanField()
-
-
-    pass
-
-class Button3Serilizer(serializers.Serializer):
-
-    pass
-
-class RoleList2Serializer(serializers.Serializer):
-
-    id = serializers.IntegerField()
-    name = serializers.CharField(max_length=200)
-    desc = serializers.CharField(max_length=200)
-    code = serializers.CharField(max_length=200)
-    state = serializers.BooleanField()
-    # pages = Page3Serilizer(many=True)
-    # buttons = Button3Serilizer(many=True)
 
 class RoleSerializer(serializers.ModelSerializer):
 

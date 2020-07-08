@@ -92,15 +92,40 @@ class RoleListViewSet(CustomBaseModelViewSet):
         else:
             return RoleSerializer
 
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
 
-    # def list(self, request, *args, **kwargs):
-    #
-    #     role_list = Role.objects.values('id','name','state','desc','code').all()
-    #     for role in role_list:
-    #         pass
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            res = self.get_paginated_response(serializer.data)
+
+            roles = [x['id'] for x in res.data['data']['items']]
+            buttons = Button.objects.values('id','page','url','button_role').filter(button_role__in=roles).distinct()
+            pages = Page.objects.values('id','page_role').filter(page_role__in=roles).distinct()
+
+            roles_mp = dict()
+            for role_id in roles:
+                roles_mp[role_id] = dict()
+                for page in pages:
+                    if role_id == page['page_role']:
+                        roles_mp[role_id][page['id']] = list()
+            # 生成 角色 页面 按钮 数组
+            for button in buttons:
+                roles_mp[button['button_role']][button['page']] += [button['url']]
 
 
+            for x in res.data['data']['items']:
+                for y in x['pages']:
+                    y['checkAll'] = True if len(y['actionsOptions']) == len(roles_mp[x['id']][y['id']]) else False
+                    y['selected'] = roles_mp[x['id']][y['id']]
 
+            # print(json.dumps(res.data,indent=4,ensure_ascii=False))
+
+            return res
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
 class UserListViewSet(CustomBaseModelViewSet):
     '''
