@@ -10,7 +10,7 @@ from rest_framework.viewsets import *
 from rest_framework.mixins import *
 from rest_pandas import PandasView, PandasViewSet, PandasSerializer
 import pandas as pd
-from system.filters import GoodFilter,ButtonFilter
+from system.filters import GoodFilter, ButtonFilter, RoleFilter, UserFilter, PageFilter
 from system.models import *
 from system.serializer import *
 from .utils.RestModelViewSet import *
@@ -83,8 +83,13 @@ class RoleListViewSet(CustomBaseModelViewSet):
 
     queryset = Role.objects.all()
     serializer_class = RoleListSerializer
-    extensions_auto_optimize = True
     pagination_class = GlobalPagination
+
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter)
+    filter_class = RoleFilter
+    search_fields = ('name',)
+    ordering_fields = ('id', )
+
 
     def get_serializer_class(self):
         if self.action == 'list' or self.action == 'retrieve':
@@ -138,6 +143,11 @@ class UserListViewSet(CustomBaseModelViewSet):
     filter_backends = [SearchFilter, ]
     search_fields = ('user__name', 'user__id',)
     pagination_class = GlobalPagination
+
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter)
+    filter_class = UserFilter
+    search_fields = ('name',)
+    ordering_fields = ('id', )
 
     # 实现多条件查询
     # http://localhost:8000/system/role-menu/?role_id=2&menu_name=%E7%B3%BB%E7%BB%9F
@@ -520,17 +530,21 @@ class PageViewSet(CustomBaseModelViewSet):
     serializer_class = PageSerilizer
     pagination_class = GlobalPagination
 
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter)
+    filter_class = PageFilter
+    search_fields = ('name',)
+    ordering_fields = ('id', )
+
 class ButtonViewSet(CustomBaseModelViewSet):
 
     queryset = Button.objects.all()
     serializer_class = ButtonSerilizer
     pagination_class = GlobalPagination
 
-
     # 自定义将这个去掉了
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter)
     filter_class = ButtonFilter
-    search_fields = ('id', 'name', 'desc')
+    search_fields = ('name',)
     ordering_fields = ('id', )
 
     def get_renderers(self):
@@ -589,7 +603,6 @@ class ButtonUploadViewSets(viewsets.ModelViewSet):
             print(x)
 
         ans =  ButtonSerilizer(data=res)
-
 
         return JsonResponse(data=res,msg='success',code=201,status=status.HTTP_201_CREATED)
 

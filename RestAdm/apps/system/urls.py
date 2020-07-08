@@ -23,7 +23,7 @@ router.register('user-permission', UserPermissionListViewSet,basename='user-perm
 # router.register('user-address', UserAddressViewSet,base_name='user-address')
 # router.register('user-message', UserMessageViewSet,base_name='user-message')
 # router.register('category', CategoryViewSet,base_name='category')
-router.register('good',GoodViewSet,basename='good')
+# router.register('good',GoodViewSet,basename='good')
 # router.register('banner',BannerViewSet,base_name='banner')
 # router.register('user-fav',UserFavorateViewSet,base_name='user-fav')
 # router.register('cart',CartViewSet,base_name='cart')
@@ -37,6 +37,7 @@ router.register('good',GoodViewSet,basename='good')
 
 router.register('page', PageViewSet,basename='page')
 router.register('button', ButtonViewSet,basename='button')
+
 router.register('download/button', ButtonDownloadViewSets,basename='download/button')
 router.register('upload/button', ButtonUploadViewSets,basename='upload/button')
 
