@@ -80,10 +80,9 @@ class Role(BaseModel):
         return self.name
 
 
-    @classmethod
+    @staticmethod
     def get_button_list_by_id(cls,role_id):
         '''
-
         :param role_id: 角色id
         :return: 返回角色下的所有按钮
         '''
@@ -92,11 +91,10 @@ class Role(BaseModel):
         buttons = role.button_list.values('id','url','button_role').all()
         return buttons
 
-    @classmethod
-    def get_page_list_by_id(cls,role_id):
+    @staticmethod
+    def get_page_list_by_id(role_id):
         '''
-
-        :param role_id: 角色id
+        :param role_id: 角色
         :return: 返回角色下的所有页面
         '''
         role = Role.objects.get(id=role_id)
