@@ -179,7 +179,24 @@ pip freeze > requirements.txt
             print area.name, roles.name
     ```
     
-5. 多对多查询
+5. 多对多查询,这个可能会造成两条查询,直接使用page来查询会快一些
+    ```
+    #不能排序--1条记录一条sql
+    pages = Page3Serializer(many=True,read_only=True,source='page_list')
+    #可以排序
+    pages = serializers.SerializerMethodField()
+    
+    def get_pages(self,obj):
+    
+        # print('=================')
+        # 这个是通过manytomany 进行查询---2条sql
+        # pages = Role.get_page_list_by_id(obj.id)
+        
+        # 这个是通过中间关联 的主键查询的----一条sql
+        pages = Page.objects.values('id','name','desc','url','order','state').filter(page_role=obj.id).order_by('order')
+    
+        return Page3Serializer(pages,many=True, read_only=True).data
+    ```
 
 ### 开启跨域
 

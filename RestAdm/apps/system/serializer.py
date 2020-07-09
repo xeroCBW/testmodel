@@ -139,12 +139,24 @@ class Page3Serializer(serializers.ModelSerializer):
     # actionsOptions = serializers.SlugRelatedField(many=True,source='page_button',read_only=True,slug_field='url')
     class Meta:
         model = Page
-        fields = ('id','name','desc','url','state',)#'actionsOptions')
+        fields = ('id','name','desc','url','order','state',)#'actionsOptions')
 
 
 class RoleListSerializer(serializers.ModelSerializer):
 
-    pages = Page3Serializer(many=True,read_only=True,source='page_list')
+    # pages = Page3Serializer(many=True,read_only=True,source='page_list')
+
+    pages = serializers.SerializerMethodField()
+
+    def get_pages(self,obj):
+
+        # print('=================')
+        # 这个是通过manytomany 进行查询
+        # pages = Role.get_page_list_by_id(obj.id)
+        # 这个是通过中间关联 的主键查询的
+        pages = Page.objects.values('id','name','desc','url','order','state').filter(page_role=obj.id).order_by('order')
+
+        return Page3Serializer(pages,many=True, read_only=True).data
 
     # pages = serializers.SerializerMethodField()
     # def get_pages(self,obj):

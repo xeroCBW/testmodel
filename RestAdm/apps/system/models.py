@@ -38,6 +38,7 @@ class Page(BaseModel):
 
     name = models.CharField(max_length=100)
     url = models.CharField(max_length=100, unique=True)
+    order = models.IntegerField(default=0)
 
     class Meta:
         ordering = ['-id']
@@ -98,8 +99,8 @@ class Role(BaseModel):
         :return: 返回角色下的所有页面
         '''
         role = Role.objects.get(id=role_id)
-        roles = role.page_list.values('id', 'url', 'page_role').all()
-        return roles
+        pages = role.page_list.values('id','name','desc','url','order','state').all().order_by('order')
+        return pages
 
 
 class Structure(BaseModel):
