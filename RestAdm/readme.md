@@ -38,11 +38,11 @@ pip freeze > requirements.txt
 11. 超级用户可以查看所有,自己只能查看自己这个还没有思路
 12. 添加过滤器之后的查询链接为:http://localhost:8000/system/good/?is_new=true&is_hot=true
 要用到的类有:控件 + 自定义类
-
-```python
-filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
-filter_class = GoodFilter
-```
+    
+    ```python
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
+    filter_class = GoodFilter
+    ```
 
 13. 自定义实现购物车逻辑,同时失灵hyperLinkRelate 实现快速定位购物车(一个用户是多个购物车编号的,通过用户来聚合的)
 14. 为什么要保存当时的订单号,因为用户可能在下订单后修改,所以保存下单时刻的订单
@@ -98,11 +98,57 @@ filter_class = GoodFilter
 29. 不知道查询为什么有时候去不了重复
 30. 不确定自己写的查询语句之前,现在shell 中查询,python manage.py shell/from system.models import *
 31. debug-toolbar 对docs 不起作用
+32. @property 默认生成 getter方法 
+    ```python
+    class Student(object):
+    
+        @property
+        def score(self):
+            return self._score
+    
+        @score.setter
+        def score(self, value):
+            if not isinstance(value, int):
+                raise ValueError('score must be an integer!')
+            if value < 0 or value > 100:
+                raise ValueError('score must between 0 ~ 100!')
+            self._score = value
 
+    ```
+    结果如下:
+    ```
+    >>> s = Student()
+    >>> s.score = 60 # OK，实际转化为s.set_score(60)
+    >>> s.score # OK，实际转化为s.get_score()
+    60
+    >>> s.score = 9999
+    Traceback (most recent call last):
+      ...
+    ValueError: score must between 0 ~ 100!
+    ```
 
 ### 查询优化
 1. 一对多方面,使用related_name 可以查询出所有的多:page = Page.objects.all() page[0].button_page.all().value('id','name')
-2. 多对多,直接使用属性进行查询 role = Role.objects.all() role[0].button_list.all().value('id',''name')
+2. 多对多,直接使用属性进行查询 role = Role.objects.all() role[0].button_list.all().value('id',''name','button_page')
+    ```
+    roles = Role.objects.all()
+    buttons = roles[0].button_list.values('id','name','url','button_role').all
+    
+    ```
+    对应的sql
+    ```
+    SELECT `system_button`.`id`, `system_button`.`name`, `system_role_button_list`.`role_id` FROM `system_button` INNER JOIN `system_role_button_list` ON (`system_button`.`id` = `system_role_button_list`.`button_id`) WHERE `system_role_button_list`.`role_id` = 1 ORDER BY `system_button`.`id` DESC  LIMIT 21
+    ```
+    如果不使用关联,会直接查询page页面
+    ```
+    roles = Role.objects.all()
+    roles[0].button_list.values('id','name','url')
+    
+    SELECT `system_role`.`id`, `system_role`.`desc`, `system_role`.`state`, `system_role`.`create_time`, `system_role`.`update_time`, `system_role`.`name`, `system_role`.`code` FROM `system_role` ORDER BY `system_role`.`id` DESC  LIMIT 1
+    
+    ```
+        
+    
 3. 多对多查询要首先查出数据来,再prefetch_selected进行一对多查询;如果反向查询加filter(related_name)会导致多加一层inner join;例如
     ```
     pages_list = Button.objects.values('id','button_role').filter(button_role__in=roles).distinct()
@@ -132,6 +178,8 @@ filter_class = GoodFilter
         for role in roles:
             print area.name, roles.name
     ```
+    
+5. 多对多查询
 
 ### 开启跨域
 
