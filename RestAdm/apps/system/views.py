@@ -226,63 +226,42 @@ class UserPermissionListViewSet(CustomBaseRetrieveModelMixin,viewsets.GenericVie
 
         user = User.objects.filter(id=id)[0]
 
-        # menu_list = []
-        # for role in user.role_list.all():
-        #     for menu in role.menu_list.all():
-        #         menu_list += [model_to_dict(menu,fields=('id','name','menu_type','url','icon','is_top','code','parent'))]
-        #
-        # menu_list = sorted(menu_list,key=lambda k:k['id'])
-        # # 对数据进行排序
-        # res = build_tree(data=menu_list,p_id=None,level=0)
 
-        roles = list()
+        roles_list = user.roles.all()
+        roles = [x.code for x in roles_list]
+
         page_list = list()
         button_list = list()
-        permissions = list()
 
-        for role in user.roles.all():
-            roles += [role.code]
-            for page in role.page_list.all():
-                page_list += [page]
-            for button in role.button_list.all():
-                button_list += [button]
-
-        # 使用set 对数据进行去重
-        page_list = set(page_list)
+        page_list = Page.objects.values('id','name','desc','state','url','order').filter(page_role__in=[x.id for x in roles_list]).distinct().order_by('order')
+        # 将queryset 转成list
         page_list = list(page_list)
+        select_button_list = Button.objects.values('id','name','desc','state','url','page').filter(button_role__in=[x.id for x in roles_list]).distinct()
+        all_button_list = Button.objects.values('id','name','desc','state','url','page').filter(page__in=[x['id'] for x in page_list]).distinct()
 
-        button_list = set(button_list)
-        button_list = list(button_list)
-
-        for page in page_list:
-
-            p = dict()
-            p['id'] = page.id
-            p['code'] = page.url
-            p['name'] = page.name
-            p['desc'] = page.desc
-            p['state'] = page.state
-
-            all_button_dict_list = Button.objects.values('url','id').filter(page=page.id)
-            all_button = list(x['id'] for x in all_button_dict_list)
-            select_button = list(x.id for x in button_list)
-
-            if set(select_button)>=set(all_button):
-                p['checkAll'] = True
+        select_button_mp = dict()
+        for x in select_button_list:
+            if x['page'] in select_button_mp.keys():
+                select_button_mp[x['page']] += [x['url']]
             else:
-                p['checkAll'] = False
+                select_button_mp[x['page']] = [x['url']]
 
-            p['selected'] = list()
-            p['actionsOptions'] = list()
+        all_button_mp = dict()
+        for x in all_button_list:
+            if x['page'] in all_button_mp.keys():
+                all_button_mp[x['page']] += [x['url']]
+            else:
+                all_button_mp[x['page']] = [x['url']]
 
-            for x in all_button_dict_list:
-                p['actionsOptions'] += [x['url']]
-                for v in button_list:
-                    if x['id'] == v.id:
-                        p['selected'] += [x['url']]
-                        break
 
-            permissions += [p]
+        for x in page_list:
+            x['code'] = x['url']
+            del x['url']
+            x['selected'] = select_button_mp[x['id']]
+            x['actionsOptions'] = all_button_mp[x['id']]
+            x['checkAll'] = True if len(x['selected']) == len(x['actionsOptions']) else False
+
+        permissions = page_list
 
         res = {
             'permissions':permissions,
@@ -292,7 +271,6 @@ class UserPermissionListViewSet(CustomBaseRetrieveModelMixin,viewsets.GenericVie
             "id": user.id,
             "username": user.username,
             "email": user.email,
-            "timestamp": "2019-08-15T09:03:40.775Z",
             "state": user.is_active
         }
 
