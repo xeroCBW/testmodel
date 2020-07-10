@@ -24,6 +24,9 @@ class Category(BaseModel):
     def __str__(self):
         return self.name
 
+
+
+
 class Tag(BaseModel):
 
     STATUS_NORMAL = 1
@@ -43,6 +46,9 @@ class Tag(BaseModel):
 
     def __str__(self):
         return self.name
+
+
+
 
 class Post(BaseModel):
 
@@ -71,6 +77,37 @@ class Post(BaseModel):
 
     class Meta:
         ordering = ['-id']
+
+    @staticmethod
+    def get_by_tag(tag_id):
+
+
+        try:
+            tag = Tag.objects.get(id = tag_id)
+        except Tag.DoesNotExist:
+            tag = None
+            post_list = []
+        else:
+            post_list = Post.objects.filter(tag=tag_id)
+
+        return post_list,tag_id
+
+    @staticmethod
+    def get_by_category(category_id):
+
+        try:
+            category = Category.objects.get(id=category_id)
+        except Category.DoesNotExist:
+            category = None
+            post_list = []
+        else:
+            post_list = Post.objects.filter(category=category_id)
+        return post_list,category
+
+    @classmethod
+    def lastest_post(cls):
+        queryset = cls.objects.filter(status=cls.STATUS_NORMAL)
+        return queryset
 
 
 class Link(BaseModel):

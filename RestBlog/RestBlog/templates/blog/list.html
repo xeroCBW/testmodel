@@ -6,7 +6,24 @@
 </head>
 <body>
 
-{{ name }}
+<h3>{{ name }}</h3>
+
+<ul>
+    {% for blog in post_list %}
+            <li>
+            <a href="#">{{ blog.title }}</a>
+            <div>
+                <span>{{ blog.category }}</span>
+                <span>{{ blog.create_time }}</span>
+            </div>
+                <hr/>
+            <p>{{ blog.content }}</p>
+            </li>
+
+    {% endfor %}
+
+</ul>
+
 
 </body>
 </html>
