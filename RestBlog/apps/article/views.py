@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 import json
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView,DetailView
 
 from .models import Post,SliderBar
@@ -78,5 +78,59 @@ class IndexView(CommonViewMixin,ListView):
     paginate_by = 5
     context_object_name = 'post_list'
     template_name = 'blog/list.html'
+
+
+class CategoryView(IndexView):
+    def get_context_data(self,**kwargs):
+
+        context = super().get_context_data(**kwargs)
+        category_id = self.kwargs.get('category_id')
+        category = get_object_or_404(Category,pk=category_id)
+
+        context.update(
+            {
+                'category':category
+            }
+        )
+
+        return context
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        category_id = self.kwargs.get('category_id')
+        queryset = queryset.filter(id = category_id)
+        return queryset
+
+
+class TagView(IndexView):
+
+    def get_context_data(self,**kwargs):
+
+        context = super().get_context_data(**kwargs)
+        tag_id = self.kwargs.get('tag_id')
+        tag = get_object_or_404(Tag,pk=tag_id)
+        context.update(
+            {
+                'tag':tag
+            }
+        )
+
+        return context
+
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        tag_id = self.kwargs.get('tag_id')
+        queryset = queryset.filter(id=tag_id)
+        return queryset
+
+class PostDetailView(CommonViewMixin,DetailView):
+
+
+    queryset = Post.lastest_post()
+    template_name = 'blog/detail.html'
+    context_object_name = 'post' #返回的参数是post
+    pk_url_kwarg = 'post_id' # 设置查询的id
 
 
