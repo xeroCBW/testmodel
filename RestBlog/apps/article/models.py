@@ -187,6 +187,11 @@ class SliderBar(BaseModel):
         return self.name
 
 
+    @classmethod
+    def get_all(cls):
+        return cls.objects.all()
+
+
 
 
 

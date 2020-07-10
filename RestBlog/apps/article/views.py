@@ -3,7 +3,7 @@ import json
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from .models import Post
+from .models import Post,SliderBar
 from .serializers import *
 
 User = get_user_model()
@@ -32,7 +32,9 @@ def post_list(request,category_id=None,tag_id=None):
         'post_list':post_list,
         'category':category,
         'tag':tag,
+        'slidebars':SliderBar.get_all(),
     }
+
     context.update(Category.get_navs())
     return render(request,'blog/list.html',context=context)
 
@@ -44,7 +46,8 @@ def post_detail(request,post_id):
         post = None
 
     context = {
-        'post':post
+        'post':post,
+        'slidebars': SliderBar.get_all(),
     }
 
     context.update(Category.get_navs())

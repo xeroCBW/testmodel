@@ -34,6 +34,22 @@
 
 
 <div>
+
+    <ul>
+        {% for x in slidebars %}
+
+            <li>
+                <a href="">{{ x.name }}</a>
+            </li>
+
+        {% endfor %}
+
+    </ul>
+
+</div>
+
+
+<div>
     {% for x in normals %}
 
         <a href="">{{x.name}}</a>
