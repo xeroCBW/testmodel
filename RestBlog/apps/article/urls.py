@@ -2,9 +2,8 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from django.urls import path,include
 
-from .views import *
+from .views import post_list,post_detail,links
 
-from .views import *
 
 router = DefaultRouter()
 # router.register('blog', BlogViewSet,base_name='blog')
@@ -14,6 +13,9 @@ router = DefaultRouter()
 
 urlpatterns = [
 
-    path('', include(router.urls)),
+    # path('', include(router.urls)),
     # path('role-menu-query',RoleMenuQueryView.as_view())
+    path('',post_list),
+    path('post/<int:post_id>',post_detail),
+    path('links/',links)
 ]

@@ -39,13 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'RestBlog',
     'article',
     'comment',
     'statistics_article',
-    'rest_framework',
-    # 'ckeditor',
-    # 'ckeditor_uploader',
-    'django_filters',
+    # 'rest_framework',
+    # 'django_filters',
 ]
 
 MIDDLEWARE = [

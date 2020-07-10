@@ -15,6 +15,7 @@ class Category(BaseModel):
     )
     name = models.CharField(max_length=100)
     status = models.IntegerField(choices=STATUS_ITEMS,default=STATUS_NORMAL)
+    is_nav = models.BooleanField(default=True)
 
     class Meta:
         ordering = ['-id']
@@ -33,7 +34,7 @@ class Tag(BaseModel):
         (STATUS_DELETE, '删除'),
     )
 
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=100)
     status = models.IntegerField(choices=STATUS_ITEMS,default=STATUS_NORMAL)
 
 
@@ -86,8 +87,17 @@ class Link(BaseModel):
 
     name = models.CharField(max_length=127)
     href = models.URLField()# 默认长度200
-    weight = models.IntegerField(default=0)
+    weight = models.IntegerField(default=STATUS_NORMAL)
     status = models.IntegerField(choices=STATUS_ITEMS,default=STATUS_NORMAL)
+
+    class Meta:
+        ordering = ['-id',]
+
+    def __repr__(self):
+        self.name
+
+    def __str__(self):
+        return self.name
 
 
 class SliderBar(BaseModel):
@@ -120,5 +130,8 @@ class SliderBar(BaseModel):
 
     def __str__(self):
         return self.name
+
+
+
 
 
