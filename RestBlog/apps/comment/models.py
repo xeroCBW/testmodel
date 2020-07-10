@@ -4,10 +4,12 @@ from article.models import Post
 from article.basemodels import BaseModel
 class Comment(BaseModel):
 
+    STATUS_NORMAL = 1
+    STATUS_DELETE = 0
 
     COMMENT_TYPE = (
-        (0, '删除'),
-        (1, '正常'),
+        (STATUS_NORMAL, '删除'),
+        (STATUS_DELETE, '正常'),
     )
 
     name = models.CharField(max_length=100)
@@ -15,4 +17,9 @@ class Comment(BaseModel):
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='post_content')
     email = models.EmailField()
     website = models.URLField()
-    type = models.IntegerField(default=1,choices=COMMENT_TYPE)
+    status = models.IntegerField(default = STATUS_NORMAL,choices=COMMENT_TYPE)
+
+    class Meta:
+        ordering = ['-id']
+    def __str__(self):
+        return self.name

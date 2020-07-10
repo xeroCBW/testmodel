@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{#导航栏#}
+<div>
+    {% for x in navs %}
+        <a href="#">{{ x.name }}</a>
+
+    {% endfor %}
+</div>
+
+{% block main %}
+{% endblock %}
+
+{#底部#}
+<div>
+    {% for x in normals %}
+
+        <a href="">{{x.name}}</a>
+
+    {% endfor %}
+
+</div>
+
+
+{#侧边栏#}
+<div>
+
+    <ul>
+        {% for x in slidebars %}
+
+            <h3>{{ x.name }}</h3>
+            {{ x.content_html }}
+        {% endfor %}
+
+    </ul>
+
+</div>
+</body>
+</html>

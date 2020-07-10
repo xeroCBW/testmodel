@@ -1,49 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'blog/base.html' %}
 
-<div>
-    {% for x in navs %}
-        <a href="">{{ x.name }}</a>
-    {% endfor %}
-</div>
+{% block main %}
 
-<h3>{{ post.title }}</h3>
-<span>{{ post.create_time }}</span>
+    <h3>{{ post.title }}</h3>
+    <span>{{ post.create_time }}</span>
+    <p>{{ post.content }}</p>
 
 
-<p>{{ post.content }}</p>
-
-
-
-
-<div>
-
-    <ul>
-        {% for x in slidebars %}
-
-            <li>
-                <a href="">{{ x.name }}</a>
-            </li>
-
-        {% endfor %}
-
-    </ul>
-
-</div>
-
-
-
-<div>
-    {% for x in normals %}
-        <a href="">{{ x.name }}</a>
-    {% endfor %}
-</div>
-
-
-</body>
-</html>
+{% endblock %}

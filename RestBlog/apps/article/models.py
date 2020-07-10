@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.loader import render_to_string
 
 from .basemodels import BaseModel
 
@@ -90,6 +91,10 @@ class Post(BaseModel):
     status = models.IntegerField(choices=STATUS_ITEMS,default=STATUS_NORMAL)
 
 
+    pv = models.PositiveIntegerField(default=1)
+    uv = models.PositiveIntegerField(default=1)
+
+
     def __str__(self):
         return self.title
 
@@ -125,6 +130,11 @@ class Post(BaseModel):
     @classmethod
     def lastest_post(cls):
         queryset = cls.objects.filter(status=cls.STATUS_NORMAL)
+        return queryset
+
+    @classmethod
+    def hotest_post(cls):
+        queryset = cls.objects.filter(status=cls.STATUS_NORMAL).order_by('-pv')
         return queryset
 
 
@@ -167,15 +177,22 @@ class SliderBar(BaseModel):
     )
 
 
+    HTML = 1
+    LATEST = 2
+    HOTEST = 3
+    COMMENT = 4
+
+
+
     SIDE_TYPE = (
-        (1, 'HTML'),
-        (2, '最新文章'),
-        (3, '最热文章'),
-        (4, '最新评论'),
+        (HTML, 'HTML'),
+        (LATEST, '最新文章'),
+        (HOTEST, '最热文章'),
+        (COMMENT, '最新评论'),
     )
 
     name = models.CharField(max_length=100)
-    content = models.CharField(max_length=500)
+    content = models.CharField(max_length=500,null=True,blank=True,help_text='不是html可以为空')
     type = models.PositiveIntegerField(default=1)
     status = models.IntegerField(default=STATUS_NORMAL)
 
@@ -190,6 +207,40 @@ class SliderBar(BaseModel):
     @classmethod
     def get_all(cls):
         return cls.objects.all()
+
+
+    @property
+    def content_html(self):
+
+        '''直接渲染模板'''
+        from article.models import Post # 避免重复引用
+        from comment.models import Comment
+
+        result = ''
+
+        if self.type == self.HTML:
+            result = self.content
+        elif self.type == self.LATEST:
+            context = {
+                'posts':Post.lastest_post()
+            }
+            result = render_to_string('config/blocks/sliderbar_posts.html',context=context)
+        elif self.type == self.HOTEST:
+            context = {
+                'posts': Post.hotest_post()
+            }
+            result = render_to_string('config/blocks/sliderbar_posts.html', context=context)
+        elif self.type == self.COMMENT:
+
+            context = {
+
+                'comments':Comment.objects.filter(status = Comment.STATUS_NORMAL )
+            }
+            result = render_to_string('config/blocks/sliderbar_posts.html',context)
+
+
+        return result
+
 
 
 

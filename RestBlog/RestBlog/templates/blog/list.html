@@ -1,20 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-<h3>{{ name }}</h3>
+{%  extends 'blog/base.html' %}
 
 
-<div>
-    {% for x in navs %}
-        <a href="#">{{ x.name }}</a>
 
-    {% endfor %}
-</div>
+{% block main %}
 
 <ul>
     {% for blog in post_list %}
@@ -29,38 +17,11 @@
             </li>
 
     {% endfor %}
-
 </ul>
 
-
-<div>
-
-    <ul>
-        {% for x in slidebars %}
-
-            <li>
-                <a href="">{{ x.name }}</a>
-            </li>
-
-        {% endfor %}
-
-    </ul>
-
-</div>
-
-
-<div>
-    {% for x in normals %}
-
-        <a href="">{{x.name}}</a>
-
-    {% endfor %}
-
-</div>
+{% endblock %}
 
 
 
 
 
-</body>
-</html>
