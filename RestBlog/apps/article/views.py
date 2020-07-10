@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 import json
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import ListView,DetailView
 
 from .models import Post,SliderBar
 from .serializers import *
@@ -56,3 +57,26 @@ def post_detail(request,post_id):
 
 def links(request):
     return HttpResponse('links')
+
+
+class CommonViewMixin:
+
+    def get_context_data(self,**kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(
+            {
+                'slidebars': SliderBar.get_all(),
+            }
+        )
+        context.update(Category.get_navs())
+
+        return context
+
+class IndexView(CommonViewMixin,ListView):
+
+    queryset = Post.lastest_post()
+    paginate_by = 5
+    context_object_name = 'post_list'
+    template_name = 'blog/list.html'
+
+
