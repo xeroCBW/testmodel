@@ -30,3 +30,4 @@
     path('posts/<int:post_id>/', post_detail_view)
     
     ```
+6. dict.update() 可以将另外一个dict 中的数据合并过来

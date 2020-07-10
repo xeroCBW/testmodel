@@ -6,5 +6,26 @@
 </head>
 <body>
 
+<div>
+    {% for x in navs %}
+        <a href="">{{ x.name }}</a>
+    {% endfor %}
+</div>
+
+<h3>{{ post.title }}</h3>
+<span>{{ post.create_time }}</span>
+
+
+<p>{{ post.content }}</p>
+
+
+
+<div>
+    {% for x in normals %}
+        <a href="">{{ x.name }}</a>
+    {% endfor %}
+</div>
+
+
 </body>
 </html>

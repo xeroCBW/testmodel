@@ -8,10 +8,18 @@
 
 <h3>{{ name }}</h3>
 
+
+<div>
+    {% for x in navs %}
+        <a href="#">{{ x.name }}</a>
+
+    {% endfor %}
+</div>
+
 <ul>
     {% for blog in post_list %}
             <li>
-            <a href="#">{{ blog.title }}</a>
+            <a href="/post/{{ blog.id }}.html">{{ blog.title }}</a>
             <div>
                 <span>{{ blog.category }}</span>
                 <span>{{ blog.create_time }}</span>
@@ -23,6 +31,19 @@
     {% endfor %}
 
 </ul>
+
+
+<div>
+    {% for x in normals %}
+
+        <a href="">{{x.name}}</a>
+
+    {% endfor %}
+
+</div>
+
+
+
 
 
 </body>

@@ -15,7 +15,8 @@ urlpatterns = [
 
     # path('', include(router.urls)),
     # path('role-menu-query',RoleMenuQueryView.as_view())
-    path('',post_list),
-    path('post/<int:post_id>',post_detail),
+
+    path('',post_list),# post_list--最后进入的函数
+    path('post/<int:post_id>.html',post_detail),# post_detail--最后进入的函数
     path('links/',links)
 ]

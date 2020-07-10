@@ -26,6 +26,24 @@ class Category(BaseModel):
 
 
 
+    @classmethod
+    def get_navs(cls):
+        categories = cls.objects.filter(status=cls.STATUS_NORMAL)
+        nav_category = []
+        normal_category = []
+
+        # 只是一次查出来,减少IO
+        for x in categories:
+            if x.is_nav:
+                nav_category += [x]
+            else:
+                normal_category += [x]
+        return {
+            'navs':nav_category,
+            'normals':normal_category,
+        }
+
+
 
 class Tag(BaseModel):
 
