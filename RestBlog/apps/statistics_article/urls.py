@@ -7,8 +7,8 @@ from .views import *
 from .views import *
 
 router = DefaultRouter()
-router.register('read-num', ReadNumViewSet,base_name='read-num')
-router.register('read-detail', ReadDetailViewSet,base_name='read-detail')
+# router.register('read-num', ReadNumViewSet,base_name='read-num')
+# router.register('read-detail', ReadDetailViewSet,base_name='read-detail')
 
 
 urlpatterns = [

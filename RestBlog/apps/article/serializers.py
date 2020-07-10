@@ -7,14 +7,14 @@ from rest_framework.validators import UniqueTogetherValidator
 
 from .models import *
 
-class BlogTypeSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = BlogType
-        fields = '__all__'
-
-class BlogSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Blog
-        fields = '__all__'
+# class BlogTypeSerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = BlogType
+#         fields = '__all__'
+#
+# class BlogSerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = Blog
+#         fields = '__all__'

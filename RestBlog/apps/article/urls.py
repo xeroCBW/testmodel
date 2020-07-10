@@ -7,8 +7,8 @@ from .views import *
 from .views import *
 
 router = DefaultRouter()
-router.register('blog', BlogViewSet,base_name='blog')
-router.register('content-type', BlogTypeViewSet,base_name='content-type')
+# router.register('blog', BlogViewSet,base_name='blog')
+# router.register('content-type', BlogTypeViewSet,base_name='content-type')
 
 
 
