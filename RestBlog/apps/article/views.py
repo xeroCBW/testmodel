@@ -98,7 +98,7 @@ class CategoryView(IndexView):
     def get_queryset(self):
         queryset = super().get_queryset()
         category_id = self.kwargs.get('category_id')
-        queryset = queryset.filter(id = category_id)
+        queryset = queryset.filter(category = category_id)
         return queryset
 
 
@@ -122,7 +122,7 @@ class TagView(IndexView):
         queryset = super().get_queryset()
 
         tag_id = self.kwargs.get('tag_id')
-        queryset = queryset.filter(id=tag_id)
+        queryset = queryset.filter(tag=tag_id)
         return queryset
 
 class PostDetailView(CommonViewMixin,DetailView):
