@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 import json
+
+from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView,DetailView
@@ -134,3 +136,36 @@ class PostDetailView(CommonViewMixin,DetailView):
     pk_url_kwarg = 'post_id' # 设置查询的id
 
 
+
+class SearchView(IndexView):
+
+    def get_context_data(self,**kwargs):
+
+        context = super().get_context_data(**kwargs)
+        keyword = self.request.GET.get('keyword')
+
+        context.update(
+            {
+                'keyword':keyword,
+            }
+        )
+
+        return context
+
+
+    def get_queryset(self):
+
+        queryset = super().get_queryset()
+        keywords = self.request.GET.get('keywords')
+        queryset = queryset.filter(Q(title__icontains=keywords)|Q(desc__icontain=keywords))
+
+        return queryset
+
+
+
+class LinkView(ListView):
+
+
+    queryset = Link.objects.all()
+    template_name = 'config/links.html'
+    context_object_name = 'link_list'

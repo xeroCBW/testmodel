@@ -2,7 +2,7 @@ from rest_framework.documentation import include_docs_urls
 from rest_framework.routers import DefaultRouter
 from django.urls import path,include
 
-from .views import post_list,post_detail,links,IndexView,PostDetailView,CategoryView,TagView
+from .views import post_list,post_detail,links,IndexView,PostDetailView,CategoryView,TagView,LinkView
 
 
 router = DefaultRouter()
@@ -26,5 +26,5 @@ urlpatterns = [
     path('tag/<int:tag_id>/',TagView.as_view(),name = 'tag-list'),
     path('post/<int:post_id>.html', PostDetailView.as_view(), name='post-detail'),  # post_detail--最后进入的函数
 
-    path('links/', links)
+    path('link/',LinkView.as_view(),name = 'link-list' )
 ]

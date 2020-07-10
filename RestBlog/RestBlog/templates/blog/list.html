@@ -18,7 +18,7 @@
 <ul>
     {% for blog in post_list %}
             <li>
-            <a href="/post/{{ blog.id }}.html">{{ blog.title }}</a>
+            <a href="{% url 'post-detail' blog.id %}">{{ blog.title }}</a>
             <div>
                 <span>{{ blog.category }}</span>
                 <span>{{ blog.create_time }}</span>

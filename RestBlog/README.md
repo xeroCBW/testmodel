@@ -32,4 +32,5 @@
     ```
 6. dict.update() 可以将另外一个dict 中的数据合并过来
 7. 一定要把mixin放在前面,否者会报错
+8. render_to_string() 将html代码保存,留给以后渲染用 
 
