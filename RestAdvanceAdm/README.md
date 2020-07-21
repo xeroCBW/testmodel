@@ -410,4 +410,11 @@
     ```
 6. 根据pid 来查子类的菜单
 7. 修改角色权限传的参数太多,可以使用menus:[1,2,3]
+8. 安装mq模拟启动`python manage.py celery worker --loglevel=info`
+9. 初步完成flower和work搭建
+```
+celery -A RestAdvanceAdm worker -l info
+celery -A RestAdvanceAdm flower -l info --persistent=True
+```
+
 

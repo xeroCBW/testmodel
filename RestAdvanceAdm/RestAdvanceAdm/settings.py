@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 import datetime
 import os,sys
+import djcelery
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -41,7 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'system'
+    'system',
+    'djcelery',
+    'django_celery_results',
+
 ]
 
 MIDDLEWARE = [
@@ -261,3 +265,15 @@ LOGGING = {
         },
     }
 }
+
+
+djcelery.setup_loader()
+# 在文件中添加下面的两行配置
+#数据库调度
+CELERY_RESULT_BACKEND = 'django-db'
+BROKER_URL= 'amqp://ccc:123456qwer@120.24.167.214:5672'
+CELERY_ACCEPT_CONTENT = ['application/json',]
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Shanghai'
+# CELERY_BROKER_URL = 'amqp://ccc:123456qwer@120.24.167.214:5672//'

@@ -1,5 +1,4 @@
 import json
-
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
 from django.db.models import QuerySet
@@ -9,6 +8,9 @@ from .models import *
 from .serializers import *
 from .utils.basemodelviewsets import *
 from .utils.paginations import GlobalPagination
+from system import tasks
+
+
 User = get_user_model()
 
 # Create your views here.
@@ -142,3 +144,23 @@ class ChangePasswordtViewSet(CustomBaseModelViewSet):
         user.password = make_password(new_password)
         user.save()
         return JsonResponse(data={}, msg="修改密码成功", code=200, status=status.HTTP_200_OK,)
+
+class TestViewSet(CustomBaseModelViewSet):
+
+    serializer_class = ButtonTypeSerializer
+    queryset = ButtonType.objects.all()
+
+
+
+    def retrieve(self, request, *args, **kwargs):
+
+        pk = kwargs['pk']
+        if pk == '1':
+            res = tasks.add.delay(1, 1)
+        elif pk == '2':
+            res = tasks.mul.delay(1, 2)
+        else:
+            t = [x for x in range(1,101)]
+            res = tasks.xsum.delay(t)
+
+        return JsonResponse({'status': 'successful', 'task_id': res.task_id})

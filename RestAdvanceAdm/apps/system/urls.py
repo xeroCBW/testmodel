@@ -12,7 +12,7 @@ router.register('role', RoleViewSets,basename='role')
 router.register('user', UserViewSets,basename='user')
 router.register('user-permission', UserPermissionViewSets,basename='user-permission')
 router.register('change-password', ChangePasswordtViewSet,basename='change-password')
-
+router.register('test', TestViewSet,basename='test')
 urlpatterns = [
 
     path('', include(router.urls)),
