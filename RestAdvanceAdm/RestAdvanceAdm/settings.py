@@ -270,10 +270,12 @@ LOGGING = {
 djcelery.setup_loader()
 # 在文件中添加下面的两行配置
 #数据库调度
-CELERY_RESULT_BACKEND = 'django-db'
+# CELERY_RESULT_BACKEND = 'django-db'
+CELERY_RESULT_BACKEND = 'redis://:19920202qwer@localhost:6379/0'
 BROKER_URL= 'amqp://ccc:123456qwer@120.24.167.214:5672'
 CELERY_ACCEPT_CONTENT = ['application/json',]
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
+
 CELERY_TIMEZONE = 'Asia/Shanghai'
 # CELERY_BROKER_URL = 'amqp://ccc:123456qwer@120.24.167.214:5672//'

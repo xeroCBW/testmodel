@@ -162,5 +162,5 @@ class TestViewSet(CustomBaseModelViewSet):
         else:
             t = [x for x in range(1,101)]
             res = tasks.xsum.delay(t)
-
+        print(res)
         return JsonResponse({'status': 'successful', 'task_id': res.task_id})
