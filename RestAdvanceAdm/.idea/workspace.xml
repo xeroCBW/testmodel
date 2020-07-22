@@ -72,20 +72,18 @@
       <file leaf-file-name="celery.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RestAdvanceAdm/celery.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="375">
-              <caret line="25" column="20" lean-forward="false" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
-              <folding>
-                <element signature="e#0#56#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="75">
+              <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/RestAdvanceAdm/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="350">
-              <caret line="273" column="64" lean-forward="true" selection-start-line="273" selection-start-column="64" selection-end-line="273" selection-end-column="64" />
+            <state relative-caret-position="42">
+              <caret line="285" column="0" lean-forward="false" selection-start-line="285" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
               <folding>
                 <element signature="e#314#329#0" expanded="true" />
               </folding>
@@ -106,8 +104,8 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/system/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2490">
-              <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
+            <state relative-caret-position="222">
+              <caret line="172" column="86" lean-forward="false" selection-start-line="172" selection-start-column="64" selection-end-line="172" selection-end-column="86" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
               </folding>
@@ -118,7 +116,7 @@
       <file leaf-file-name="tasks.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/system/tasks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
+            <state relative-caret-position="45">
               <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
@@ -127,39 +125,39 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="391">
-                <caret line="415" column="0" lean-forward="false" selection-start-line="415" selection-start-column="0" selection-end-line="415" selection-end-column="39" />
+              <first_editor relative-caret-position="173">
+                <caret line="437" column="0" lean-forward="true" selection-start-line="437" selection-start-column="0" selection-end-line="437" selection-end-column="0" />
                 <folding>
-                  <marker date="1595323537664" expanded="true" signature="1898:3861" ph="{&quot;name&quot;: &quot;多级菜单&quot;...}" />
-                  <marker date="1595323537664" expanded="true" signature="2085:2181" ph="{&quot;title&quot;: &quot;多级菜单&quot;...}" />
-                  <marker date="1595323537664" expanded="true" signature="2203:3855" ph="[...]" />
-                  <marker date="1595323537664" expanded="true" signature="2217:2536" ph="{&quot;name&quot;: &quot;二级菜单2&quot;...}" />
-                  <marker date="1595323537664" expanded="true" signature="2393:2522" ph="{&quot;title&quot;: &quot;二级菜单2&quot;...}" />
-                  <marker date="1595323537664" expanded="true" signature="2550:3845" ph="{&quot;name&quot;: &quot;二级菜单1&quot;...}" />
-                  <marker date="1595323537664" expanded="true" signature="2804:2933" ph="{&quot;title&quot;: &quot;二级菜单1&quot;...}" />
-                  <marker date="1595323537664" expanded="true" signature="2963:3831" ph="[...]" />
-                  <marker date="1595323537664" expanded="true" signature="2985:3388" ph="{&quot;name&quot;: &quot;三级菜单1&quot;...}" />
-                  <marker date="1595323537664" expanded="true" signature="3205:3366" ph="{&quot;title&quot;: &quot;三级菜单1&quot;...}" />
-                  <marker date="1595323537664" expanded="true" signature="3410:3813" ph="{&quot;name&quot;: &quot;三级菜单2&quot;...}" />
-                  <marker date="1595323537664" expanded="true" signature="3630:3791" ph="{&quot;title&quot;: &quot;三级菜单2&quot;...}" />
-                  <marker date="1595323537664" expanded="true" signature="4009:12455" ph="{&quot;id&quot;: 3...}" />
-                  <marker date="1595323537664" expanded="true" signature="4178:11846" ph="[...]" />
-                  <marker date="1595323537664" expanded="true" signature="4192:4943" ph="{&quot;id&quot;: 1...}" />
-                  <marker date="1595323537664" expanded="true" signature="4957:5728" ph="{&quot;id&quot;: 2...}" />
-                  <marker date="1595323537664" expanded="true" signature="5742:6497" ph="{&quot;id&quot;: 103...}" />
-                  <marker date="1595323537664" expanded="true" signature="6511:7267" ph="{&quot;id&quot;: 104...}" />
-                  <marker date="1595323537664" expanded="true" signature="7281:8027" ph="{&quot;id&quot;: 90...}" />
-                  <marker date="1595323537664" expanded="true" signature="8041:8785" ph="{&quot;id&quot;: 106...}" />
-                  <marker date="1595323537664" expanded="true" signature="8799:9544" ph="{&quot;id&quot;: 107...}" />
-                  <marker date="1595323537664" expanded="true" signature="9558:10299" ph="{&quot;id&quot;: 44...}" />
-                  <marker date="1595323537664" expanded="true" signature="10313:11055" ph="{&quot;id&quot;: 45...}" />
-                  <marker date="1595323537664" expanded="true" signature="11069:11836" ph="{&quot;id&quot;: 93...}" />
-                  <marker date="1595323537664" expanded="true" signature="11865:12347" ph="[...]" />
-                  <marker date="1595323537664" expanded="true" signature="11879:12337" ph="{&quot;id&quot;: 7...}" />
+                  <marker date="1595438185828" expanded="true" signature="1898:3861" ph="{&quot;name&quot;: &quot;多级菜单&quot;...}" />
+                  <marker date="1595438185828" expanded="true" signature="2085:2181" ph="{&quot;title&quot;: &quot;多级菜单&quot;...}" />
+                  <marker date="1595438185828" expanded="true" signature="2203:3855" ph="[...]" />
+                  <marker date="1595438185828" expanded="true" signature="2217:2536" ph="{&quot;name&quot;: &quot;二级菜单2&quot;...}" />
+                  <marker date="1595438185828" expanded="true" signature="2393:2522" ph="{&quot;title&quot;: &quot;二级菜单2&quot;...}" />
+                  <marker date="1595438185828" expanded="true" signature="2550:3845" ph="{&quot;name&quot;: &quot;二级菜单1&quot;...}" />
+                  <marker date="1595438185828" expanded="true" signature="2804:2933" ph="{&quot;title&quot;: &quot;二级菜单1&quot;...}" />
+                  <marker date="1595438185828" expanded="true" signature="2963:3831" ph="[...]" />
+                  <marker date="1595438185828" expanded="true" signature="2985:3388" ph="{&quot;name&quot;: &quot;三级菜单1&quot;...}" />
+                  <marker date="1595438185828" expanded="true" signature="3205:3366" ph="{&quot;title&quot;: &quot;三级菜单1&quot;...}" />
+                  <marker date="1595438185828" expanded="true" signature="3410:3813" ph="{&quot;name&quot;: &quot;三级菜单2&quot;...}" />
+                  <marker date="1595438185828" expanded="true" signature="3630:3791" ph="{&quot;title&quot;: &quot;三级菜单2&quot;...}" />
+                  <marker date="1595438185828" expanded="true" signature="4009:12455" ph="{&quot;id&quot;: 3...}" />
+                  <marker date="1595438185828" expanded="true" signature="4178:11846" ph="[...]" />
+                  <marker date="1595438185828" expanded="true" signature="4192:4943" ph="{&quot;id&quot;: 1...}" />
+                  <marker date="1595438185828" expanded="true" signature="4957:5728" ph="{&quot;id&quot;: 2...}" />
+                  <marker date="1595438185828" expanded="true" signature="5742:6497" ph="{&quot;id&quot;: 103...}" />
+                  <marker date="1595438185828" expanded="true" signature="6511:7267" ph="{&quot;id&quot;: 104...}" />
+                  <marker date="1595438185828" expanded="true" signature="7281:8027" ph="{&quot;id&quot;: 90...}" />
+                  <marker date="1595438185828" expanded="true" signature="8041:8785" ph="{&quot;id&quot;: 106...}" />
+                  <marker date="1595438185828" expanded="true" signature="8799:9544" ph="{&quot;id&quot;: 107...}" />
+                  <marker date="1595438185828" expanded="true" signature="9558:10299" ph="{&quot;id&quot;: 44...}" />
+                  <marker date="1595438185828" expanded="true" signature="10313:11055" ph="{&quot;id&quot;: 45...}" />
+                  <marker date="1595438185828" expanded="true" signature="11069:11836" ph="{&quot;id&quot;: 93...}" />
+                  <marker date="1595438185828" expanded="true" signature="11865:12347" ph="[...]" />
+                  <marker date="1595438185828" expanded="true" signature="11879:12337" ph="{&quot;id&quot;: 7...}" />
                 </folding>
               </first_editor>
               <second_editor />
@@ -209,11 +207,11 @@
         <option value="$PROJECT_DIR$/requirements-dev.txt" />
         <option value="$PROJECT_DIR$/RestAdvanceAdm/__init__.py" />
         <option value="$PROJECT_DIR$/RestAdvanceAdm/celery.py" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/apps/system/urls.py" />
-        <option value="$PROJECT_DIR$/apps/system/views.py" />
-        <option value="$PROJECT_DIR$/apps/system/tasks.py" />
         <option value="$PROJECT_DIR$/RestAdvanceAdm/settings.py" />
+        <option value="$PROJECT_DIR$/apps/system/tasks.py" />
+        <option value="$PROJECT_DIR$/apps/system/views.py" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -380,6 +378,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="12" y="23" width="1235" height="705" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -388,14 +387,14 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295082" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Mongo Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37213114" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37213114" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2740989" sideWeight="0.484" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942164" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32942164" sideWeight="0.516" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38196722" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38196722" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -410,11 +409,11 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/apps/system/views.py</url>
-          <line>143</line>
+          <line>145</line>
           <option name="timeStamp" value="42" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="56" />
+      <option name="time" value="59" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -779,14 +778,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RestAdvanceAdm/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="25" lean-forward="false" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/system/tests.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -795,19 +786,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/system/views.py">
+    <entry file="file://$PROJECT_DIR$/RestAdvanceAdm/celery.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2490">
-          <caret line="166" column="0" lean-forward="false" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="75">
+          <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RestAdvanceAdm/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="25" lean-forward="false" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/system/tasks.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
+        <state relative-caret-position="45">
           <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
@@ -815,12 +812,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/RestAdvanceAdm/celery.py">
+    <entry file="file://$PROJECT_DIR$/apps/system/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="20" lean-forward="false" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
+        <state relative-caret-position="222">
+          <caret line="172" column="86" lean-forward="false" selection-start-line="172" selection-start-column="64" selection-end-line="172" selection-end-column="86" />
           <folding>
-            <element signature="e#0#56#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/RestAdvanceAdm/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="285" column="0" lean-forward="false" selection-start-line="285" selection-start-column="0" selection-end-line="300" selection-end-column="0" />
+          <folding>
+            <element signature="e#314#329#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -828,48 +835,38 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="391">
-            <caret line="415" column="0" lean-forward="false" selection-start-line="415" selection-start-column="0" selection-end-line="415" selection-end-column="39" />
+          <first_editor relative-caret-position="173">
+            <caret line="437" column="0" lean-forward="true" selection-start-line="437" selection-start-column="0" selection-end-line="437" selection-end-column="0" />
             <folding>
-              <marker date="1595323537664" expanded="true" signature="1898:3861" ph="{&quot;name&quot;: &quot;多级菜单&quot;...}" />
-              <marker date="1595323537664" expanded="true" signature="2085:2181" ph="{&quot;title&quot;: &quot;多级菜单&quot;...}" />
-              <marker date="1595323537664" expanded="true" signature="2203:3855" ph="[...]" />
-              <marker date="1595323537664" expanded="true" signature="2217:2536" ph="{&quot;name&quot;: &quot;二级菜单2&quot;...}" />
-              <marker date="1595323537664" expanded="true" signature="2393:2522" ph="{&quot;title&quot;: &quot;二级菜单2&quot;...}" />
-              <marker date="1595323537664" expanded="true" signature="2550:3845" ph="{&quot;name&quot;: &quot;二级菜单1&quot;...}" />
-              <marker date="1595323537664" expanded="true" signature="2804:2933" ph="{&quot;title&quot;: &quot;二级菜单1&quot;...}" />
-              <marker date="1595323537664" expanded="true" signature="2963:3831" ph="[...]" />
-              <marker date="1595323537664" expanded="true" signature="2985:3388" ph="{&quot;name&quot;: &quot;三级菜单1&quot;...}" />
-              <marker date="1595323537664" expanded="true" signature="3205:3366" ph="{&quot;title&quot;: &quot;三级菜单1&quot;...}" />
-              <marker date="1595323537664" expanded="true" signature="3410:3813" ph="{&quot;name&quot;: &quot;三级菜单2&quot;...}" />
-              <marker date="1595323537664" expanded="true" signature="3630:3791" ph="{&quot;title&quot;: &quot;三级菜单2&quot;...}" />
-              <marker date="1595323537664" expanded="true" signature="4009:12455" ph="{&quot;id&quot;: 3...}" />
-              <marker date="1595323537664" expanded="true" signature="4178:11846" ph="[...]" />
-              <marker date="1595323537664" expanded="true" signature="4192:4943" ph="{&quot;id&quot;: 1...}" />
-              <marker date="1595323537664" expanded="true" signature="4957:5728" ph="{&quot;id&quot;: 2...}" />
-              <marker date="1595323537664" expanded="true" signature="5742:6497" ph="{&quot;id&quot;: 103...}" />
-              <marker date="1595323537664" expanded="true" signature="6511:7267" ph="{&quot;id&quot;: 104...}" />
-              <marker date="1595323537664" expanded="true" signature="7281:8027" ph="{&quot;id&quot;: 90...}" />
-              <marker date="1595323537664" expanded="true" signature="8041:8785" ph="{&quot;id&quot;: 106...}" />
-              <marker date="1595323537664" expanded="true" signature="8799:9544" ph="{&quot;id&quot;: 107...}" />
-              <marker date="1595323537664" expanded="true" signature="9558:10299" ph="{&quot;id&quot;: 44...}" />
-              <marker date="1595323537664" expanded="true" signature="10313:11055" ph="{&quot;id&quot;: 45...}" />
-              <marker date="1595323537664" expanded="true" signature="11069:11836" ph="{&quot;id&quot;: 93...}" />
-              <marker date="1595323537664" expanded="true" signature="11865:12347" ph="[...]" />
-              <marker date="1595323537664" expanded="true" signature="11879:12337" ph="{&quot;id&quot;: 7...}" />
+              <marker date="1595438185828" expanded="true" signature="1898:3861" ph="{&quot;name&quot;: &quot;多级菜单&quot;...}" />
+              <marker date="1595438185828" expanded="true" signature="2085:2181" ph="{&quot;title&quot;: &quot;多级菜单&quot;...}" />
+              <marker date="1595438185828" expanded="true" signature="2203:3855" ph="[...]" />
+              <marker date="1595438185828" expanded="true" signature="2217:2536" ph="{&quot;name&quot;: &quot;二级菜单2&quot;...}" />
+              <marker date="1595438185828" expanded="true" signature="2393:2522" ph="{&quot;title&quot;: &quot;二级菜单2&quot;...}" />
+              <marker date="1595438185828" expanded="true" signature="2550:3845" ph="{&quot;name&quot;: &quot;二级菜单1&quot;...}" />
+              <marker date="1595438185828" expanded="true" signature="2804:2933" ph="{&quot;title&quot;: &quot;二级菜单1&quot;...}" />
+              <marker date="1595438185828" expanded="true" signature="2963:3831" ph="[...]" />
+              <marker date="1595438185828" expanded="true" signature="2985:3388" ph="{&quot;name&quot;: &quot;三级菜单1&quot;...}" />
+              <marker date="1595438185828" expanded="true" signature="3205:3366" ph="{&quot;title&quot;: &quot;三级菜单1&quot;...}" />
+              <marker date="1595438185828" expanded="true" signature="3410:3813" ph="{&quot;name&quot;: &quot;三级菜单2&quot;...}" />
+              <marker date="1595438185828" expanded="true" signature="3630:3791" ph="{&quot;title&quot;: &quot;三级菜单2&quot;...}" />
+              <marker date="1595438185828" expanded="true" signature="4009:12455" ph="{&quot;id&quot;: 3...}" />
+              <marker date="1595438185828" expanded="true" signature="4178:11846" ph="[...]" />
+              <marker date="1595438185828" expanded="true" signature="4192:4943" ph="{&quot;id&quot;: 1...}" />
+              <marker date="1595438185828" expanded="true" signature="4957:5728" ph="{&quot;id&quot;: 2...}" />
+              <marker date="1595438185828" expanded="true" signature="5742:6497" ph="{&quot;id&quot;: 103...}" />
+              <marker date="1595438185828" expanded="true" signature="6511:7267" ph="{&quot;id&quot;: 104...}" />
+              <marker date="1595438185828" expanded="true" signature="7281:8027" ph="{&quot;id&quot;: 90...}" />
+              <marker date="1595438185828" expanded="true" signature="8041:8785" ph="{&quot;id&quot;: 106...}" />
+              <marker date="1595438185828" expanded="true" signature="8799:9544" ph="{&quot;id&quot;: 107...}" />
+              <marker date="1595438185828" expanded="true" signature="9558:10299" ph="{&quot;id&quot;: 44...}" />
+              <marker date="1595438185828" expanded="true" signature="10313:11055" ph="{&quot;id&quot;: 45...}" />
+              <marker date="1595438185828" expanded="true" signature="11069:11836" ph="{&quot;id&quot;: 93...}" />
+              <marker date="1595438185828" expanded="true" signature="11865:12347" ph="[...]" />
+              <marker date="1595438185828" expanded="true" signature="11879:12337" ph="{&quot;id&quot;: 7...}" />
             </folding>
           </first_editor>
           <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/RestAdvanceAdm/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="273" column="64" lean-forward="true" selection-start-line="273" selection-start-column="64" selection-end-line="273" selection-end-column="64" />
-          <folding>
-            <element signature="e#314#329#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>

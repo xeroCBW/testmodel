@@ -4,11 +4,13 @@ from django.contrib.auth.hashers import make_password
 from django.db.models import QuerySet
 from django.forms import model_to_dict
 from django.shortcuts import render
+from django.core.cache import cache
 from .models import *
 from .serializers import *
 from .utils.basemodelviewsets import *
 from .utils.paginations import GlobalPagination
 from system import tasks
+
 
 
 User = get_user_model()
@@ -163,4 +165,9 @@ class TestViewSet(CustomBaseModelViewSet):
             t = [x for x in range(1,101)]
             res = tasks.xsum.delay(t)
         print(res)
-        return JsonResponse({'status': 'successful', 'task_id': res.task_id})
+
+        cache.set(res.task_id,res.task_id)
+
+        print(cache.get(res.task_id))
+
+        return JsonResponse({'status': 'successful', 'task_id': cache.get(res.task_id)})

@@ -417,4 +417,30 @@ celery -A RestAdvanceAdm worker -l info
 celery -A RestAdvanceAdm flower -l info --persistent=True
 ```
 
+#### 设置django cahce
+1. setting 进行设置
+    ```
+    # redis配置
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": "redis://127.0.0.1:6379",
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+                "CONNECTION_POOL_KWARGS": {"max_connections": 100},
+                "PASSWORD": "19920202qwer",
+            }
+        }
+    }
+    REDIS_TIMEOUT=7*24*60*60
+    CUBES_REDIS_TIMEOUT=60*60
+    NEVER_REDIS_TIMEOUT=365*24*60*60
 
+    ```
+2. 使用
+    ```
+    
+    from django.core.cache import cache
+    cache.set(res.task_id,res.task_id)
+    cache.get(res.task_id)
+    ```

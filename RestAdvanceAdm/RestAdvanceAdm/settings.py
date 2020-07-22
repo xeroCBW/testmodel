@@ -272,6 +272,7 @@ djcelery.setup_loader()
 #数据库调度
 # CELERY_RESULT_BACKEND = 'django-db'
 CELERY_RESULT_BACKEND = 'redis://:19920202qwer@localhost:6379/0'
+result_backend = 'redis://:19920202qwer@localhost:6379/0'
 BROKER_URL= 'amqp://ccc:123456qwer@120.24.167.214:5672'
 CELERY_ACCEPT_CONTENT = ['application/json',]
 CELERY_TASK_SERIALIZER = 'json'
@@ -279,3 +280,21 @@ CELERY_RESULT_SERIALIZER = 'json'
 
 CELERY_TIMEZONE = 'Asia/Shanghai'
 # CELERY_BROKER_URL = 'amqp://ccc:123456qwer@120.24.167.214:5672//'
+
+
+
+# redis配置
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100},
+            "PASSWORD": "19920202qwer",
+        }
+    }
+}
+REDIS_TIMEOUT=7*24*60*60
+CUBES_REDIS_TIMEOUT=60*60
+NEVER_REDIS_TIMEOUT=365*24*60*60

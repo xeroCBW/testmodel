@@ -7,6 +7,7 @@ logger = get_task_logger(__name__)
 class demotask(Task):
 
     def on_success(self, retval, task_id, args, kwargs):   # 任务成功执行
+
         logger.info('task id:{} , arg:{} , successful !'.format(task_id,args))
 
 
@@ -20,6 +21,7 @@ class demotask(Task):
 
 @shared_task
 def add(x, y):
+
     return x + y
 
 
