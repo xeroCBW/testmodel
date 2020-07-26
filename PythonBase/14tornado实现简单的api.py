@@ -22,16 +22,18 @@ class queryStringRequestHandler(tornado.web.RequestHandler):
 if __name__ == '__main__':
 
 
+    try:
+        app = tornado.web.Application(
+            [
+                (r'/', basicRequestHandler),
+                (r'/blog', basicRequestHandler),
+                (r'/isEven', queryStringRequestHandler),
+                (r'/tweet/([0-9]+)', basicRequestHandler),
 
-    app = tornado.web.Application(
-        [
-            (r'/',basicRequestHandler),
-            (r'/blog', basicRequestHandler),
-            (r'/isEven', queryStringRequestHandler),
-            (r'/tweet/([0-9]+)', basicRequestHandler),
+            ]
+        )
+        app.listen(8080)
+        tornado.ioloop.IOLoop.current().start()
 
-        ]
-    )
-
-    app.listen(8080)
-    tornado.ioloop.IOLoop.current().start()
+    except KeyboardInterrupt:
+        print('stop service')
