@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script>
+
+    var ws = new WebSocket("ws://localhost:8080/chat");
+    ws.onmessage = function (e) {
+        $('#content').append("<p>" + e.data + "</p>");
+    };
+
+    function  sendMsg() {
+        var msg = $('#msg').val();
+        ws.send(msg);
+        $('#msg').value("");
+    }
+    
+</script>
+
+<body>
+
+
+<div id = 'content'></div>
+
+<div>
+
+    <textarea name="" id="msg" cols="30" rows="10"></textarea>
+    <a href="javascript:;" onclick="sendMsg()">发送</a>
+    
+</div>
+
+
+
+</body>
+</html>
