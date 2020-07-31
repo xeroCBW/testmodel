@@ -1,23 +1,23 @@
-class Handlers:
+class Handler:
 
-    def callback(self,prefix,name,*args):
-        method = getattr(set,prefix+name,None)
-        if callable(method):return method(*args)
+    def callback(self, prefix, name, *args):
+        method = getattr(self, prefix + name, None)
+        if callable(method): return method(*args)
 
-    def start(self,name):
-        self.callback('start_',name)
+    def start(self, name):
+        self.callback('start_', name)
 
-    def end(self,name):
-        self.callback('end_',name)
+    def end(self, name):
+        self.callback('end_', name)
 
-    def sub(self,name):
+    def sub(self, name):
         def substitution(match):
-            result = self.callback('sub_',name,match)
-            if result is None:match.group(0)
+            result = self.callback('sub_', name, match)
+            if result is None: match.group(0)
             return result
         return substitution
 
-class HTMLRender(Handlers):
+class HTMLRenderer(Handler):
 
     def start_document(self):
         print('<html><head><title>...</title></head><body>')
@@ -53,16 +53,16 @@ class HTMLRender(Handlers):
         print('<h1>')
 
     def end_title(self):
-        print('/<h1>')
+        print('</h1>')
 
-    def sub_emphasis(self,match):
+    def sub_emphasis(self, match):
         return '<em>{}</em>'.format(match.group(1))
 
-    def sub_url(self,match):
-        return print('<a herf ="{}">{}</a>'.format(match.group(1),match.group(1)))
+    def sub_url(self, match):
+        return '<a href="{}">{}</a>'.format(match.group(1), match.group(1))
 
-    def sub_main(self,match):
-        return '<a herf="mailto:{}">{}</a>'.format(match.group(1),match.group(1))
+    def sub_mail(self, match):
+        return '<a href="mailto:{}">{}</a>'.format(match.group(1), match.group(1))
 
-    def feed(self,data):
+    def feed(self, data):
         print(data)
