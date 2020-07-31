@@ -39,6 +39,27 @@
     ```
     
 11. __name__ == '__main__'
-12. 一本生成器,调用 next 方法
+12. generator生成器,调用 next 方法,节约资源,调用的时候才会生成
 13. 协程 就是微线程(用户线程),弥补线程的缺失;
 14. < 表示输入 > 表示输出
+15. super() 可以调用父类的方法 `super.__init__(handler)`
+16. 如果想使用更好层级的方法,使用类名来调用 `Parser.__init__(self, handler)`
+
+    ```python
+    class Grandparent(object):
+        def my_method(self):
+            print("Grandparent")
+    
+    class Parent(Grandparent):
+        def my_method(self):
+            print("Parent")
+    
+    class Child(Parent):
+        def my_method(self):
+            print("Hello Grandparent")
+            Grandparent.my_method(self)
+    ```
+17. super()是一个函数
+18. cls 是type类型,self 是cls的一个实例
+19. a = b[::]# 这个是浅复试,只是一个指针
+20. 深复制 a = deepcopy()来复制
