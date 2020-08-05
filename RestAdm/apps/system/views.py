@@ -629,7 +629,8 @@ class PatentViewSets(CustomBaseModelViewSet):
         queryset = Patent.objects.all()
 
         id = self.request.query_params.get('id', None)
-        name = self.request.query_params.get('username', None)
+        name = self.request.query_params.get('name', None)
+
 
         if name is not None:
             queryset = queryset.filter(name__contains=name)
