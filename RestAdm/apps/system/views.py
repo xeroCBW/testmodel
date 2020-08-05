@@ -161,6 +161,7 @@ class UserListViewSet(CustomBaseModelViewSet):
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter)
     filter_class = UserFilter
     search_fields = ('name',)
+
     ordering_fields = ('id', )
 
     # 实现多条件查询
@@ -168,15 +169,16 @@ class UserListViewSet(CustomBaseModelViewSet):
     def get_queryset(self):
 
         queryset = UserProfile.objects.all()
-        # role_name = self.request.query_params.get('role_name', None)
-        # role_id = self.request.query_params.get('role_id', None)
+
+        role_name = self.request.query_params.get('username', None)
+        role_id = self.request.query_params.get('id', None)
         # menu_name = self.request.query_params.get('menu_name', None)
-        # if role_name is not None:
-        #     queryset = queryset.filter(role__name=role_name)
+        if role_name is not None:
+            queryset = queryset.filter(username__contains=role_name)
         # if menu_name is not None:
         #     queryset = queryset.filter(menu__name=menu_name)
-        # if role_id is not None and role_id.isdigit():
-        #     queryset = queryset.filter(role__id=role_id)
+        if role_id is not None and role_id.isdigit():
+            queryset = queryset.filter(id__contains=role_id)
 
         return queryset
 
@@ -619,3 +621,19 @@ class PatentViewSets(CustomBaseModelViewSet):
     filter_class = PatentFilter
     search_fields = ('name',)
     ordering_fields = ('id', )
+
+
+
+    def get_queryset(self):
+
+        queryset = Patent.objects.all()
+
+        id = self.request.query_params.get('id', None)
+        name = self.request.query_params.get('username', None)
+
+        if name is not None:
+            queryset = queryset.filter(name__contains=name)
+        if id is not None and id.isdigit():
+            queryset = queryset.filter(id__contains=id)
+
+        return queryset
