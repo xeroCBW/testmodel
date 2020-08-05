@@ -175,6 +175,12 @@ class RoleListSerializer(serializers.ModelSerializer):
 
 
 
+class PatentSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Patent
+        fields = '__all__'
+
 class RoleSerializer(serializers.ModelSerializer):
 
     # pages = serializers.SlugRelatedField(read_only=True,many=True,source='page_list',slug_field='url')

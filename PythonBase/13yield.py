@@ -53,9 +53,17 @@ def get_num3(n):
 
 def test04():
 
-
     print(list(get_num3(10)))
 
+
+def test05():
+    '''
+    test4 和 test05 效果一样.主要是避免语法显得复杂
+    :return:
+    '''
+    a = get_nums(10)
+    for _ in range(10):
+        print(next(a))
 
 if __name__ == '__main__':
 
@@ -65,7 +73,11 @@ if __name__ == '__main__':
 
     # test03()
 
-    test04()
+    # test04()
+
+    # test05()
+
+    pass
 
 
 

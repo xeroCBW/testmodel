@@ -38,8 +38,10 @@ router.register('user-permission', UserPermissionListViewSet,basename='user-perm
 router.register('page', PageViewSet,basename='page')
 router.register('button', ButtonViewSet,basename='button')
 
-router.register('download/button', ButtonDownloadViewSets,basename='download/button')
-router.register('upload/button', ButtonUploadViewSets,basename='upload/button')
+router.register('download/patent', PatentDownloadViewSets,basename='download/patent')
+router.register('upload/patent', PatentUploadViewSets,basename='upload/patent')
+
+router.register('patent', PatentViewSets,basename='patent')
 
 urlpatterns = [
 

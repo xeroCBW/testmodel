@@ -10,7 +10,7 @@ from rest_framework.viewsets import *
 from rest_framework.mixins import *
 from rest_pandas import PandasView, PandasViewSet, PandasSerializer
 import pandas as pd
-from system.filters import GoodFilter, ButtonFilter, RoleFilter, UserFilter, PageFilter
+from system.filters import GoodFilter, ButtonFilter, RoleFilter, UserFilter, PageFilter,PatentFilter
 from system.models import *
 from system.serializer import *
 from .utils.RestModelViewSet import *
@@ -527,15 +527,15 @@ class ButtonViewSet(CustomBaseModelViewSet):
 
 # class ButtonRenderViewSets(viewsets.GenericViewSet,mixins.ListModelMixin):
 
-class ButtonDownloadViewSets(PandasViewSet):
+class PatentDownloadViewSets(PandasViewSet):
 
-    serializer_class = ButtonSerilizer
-    queryset = Button.objects.all()
+    serializer_class = PatentSerializer
+    queryset = Patent.objects.all()
     # 暂时不支持,分页功能的下载
     pagination_class = NormalPagination
     # 自定义将这个去掉了
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter)
-    filter_class = ButtonFilter
+    filter_class = PatentFilter
     search_fields = ('=id', 'name',)
 
     renderer_classes = [CustomPandasExcelRender,]
@@ -543,7 +543,7 @@ class ButtonDownloadViewSets(PandasViewSet):
     list_serializer_class = PandasSerializer
 
 
-class ButtonUploadViewSets(viewsets.ModelViewSet):
+class PatentUploadViewSets(viewsets.ModelViewSet):
 
     serializer_class = serializers.Serializer
     queryset = Button.objects.all()
@@ -564,12 +564,58 @@ class ButtonUploadViewSets(viewsets.ModelViewSet):
                 t[k] = v[i]
             res += [t]
 
-        for x in res:
-            print(x)
+        mp = {
+            '文献号':'document_no',
+            '申请号':'apply_no',
+            '申请日':'apply_time',
+            '公开号':'public_no',
+            '公开(公告)日':'public_time',
+            '名称':'name',
+            '申请人':'apply_user',
+            '地址':'address',
+            '发明人':'inventor',
+            '优先权':'priority',
+            '分类号':'category_no',
+            '主分类号':'main_category_no',
+            '国省代码':'nation_province',
 
-        ans =  ButtonSerilizer(data=res)
+            '国际公布':'internation_publish',
+            '国际公开日':'internation_publish_time',
+            '同族数':'phrator_date',
+            '被引证数':'quote_number',
+            '引证专利':'quote_patent',
+            '摘要':'abstract',
+            '摘要附图':'abstract_pic',
+        }
+
+        ans = []
+        for x in res:
+            t = {}
+            for k,v in x.items():
+                t[mp[k]] = v
+            ans.append(t)
+
+        print(ans)
+
+        try:
+            ans =  PatentSerializer(data=ans,many=True)
+            ans.is_valid(raise_exception=True)
+            ans.save()
+        except Exception as e:
+            print(e)
+
 
         return JsonResponse(data=res,msg='success',code=201,status=status.HTTP_201_CREATED)
 
 
+class PatentViewSets(CustomBaseModelViewSet):
 
+    serializer_class = PatentSerializer
+    queryset = Patent.objects.all()
+    pagination_class = GlobalPagination
+
+    # 自定义将这个去掉了
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter)
+    filter_class = PatentFilter
+    search_fields = ('name',)
+    ordering_fields = ('id', )
