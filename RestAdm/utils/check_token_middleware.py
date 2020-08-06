@@ -24,8 +24,8 @@ class CheckTokenMiddleware(MiddlewareMixin):
             user = getattr(request,'user')
             if len(user.username) and hasattr(user,'is_active') and not getattr(user,'is_active'):
                 print('-----')
-                return JsonResponse(data={'msg': '用户不可用请联系超级管理员', 'data': {}, 'code': 401},
-                                    status=status.HTTP_401_UNAUTHORIZED)
+                return JsonResponse(data={'msg': '用户不可用请联系超级管理员', 'data': {}, 'code': 400},
+                                    status=status.HTTP_400_BAD_REQUEST)
 
 
             # data = {

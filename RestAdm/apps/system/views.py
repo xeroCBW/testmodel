@@ -120,7 +120,13 @@ class RoleListViewSet(CustomBaseModelViewSet):
             actionsOptions = Button.objects.values('id','url','page').filter(page__in=page_id_list)
             actionsOptions_mp = {x:list() for x in page_id_list}
             for x in actionsOptions:
-                actionsOptions_mp[x['page']] += [x['url']]
+                # actionsOptions_mp[x['page']] += [x['url']]
+                actionsOptions_mp[x['page']] += [
+                    {
+                        'id':x['id'],
+                        'code':x['url'],
+                    }
+                ]
 
             roles_mp = dict()
             for role_id in roles:
@@ -130,7 +136,13 @@ class RoleListViewSet(CustomBaseModelViewSet):
                         roles_mp[role_id][x['id']] = list()
             # 生成 角色 页面 按钮 数组
             for button in buttons_list:
-                roles_mp[button['button_role']][button['page']] += [button['url']]
+                # roles_mp[button['button_role']][button['page']] += [button['url']]
+                roles_mp[button['button_role']][button['page']] += [
+                    {
+                        'id':button['id'],
+                        'code':button['url'],
+                    }
+                ]
 
 
             for x in res.data['data']['items']:

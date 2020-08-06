@@ -58,15 +58,24 @@ class MenuSerializer(serializers.ModelSerializer):
         model = Menu
         fields = '__all__'
 
+
+
+class ButtonPageSerilizer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Button
+        fields = ['id','url']
+
 class PageSerilizer(serializers.ModelSerializer):
 
-    permissions = serializers.SlugRelatedField(
-        source='page_button',
-        many=True,
-        read_only=True,
-        slug_field='url'
-    )
+    # permissions = serializers.SlugRelatedField(
+    #     source='page_button',
+    #     many=True,
+    #     read_only=True,
+    #     slug_field='url'
+    # )
 
+    permissions = ButtonPageSerilizer(many=True,source='page_button',read_only=True)
     class Meta:
         model = Page
         fields = '__all__'
@@ -203,13 +212,16 @@ class UserProfileListSerializer(serializers.ModelSerializer):
 
 
 
+
+
+
 class UserProfileSerializer(serializers.ModelSerializer):
 
     roles = serializers.SlugRelatedField(many=True, slug_field='code', queryset=Role.objects.all())
 
     class Meta:
         model = UserProfile
-        exclude = ('groups', 'user_permissions','last_login','password')
+        exclude = ('groups', 'user_permissions','last_login',)
 
     # 注意要使用active时候才可以登录
     def create(self, validated_data):
