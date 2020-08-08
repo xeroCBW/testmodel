@@ -1,0 +1,110 @@
+option = {
+    title: {
+        text: ''
+    },
+    tooltip: {},
+    animationDurationUpdate: 1500,
+    animationEasingUpdate: 'quinticInOut',
+    label: {
+        normal: {
+            show: true,
+            textStyle: {
+                fontSize: 12
+            },
+        }
+    },
+    legend: {
+        x: "center",
+        show: false,
+        data: ["夫妻", "战友", '亲戚']
+    },
+    series: [
+
+        {
+            type: 'graph',
+            layout: 'force',
+            symbolSize: 45,
+            focusNodeAdjacency: true,
+            roam: true,
+            categories: [{
+                name: '夫妻',
+                itemStyle: {
+                    normal: {
+                        color: "#009800",
+                    }
+                }
+            }, {
+                name: '战友',
+                itemStyle: {
+                    normal: {
+                        color: "#4592FF",
+                    }
+                }
+            }, {
+                name: '亲戚',
+                itemStyle: {
+                    normal: {
+                        color: "#3592F",
+                    }
+                }
+            }],
+            label: {
+                normal: {
+                    show: true,
+                    textStyle: {
+                        fontSize: 12
+                    },
+                }
+            },
+            force: {
+                repulsion: 1000
+            },
+            edgeSymbolSize: [4, 50],
+            edgeLabel: {
+                normal: {
+                    show: true,
+                    textStyle: {
+                        fontSize: 10
+                    },
+                    formatter: "{c}"
+                }
+            },
+            data: [
+                {name: '胡锦涛', category: 1, draggable: true},
+                {name: '习近平', category: 1, draggable: true},
+                {name: '李克强', category: 1, draggable: true},
+                {name: '韩正', category: 1, draggable: true},
+                {name: '汪洋', category: 1, draggable: true},
+                {name: '赵乐际', category: 1, draggable: true},
+                {name: '刘鹤', category: 1, draggable: true}
+            ],
+            links: [
+               {source: 0, target: 1, value: '同事'},
+               {source: 0, target: 2, value: '同事'},
+               {source: 0, target: 5, value: '同事'},
+               {source: 1, target: 0, value: '同事'},
+               {source: 2, target: 0, value: '同事'},
+               {source: 2, target: 3, value: '同事'},
+               {source: 2, target: 4, value: '同事'},
+               {source: 2, target: 5, value: '同事'},
+               {source: 3, target: 2, value: '同事'},
+               {source: 3, target: 4, value: '同事'},
+               {source: 3, target: 6, value: '同事'},
+               {source: 4, target: 2, value: '同事'},
+               {source: 4, target: 3, value: '同事'},
+               {source: 5, target: 0, value: '同事'},
+               {source: 5, target: 2, value: '同事'},
+               {source: 5, target: 6, value: '同事'},
+               {source: 6, target: 3, value: '同事'},
+               {source: 6, target: 5, value: '同事'}
+            ],
+            lineStyle: {
+                normal: {
+                    opacity: 0.9,
+                    width: 1,
+                    curveness: 0
+                }
+            }
+        }
+    ]
+};

@@ -15,6 +15,7 @@ import sys
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import datetime
 
+import djcelery
 from corsheaders.defaults import default_headers
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -364,3 +365,15 @@ CORS_ALLOW_HEADERS = default_headers + (
 #         }
 #     }
 # }
+
+djcelery.setup_loader()
+# 在文件中添加下面的两行配置
+#数据库调度
+# CELERY_RESULT_BACKEND = 'django-db'
+# CELERY_RESULT_BACKEND = 'redis://:19920202qwer@localhost:6379/0'
+# result_backend = 'redis://:19920202qwer@localhost:6379/0'
+# BROKER_URL= 'amqp://ccc:123456qwer@120.24.167.214:5672'
+# CELERY_ACCEPT_CONTENT = ['application/json',]
+# CELERY_TASK_SERIALIZER = 'json'
+# CELERY_RESULT_SERIALIZER = 'json'
+# CELERY_TIMEZONE = 'Asia/Shanghai'

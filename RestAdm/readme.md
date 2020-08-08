@@ -245,3 +245,7 @@ ALLOWED_HOSTS = [ '192.168.x.xxx' ]
 1. pip install --upgrade xxx
 2. pip install xxx==yyy
 3. pip freeze > requirements.txt
+
+
+### igraph画图
+1. 一定要安装这个`pip install pycairo` 否则会报错

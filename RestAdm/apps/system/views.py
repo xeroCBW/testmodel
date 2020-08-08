@@ -18,6 +18,10 @@ from .paginations import GlobalPagination, NormalPagination
 from .utils.custom_pandas_excel_render import CustomPandasExcelRender
 
 from rest_framework.filters import SearchFilter
+
+from system import tasks
+from system.utils import data_process
+
 User = get_user_model()
 
 # class CustomBackend(ModelBackend):
@@ -97,6 +101,75 @@ class RoleListViewSet(CustomBaseModelViewSet):
         else:
             return RoleSerializer
 
+
+    def get_actionMP_selectedMP(self,roles):
+
+        buttons_list = Button.objects.values('id', 'code', 'name', 'desc', 'state', 'page', 'button_role').distinct()
+        # 不知道为什么不会去重---加上filter(又会加上一个连接)
+        buttons_list = [x for x in buttons_list if x['button_role'] in roles]
+
+        pages_list = Page.objects.values('id', 'page_role').distinct()
+        # 不知道为什么不会去重
+        pages_list = [x for x in pages_list if x['page_role'] in roles]
+
+        # 生成所有菜单的按钮
+        page_id_list = {x['id'] for x in pages_list}
+        page_id_list = list(page_id_list)
+        actionsOptions = Button.objects.values('id', 'code', 'page', 'name', 'desc', 'state').filter(
+            page__in=page_id_list)
+        actionsOptions_mp = {x: list() for x in page_id_list}
+        for x in actionsOptions:
+            # actionsOptions_mp[x['page']] += [x['url']]
+            actionsOptions_mp[x['page']] += [
+                {
+                    'id': x['id'],
+                    'code': x['code'],
+                    'page': x['page'],
+                    'name': x['name'],
+                    'desc': x['desc'],
+                    'state': x['state'],
+                }
+            ]
+
+        roles_mp = dict()
+        for role_id in roles:
+            roles_mp[role_id] = dict()
+            for x in pages_list:
+                if role_id == x['page_role']:
+                    roles_mp[role_id][x['id']] = list()
+        # 生成 角色 页面 按钮 数组
+        for button in buttons_list:
+            # roles_mp[button['button_role']][button['page']] += [button['url']]
+            roles_mp[button['button_role']][button['page']] += [
+                {
+                    'id': button['id'],
+                    'code': button['code'],
+                    'page': button['page'],
+                    'name': button['name'],
+                    'desc': button['desc'],
+                    'state': button['state'],
+                }
+            ]
+
+        return actionsOptions_mp,roles_mp
+
+    def retrieve(self, request, *args, **kwargs):
+
+        res = super().retrieve(request,args,kwargs)
+        role_id = res.data.get('data').get('id')
+        roles = [role_id]
+        actionsOptions_mp, roles_mp = self.get_actionMP_selectedMP(roles)
+
+        for y in res.data.get('data').get('pages',[]):
+            y['actionsOptions'] = actionsOptions_mp.get(y['id'], [])
+            y['selected'] = roles_mp[role_id].get(y['id'], [])
+            y['checkAll'] = True if len(y['actionsOptions']) == len(y['selected']) else False
+
+            y['actionsOption_ids'] = [z['id'] for z in y['actionsOptions']]
+            y['selected_ids'] = [z['id'] for z in y['selected']]
+
+        return res
+
     def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
 
@@ -106,57 +179,31 @@ class RoleListViewSet(CustomBaseModelViewSet):
             res = self.get_paginated_response(serializer.data)
 
             roles = [x['id'] for x in res.data['data']['items']]
-            buttons_list = Button.objects.values('id', 'url', 'page', 'button_role').distinct()
-            # 不知道为什么不会去重---加上filter(又会加上一个连接)
-            buttons_list = [x for x in buttons_list if x['button_role'] in roles]
 
-            pages_list = Page.objects.values('id','page_role').distinct()
-            # 不知道为什么不会去重
-            pages_list = [x for x in pages_list if x['page_role'] in roles]
-
-            # 生成所有菜单的按钮
-            page_id_list = {x['id'] for x in pages_list}
-            page_id_list = list(page_id_list)
-            actionsOptions = Button.objects.values('id','url','page').filter(page__in=page_id_list)
-            actionsOptions_mp = {x:list() for x in page_id_list}
-            for x in actionsOptions:
-                # actionsOptions_mp[x['page']] += [x['url']]
-                actionsOptions_mp[x['page']] += [
-                    {
-                        'id':x['id'],
-                        'code':x['url'],
-                    }
-                ]
-
-            roles_mp = dict()
-            for role_id in roles:
-                roles_mp[role_id] = dict()
-                for x in pages_list:
-                    if role_id == x['page_role']:
-                        roles_mp[role_id][x['id']] = list()
-            # 生成 角色 页面 按钮 数组
-            for button in buttons_list:
-                # roles_mp[button['button_role']][button['page']] += [button['url']]
-                roles_mp[button['button_role']][button['page']] += [
-                    {
-                        'id':button['id'],
-                        'code':button['url'],
-                    }
-                ]
-
+            actionsOptions_mp,roles_mp = self.get_actionMP_selectedMP(roles)
 
             for x in res.data['data']['items']:
                 for y in x['pages']:
-                    y['actionsOptions'] = actionsOptions_mp[y['id']]
-                    y['checkAll'] = True if len(y['actionsOptions']) == len(roles_mp[x['id']][y['id']]) else False
-                    y['selected'] = roles_mp[x['id']][y['id']]
+                    y['actionsOptions'] = actionsOptions_mp.get(y['id'],[])
+                    y['selected'] = roles_mp[x['id']].get(y['id'], [])
+                    y['checkAll'] = True if len(y['actionsOptions']) == len(y['selected']) else False
 
-            # print(json.dumps(res.data,indent=4,ensure_ascii=False))
+                    y['actionsOption_ids'] = [z['id'] for z in y['actionsOptions']]
+                    y['selected_ids'] = [z['id'] for z in y['selected']]
 
             return res
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
+
+
+
+    def update(self, request, *args, **kwargs):
+        role =Role.objects.filter(id=kwargs.get('pk')).first()
+        if role.code != 'admin':
+            super().update(request,args,kwargs)
+        else:
+            return JsonResponse(data={}, msg="admin用户不能更改", code=200, status=status.HTTP_200_OK)
 
 class UserListViewSet(CustomBaseModelViewSet):
     '''
@@ -247,33 +294,79 @@ class UserPermissionListViewSet(CustomBaseRetrieveModelMixin,viewsets.GenericVie
         page_list = list()
         button_list = list()
 
-        page_list = Page.objects.values('id','name','desc','state','url','order').filter(page_role__in=[x.id for x in roles_list]).distinct().order_by('order')
+        page_list = Page.objects.values('id','name','desc','state','code','order').filter(page_role__in=[x.id for x in roles_list]).distinct().order_by('order')
         # 将queryset 转成list
         page_list = list(page_list)
-        select_button_list = Button.objects.values('id','name','desc','state','url','page').filter(button_role__in=[x.id for x in roles_list]).distinct()
-        all_button_list = Button.objects.values('id','name','desc','state','url','page').filter(page__in=[x['id'] for x in page_list]).distinct()
+        select_button_list = Button.objects.values('id','name','desc','state','code','page').filter(button_role__in=[x.id for x in roles_list]).distinct()
+        all_button_list = Button.objects.values('id','name','desc','state','code','page').filter(page__in=[x['id'] for x in page_list]).distinct()
 
         select_button_mp = dict()
         for x in select_button_list:
             if x['page'] in select_button_mp.keys():
-                select_button_mp[x['page']] += [x['url']]
+                select_button_mp[x['page']] += [
+                    {
+                        'id': x['id'],
+                        'code': x['code'],
+                        'page': x['page'],
+                        'name': x['name'],
+                        'desc': x['desc'],
+                        'state': x['state'],
+
+                    }
+
+
+                ]
             else:
-                select_button_mp[x['page']] = [x['url']]
+                select_button_mp[x['page']] = [
+                    {
+                        'id': x['id'],
+                        'code': x['code'],
+                        'page': x['page'],
+                        'name': x['name'],
+                        'desc': x['desc'],
+                        'state': x['state'],
+                    }
+                ]
 
         all_button_mp = dict()
         for x in all_button_list:
             if x['page'] in all_button_mp.keys():
-                all_button_mp[x['page']] += [x['url']]
+                all_button_mp[x['page']] += [
+                    {
+                        'id': x['id'],
+                        'code': x['code'],
+                        'page': x['page'],
+                        'name': x['name'],
+                        'desc': x['desc'],
+                        'state': x['state'],
+                    }
+                ]
             else:
-                all_button_mp[x['page']] = [x['url']]
+                all_button_mp[x['page']] = [
+                    {
+                        'id': x['id'],
+                        'code': x['code'],
+                        'page': x['page'],
+                        'name': x['name'],
+                        'desc': x['desc'],
+                        'state': x['state'],
+                    }
+                ]
 
 
-        for x in page_list:
-            x['code'] = x['url']
-            del x['url']
-            x['selected'] = select_button_mp[x['id']]
-            x['actionsOptions'] = all_button_mp[x['id']]
-            x['checkAll'] = True if len(x['selected']) == len(x['actionsOptions']) else False
+        try:
+            for x in page_list:
+                # x['code'] = x['url']
+                # del x['url']
+                x['selected'] = select_button_mp.get(x['id'],[])
+                x['actionsOptions'] = all_button_mp.get(x['id'],[])
+                x['checkAll'] = True if len(x['selected']) == len(x['actionsOptions']) else False
+
+                x['selected_ids'] = [y['id'] for y in x['selected']]
+                x['actionsOption_ids'] = [y['id'] for y in x['actionsOptions']]
+        except:
+            print(x['id'])
+
 
         permissions = page_list
 
@@ -615,6 +708,14 @@ class PatentUploadViewSets(viewsets.ModelViewSet):
             ans =  PatentSerializer(data=ans,many=True)
             ans.is_valid(raise_exception=True)
             ans.save()
+
+            data_process.handler()
+        #     在这里处理数据---
+
+
+
+
+
         except Exception as e:
             print(e)
 
@@ -650,3 +751,17 @@ class PatentViewSets(CustomBaseModelViewSet):
             queryset = queryset.filter(id__contains=id)
 
         return queryset
+
+
+class PatentInfoViewSets(CustomBaseModelViewSet):
+
+    serializer_class = PatentSerializer
+    queryset = Patent.objects.all()
+    pagination_class = GlobalPagination
+
+    # 设置过滤器
+    filter_backends = (django_filters.rest_framework.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    filter_class = PatentFilter
+    search_fields = ('name',)
+    ordering_fields = ('id',)
+

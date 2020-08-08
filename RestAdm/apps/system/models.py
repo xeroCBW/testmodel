@@ -37,7 +37,7 @@ class Menu(BaseModel):
 class Page(BaseModel):
 
     name = models.CharField(max_length=100)
-    url = models.CharField(max_length=100, unique=True)
+    code = models.CharField(max_length=100, unique=True)
     order = models.IntegerField(default=0)
 
     class Meta:
@@ -52,7 +52,7 @@ class Page(BaseModel):
 class Button(BaseModel):
     page = models.ForeignKey(Page, on_delete=models.CASCADE,related_name='page_button')
     name = models.CharField(max_length=100, null=True, blank=True)
-    url = models.CharField(max_length=100)
+    code = models.CharField(max_length=100)
 
     class Meta:
         ordering = ['-id']

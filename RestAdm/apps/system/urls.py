@@ -43,6 +43,8 @@ router.register('upload/patent', PatentUploadViewSets,basename='upload/patent')
 
 router.register('patent', PatentViewSets,basename='patent')
 
+router.register('patent-info', PatentInfoViewSets,basename='patent-info')
+
 urlpatterns = [
 
     path('', include(router.urls)),

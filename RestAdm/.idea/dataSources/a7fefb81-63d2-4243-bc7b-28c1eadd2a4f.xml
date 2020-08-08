@@ -1553,7 +1553,7 @@ model</ColNames>
       <DataType>varchar(100)|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="367" parent="253" name="url">
+    <column id="367" parent="253" name="code">
       <Position>5</Position>
       <DataType>varchar(100)|0</DataType>
       <NotNull>1</NotNull>
@@ -2169,30 +2169,30 @@ user_id</ColNames>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="480" parent="260" name="url">
+    <column id="480" parent="260" name="desc">
       <Position>5</Position>
-      <DataType>varchar(100)|0</DataType>
-      <NotNull>1</NotNull>
-      <ColumnKind>normal</ColumnKind>
-    </column>
-    <column id="481" parent="260" name="desc">
-      <Position>6</Position>
       <DataType>longtext|0</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="482" parent="260" name="state">
-      <Position>7</Position>
+    <column id="481" parent="260" name="state">
+      <Position>6</Position>
       <DataType>tinyint(1)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="483" parent="260" name="order">
-      <Position>8</Position>
+    <column id="482" parent="260" name="order">
+      <Position>7</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="484" parent="260" name="url">
+    <column id="483" parent="260" name="url">
+      <Position>8</Position>
+      <DataType>varchar(100)|0</DataType>
+      <NotNull>1</NotNull>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="484" parent="260" name="system_page_url_a6fd4533_uniq">
       <ColNames>url</ColNames>
       <Unique>1</Unique>
     </index>
@@ -2201,9 +2201,9 @@ user_id</ColNames>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="486" parent="260" name="url">
+    <key id="486" parent="260" name="system_page_url_a6fd4533_uniq">
       <ColNames>url</ColNames>
-      <UnderlyingIndexName>url</UnderlyingIndexName>
+      <UnderlyingIndexName>system_page_url_a6fd4533_uniq</UnderlyingIndexName>
     </key>
     <column id="487" parent="261" name="id">
       <Position>1</Position>
