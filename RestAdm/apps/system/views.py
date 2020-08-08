@@ -616,6 +616,29 @@ class ButtonViewSet(CustomBaseModelViewSet):
     search_fields = ('name',)
     ordering_fields = ('id', )
 
+
+    def list(self, request, *args, **kwargs):
+
+        page_num = self.request.query_params.get('page')
+
+        if page_num:
+            queryset = self.filter_queryset(self.get_queryset())
+            page = self.paginate_queryset(queryset)
+            if page is not None:
+                serializer = self.get_serializer(page, many=True)
+                res = self.get_paginated_response(serializer.data)
+                return res
+
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+
+        else:
+            queryset = Button.objects.all()
+            serializer = self.get_serializer(queryset, many=True)
+            res = serializer.data
+            return JsonResponse(data=res, code=200, msg="success", status=status.HTTP_200_OK)
+
+
     def get_renderers(self):
         if self.action == 'download':
             return [CustomPandasExcelRender,]
