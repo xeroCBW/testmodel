@@ -31,8 +31,8 @@ class CustomBaseModelViewSet(viewsets.ModelViewSet):
             serializer = self.get_serializer(page, many=True)
             return self.get_paginated_response(serializer.data)
 
+        # 增加item属性
         serializer = self.get_serializer(queryset, many=True)
-
         res = {'items':serializer.data}
         return JsonResponse(data=res, code=200, msg="success", status=status.HTTP_200_OK)
 

@@ -153,26 +153,26 @@ class RoleListViewSet(CustomBaseModelViewSet):
 
         return actionsOptions_mp,roles_mp
 
-    def retrieve(self, request, *args, **kwargs):
-
-        res = super().retrieve(request,args,kwargs)
-        role_id = res.data.get('data').get('id')
-        roles = [role_id]
-        actionsOptions_mp, roles_mp = self.get_actionMP_selectedMP(roles)
-
-        for y in res.data.get('data').get('pages',[]):
-            y['actionsOptions'] = actionsOptions_mp.get(y['id'], [])
-            y['selected'] = roles_mp[role_id].get(y['id'], [])
-            y['checkAll'] = True if len(y['actionsOptions']) == len(y['selected']) else False
-
-            y['actionsOption_ids'] = [z['id'] for z in y['actionsOptions']]
-            y['selected_ids'] = [z['id'] for z in y['selected']]
-
-        return res
+    # def retrieve(self, request, *args, **kwargs):
+    #
+    #     res = super().retrieve(request,args,kwargs)
+    #     role_id = res.data.get('data').get('id')
+    #     roles = [role_id]
+    #     actionsOptions_mp, roles_mp = self.get_actionMP_selectedMP(roles)
+    #
+    #     for y in res.data.get('data').get('pages',[]):
+    #         y['actionsOptions'] = actionsOptions_mp.get(y['id'], [])
+    #         y['selected'] = roles_mp[role_id].get(y['id'], [])
+    #         y['checkAll'] = True if len(y['actionsOptions']) == len(y['selected']) else False
+    #
+    #         y['actionsOption_ids'] = [z['id'] for z in y['actionsOptions']]
+    #         y['selected_ids'] = [z['id'] for z in y['selected']]
+    #
+    #     return res
 
     def list(self, request, *args, **kwargs):
-        queryset = self.filter_queryset(self.get_queryset())
 
+        queryset = self.filter_queryset(self.get_queryset())
         page = self.paginate_queryset(queryset)
         if page is not None:
             serializer = self.get_serializer(page, many=True)
@@ -201,7 +201,7 @@ class RoleListViewSet(CustomBaseModelViewSet):
     def update(self, request, *args, **kwargs):
         role =Role.objects.filter(id=kwargs.get('pk')).first()
         if role.code != 'admin':
-            super().update(request,args,kwargs)
+            return super().update(request,args,kwargs)
         else:
             return JsonResponse(data={}, msg="admin用户不能更改", code=200, status=status.HTTP_200_OK)
 
@@ -213,10 +213,7 @@ class UserListViewSet(CustomBaseModelViewSet):
     '''
 
     serializer_class = UserProfileSerializer
-    filter_backends = [SearchFilter, ]
-    search_fields = ('user__name', 'user__id',)
     pagination_class = GlobalPagination
-
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter)
     filter_class = UserFilter
     search_fields = ('name',)
@@ -246,6 +243,27 @@ class UserListViewSet(CustomBaseModelViewSet):
             return UserProfileListSerializer
         else:
             return UserProfileSerializer
+
+    def list(self, request, *args, **kwargs):
+
+        page_num = self.request.query_params.get('page')
+
+        if page_num:
+            queryset = self.filter_queryset(self.get_queryset())
+            page = self.paginate_queryset(queryset)
+            if page is not None:
+                serializer = self.get_serializer(page, many=True)
+                res = self.get_paginated_response(serializer.data)
+                return res
+
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+
+        else:
+            queryset = UserProfile.objects.all()
+            serializer = self.get_serializer(queryset, many=True)
+            res = {'items': serializer.data}
+            return JsonResponse(data=res, code=200, msg="success", status=status.HTTP_200_OK)
 
 
 
@@ -604,6 +622,28 @@ class PageViewSet(CustomBaseModelViewSet):
     search_fields = ('name',)
     ordering_fields = ('id', )
 
+
+    def list(self, request, *args, **kwargs):
+
+        page_num = self.request.query_params.get('page')
+
+        if page_num:
+            queryset = self.filter_queryset(self.get_queryset())
+            page = self.paginate_queryset(queryset)
+            if page is not None:
+                serializer = self.get_serializer(page, many=True)
+                res = self.get_paginated_response(serializer.data)
+                return res
+
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+
+        else:
+            queryset = Page.objects.all()
+            serializer = self.get_serializer(queryset, many=True)
+            res = {'items': serializer.data}
+            return JsonResponse(data=res, code=200, msg="success", status=status.HTTP_200_OK)
+
 class ButtonViewSet(CustomBaseModelViewSet):
 
     queryset = Button.objects.all()
@@ -635,7 +675,8 @@ class ButtonViewSet(CustomBaseModelViewSet):
         else:
             queryset = Button.objects.all()
             serializer = self.get_serializer(queryset, many=True)
-            res = serializer.data
+
+            res = {'items':serializer.data}
             return JsonResponse(data=res, code=200, msg="success", status=status.HTTP_200_OK)
 
 
@@ -775,6 +816,26 @@ class PatentViewSets(CustomBaseModelViewSet):
 
         return queryset
 
+    def list(self, request, *args, **kwargs):
+
+        page_num = self.request.query_params.get('page')
+
+        if page_num:
+            queryset = self.filter_queryset(self.get_queryset())
+            page = self.paginate_queryset(queryset)
+            if page is not None:
+                serializer = self.get_serializer(page, many=True)
+                res = self.get_paginated_response(serializer.data)
+                return res
+
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+
+        else:
+            queryset = Patent.objects.all()
+            serializer = self.get_serializer(queryset, many=True)
+            res = {'items': serializer.data}
+            return JsonResponse(data=res, code=200, msg="success", status=status.HTTP_200_OK)
 
 class PatentInfoViewSets(CustomBaseModelViewSet):
 

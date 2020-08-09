@@ -196,6 +196,16 @@ class RoleSerializer(serializers.ModelSerializer):
     # pages = serializers.SlugRelatedField(read_only=True,many=True,source='page_list',slug_field='url')
     # buttons = serializers.SlugRelatedField(read_only=True, many=True,source='button_list', slug_field='url')
 
+
+
+    # def update(self, instance, validated_data):
+    #
+    #     instance = super().update(instance,validated_data)
+    #
+    #     return instance
+
+
+
     class Meta:
         model = Role
         fields = '__all__'

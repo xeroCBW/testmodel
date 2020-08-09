@@ -65,6 +65,21 @@ def test05():
     for _ in range(10):
         print(next(a))
 
+def test06():
+
+
+    direction = [
+        (1,0),
+        (-1,0),
+        (0,1),
+        (0,-1),
+    ]
+
+    for d in direction:
+        print(d)
+
+
+
 if __name__ == '__main__':
 
     # test01()
@@ -76,6 +91,8 @@ if __name__ == '__main__':
     # test04()
 
     # test05()
+
+    test06()
 
     pass
 
