@@ -172,31 +172,52 @@ class RoleListViewSet(CustomBaseModelViewSet):
 
     def list(self, request, *args, **kwargs):
 
-        queryset = self.filter_queryset(self.get_queryset())
-        page = self.paginate_queryset(queryset)
-        if page is not None:
-            serializer = self.get_serializer(page, many=True)
-            res = self.get_paginated_response(serializer.data)
+        page_num = self.request.query_params.get('page')
 
-            roles = [x['id'] for x in res.data['data']['items']]
+        if page_num:
 
-            actionsOptions_mp,roles_mp = self.get_actionMP_selectedMP(roles)
+            queryset = self.filter_queryset(self.get_queryset())
+            page = self.paginate_queryset(queryset)
+            if page is not None:
 
-            for x in res.data['data']['items']:
+                serializer = self.get_serializer(page, many=True)
+                res = self.get_paginated_response(serializer.data)
+
+                roles = [x['id'] for x in res.data['data']['items']]
+                actionsOptions_mp,roles_mp = self.get_actionMP_selectedMP(roles)
+
+                for x in res.data['data']['items']:
+                    for y in x['pages']:
+                        y['actionsOptions'] = actionsOptions_mp.get(y['id'],[])
+                        y['selected'] = roles_mp[x['id']].get(y['id'], [])
+                        y['checkAll'] = True if len(y['actionsOptions']) == len(y['selected']) else False
+
+                        y['actionsOption_ids'] = [z['id'] for z in y['actionsOptions']]
+                        y['selected_ids'] = [z['id'] for z in y['selected']]
+
+                return res
+
+            serializer = self.get_serializer(queryset, many=True)
+            return Response(serializer.data)
+
+        else:
+            queryset = Role.objects.all()
+            serializer = self.get_serializer(queryset, many=True)
+            res = {'items': serializer.data}
+
+            roles = [x['id'] for x in res['items']]
+            actionsOptions_mp, roles_mp = self.get_actionMP_selectedMP(roles)
+
+            for x in res['items']:
                 for y in x['pages']:
-                    y['actionsOptions'] = actionsOptions_mp.get(y['id'],[])
+                    y['actionsOptions'] = actionsOptions_mp.get(y['id'], [])
                     y['selected'] = roles_mp[x['id']].get(y['id'], [])
                     y['checkAll'] = True if len(y['actionsOptions']) == len(y['selected']) else False
 
                     y['actionsOption_ids'] = [z['id'] for z in y['actionsOptions']]
                     y['selected_ids'] = [z['id'] for z in y['selected']]
 
-            return res
-
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
-
-
+            return JsonResponse(data=res, code=200, msg="success", status=status.HTTP_200_OK)
 
     def update(self, request, *args, **kwargs):
         role =Role.objects.filter(id=kwargs.get('pk')).first()
