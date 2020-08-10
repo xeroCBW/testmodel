@@ -126,7 +126,7 @@ pip freeze > requirements.txt
       ...
     ValueError: score must between 0 ~ 100!
     ```
-
+32. 修改数据库null = True blank = True ,要同步python文件,否则还会报错
 ### 查询优化
 1. 一对多方面,使用related_name 可以查询出所有的多:page = Page.objects.all() page[0].button_page.all().value('id','name')
 2. 多对多,直接使用属性进行查询 role = Role.objects.all() role[0].button_list.all().value('id',''name','button_page')

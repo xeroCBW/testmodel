@@ -132,7 +132,7 @@ class UserProfile(AbstractUser):
     birthday = models.DateField(null=True, blank=True, verbose_name="出生日期")
     gender = models.CharField(max_length=10, choices=(("male", "男"), ("famale", "女")), default="male",
                               verbose_name="性别")
-    mobile = models.CharField(max_length=11, default="", verbose_name="电话")
+    mobile = models.CharField(max_length=50, verbose_name="电话",null=True,blank=True)
     email = models.EmailField(max_length=100, verbose_name="邮箱")
 
     roles = models.ManyToManyField(Role,related_name='user_list')

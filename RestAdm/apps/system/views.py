@@ -201,7 +201,7 @@ class RoleListViewSet(CustomBaseModelViewSet):
             return Response(serializer.data)
 
         else:
-            queryset = Role.objects.all()
+            queryset = self.get_queryset()
             serializer = self.get_serializer(queryset, many=True)
             res = {'items': serializer.data}
 
@@ -216,7 +216,7 @@ class RoleListViewSet(CustomBaseModelViewSet):
 
                     y['actionsOption_ids'] = [z['id'] for z in y['actionsOptions']]
                     y['selected_ids'] = [z['id'] for z in y['selected']]
-
+            res["count"] = len(res['items'])
             return JsonResponse(data=res, code=200, msg="success", status=status.HTTP_200_OK)
 
     def update(self, request, *args, **kwargs):
@@ -281,9 +281,10 @@ class UserListViewSet(CustomBaseModelViewSet):
             return Response(serializer.data)
 
         else:
-            queryset = UserProfile.objects.all()
+            queryset = self.get_queryset()
             serializer = self.get_serializer(queryset, many=True)
             res = {'items': serializer.data}
+            res["count"] = len(res['items'])
             return JsonResponse(data=res, code=200, msg="success", status=status.HTTP_200_OK)
 
 
@@ -660,9 +661,10 @@ class PageViewSet(CustomBaseModelViewSet):
             return Response(serializer.data)
 
         else:
-            queryset = Page.objects.all()
+            queryset = self.get_queryset()
             serializer = self.get_serializer(queryset, many=True)
             res = {'items': serializer.data}
+            res["count"] = len(res['items'])
             return JsonResponse(data=res, code=200, msg="success", status=status.HTTP_200_OK)
 
 class ButtonViewSet(CustomBaseModelViewSet):
@@ -676,6 +678,27 @@ class ButtonViewSet(CustomBaseModelViewSet):
     filter_class = ButtonFilter
     search_fields = ('name',)
     ordering_fields = ('id', )
+
+    def get_queryset(self):
+
+        queryset = Button.objects.all()
+
+        id = self.request.query_params.get('id', None)
+        name = self.request.query_params.get('name', None)
+        code = self.request.query_params.get('code', None)
+        page_id = self.request.query_params.get('page_id', None)
+
+        if id is not None and id.isdigit():
+            queryset = queryset.filter(id__contains=id)
+        if name is not None:
+            queryset = queryset.filter(name__contains=name)
+        if code is not None :
+            queryset = queryset.filter(code__contains=code)
+        if page_id is not None:
+            queryset = queryset.filter(page_contains=page_id)
+
+
+        return queryset
 
 
     def list(self, request, *args, **kwargs):
@@ -694,10 +717,11 @@ class ButtonViewSet(CustomBaseModelViewSet):
             return Response(serializer.data)
 
         else:
-            queryset = Button.objects.all()
+            queryset = self.get_queryset()
             serializer = self.get_serializer(queryset, many=True)
 
             res = {'items':serializer.data}
+            res["count"] = len(res['items'])
             return JsonResponse(data=res, code=200, msg="success", status=status.HTTP_200_OK)
 
 
@@ -853,9 +877,10 @@ class PatentViewSets(CustomBaseModelViewSet):
             return Response(serializer.data)
 
         else:
-            queryset = Patent.objects.all()
+            queryset = self.get_queryset()
             serializer = self.get_serializer(queryset, many=True)
             res = {'items': serializer.data}
+            res["count"] = len(res['items'])
             return JsonResponse(data=res, code=200, msg="success", status=status.HTTP_200_OK)
 
 class PatentInfoViewSets(CustomBaseModelViewSet):

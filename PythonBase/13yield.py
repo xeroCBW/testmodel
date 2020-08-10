@@ -75,9 +75,35 @@ def test06():
         (0,-1),
     ]
 
-    for d in direction:
-        print(d)
+    for _ in range(10):
+        for d in direction:
+            print(d)
 
+
+def test07():
+    q = 10
+    print([]+[q])
+
+def test08():
+
+    a = [
+        [1,2,3],
+        [4,5,6]
+    ]
+
+    print(a)
+
+    sum(a)
+
+def test09():
+    a = [1,2,3,4]
+    print(a.index(1))
+
+def test10():
+
+    ans = [[1,2],[1,3],[1,9],[3,7]]
+
+    # res = sorted(ans,lambda key:)
 
 
 if __name__ == '__main__':
@@ -92,9 +118,14 @@ if __name__ == '__main__':
 
     # test05()
 
-    test06()
+    # test06()
 
+    # test07()
+
+    # test08()
+    test09()
     pass
+
 
 
 
