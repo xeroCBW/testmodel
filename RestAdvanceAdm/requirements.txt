@@ -185,7 +185,7 @@ pyee==6.0.0
 PyExecJS==1.5.1
 pyflakes==1.6.0
 pygame==1.9.6
-Pygments==2.2.0
+Pygments==2.7.4
 PyHamcrest==2.0.0
 PyJWT==1.6.1
 pylint==1.7.4
