@@ -35,7 +35,7 @@ MarkupSafe==1.1.1
 numpy==1.19.0
 openpyxl==3.0.4
 pandas==1.0.5
-Pillow==7.1.2
+Pillow==9.0.1
 prometheus-client==0.8.0
 pycparser==2.19
 pyexcel-io==0.5.20
