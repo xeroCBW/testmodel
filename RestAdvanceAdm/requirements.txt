@@ -154,7 +154,7 @@ openpyxl==2.5.2
 orderedmultidict==1.0.1
 packaging==16.8
 pandocfilters==1.4.2
-paramiko==2.7.1
+paramiko==2.10.1
 parsel==1.5.2
 parso==0.5.2
 partd==0.3.8
