@@ -35,7 +35,7 @@ pandas==1.0.5
 Pillow==7.1.2
 pycparser==2.19
 pyexcel-io==0.5.20
-PyJWT==1.7.1
+PyJWT==2.4.0
 PyMySQL==0.9.3
 python-dateutil==2.8.1
 python-igraph==0.8.2
