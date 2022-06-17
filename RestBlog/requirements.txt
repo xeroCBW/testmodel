@@ -216,7 +216,7 @@ schedule==0.5.0
 scikit-learn==0.19.2
 scipy==1.4.1
 scrapinghub==2.3.0
-Scrapy==1.5.2
+Scrapy==2.6.1
 scrapy-crawlera==1.6.0
 scrapy-redis==0.6.8
 scrapy-redis-bloomfilter==0.7.0
