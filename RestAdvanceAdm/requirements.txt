@@ -47,7 +47,7 @@ decorator==4.1.2
 defusedxml==0.5.0
 diff-match-patch==20121119
 distlib==0.3.0
-distributed==1.19.1
+distributed==2021.10.0
 Django==2.0.2
 django-apscheduler==0.3.0
 django-ckeditor==5.4.0
