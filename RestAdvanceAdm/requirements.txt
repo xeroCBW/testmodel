@@ -261,7 +261,7 @@ tornado==4.5.2
 tqdm==4.40.2
 traitlets==4.3.2
 tushare==1.2.48
-Twisted==19.10.0
+Twisted==22.10.0
 typing==3.6.2
 tzlocal==2.0.0
 u-msgpack-python==2.5.2
